@@ -1,1676 +1,1158 @@
 <!DOCTYPE html>
-<html lang="th" class="dark">
+<html lang="th">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>สยามเทวาพยากรณ์ | ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</title>
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <!-- Google Fonts: Bai Jamjuree & Niramit for authentic Siamese royal typography -->
+  
+  <!-- โหลดชุดภาพไพ่ผ่านไฟล์ JS โดยตรง (แก้ปัญหา CORS เบราว์เซอร์ 100% เปิดในเครื่องหรือบนเว็บก็ติดทันที) -->
+  <script src="tarot_images.js"></script>
+
+  <!-- Google Fonts & Tailwind CDN -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bai+Jamjuree:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Niramit:wght@300;400;500;600;700&family=Sarabun:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <!-- Lucide Icons CDN -->
-  <script src="https://unpkg.com/lucide@latest"></script>
-  
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          fontFamily: {
-            thaiTitle: ['"Niramit"', 'serif'],
-            thaiHead: ['"Bai Jamjuree"', 'sans-serif'],
-            thaiBody: ['"Sarabun"', 'sans-serif'],
-          },
-          colors: {
-            siam: {
-              midnight: '#070a14',
-              deepIndigo: '#0c1222',
-              cardBg: '#131b2e',
-              goldDark: '#8a6d27',
-              gold: '#d4af37',
-              goldLight: '#f5e396',
-              goldPale: '#fef7db',
-              crimson: '#661118',
-              lotusPink: '#e879a9',
-              emerald: '#0f4c3a',
-            }
-          },
-          boxShadow: {
-            'gold-glow': '0 0 25px -5px rgba(212, 175, 55, 0.45)',
-            'gold-lg': '0 0 40px 0px rgba(212, 175, 55, 0.65)',
-            'inner-gold': 'inset 0 0 15px rgba(212, 175, 55, 0.3)',
-          }
-        }
-      }
-    }
-  </script>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Krub:wght@300;400;500;600;700&family=Sarabun:wght@300;400;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
 
   <style>
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 6px; height: 6px; }
-    ::-webkit-scrollbar-track { background: #070a14; }
-    ::-webkit-scrollbar-thumb { background: #8a6d27; border-radius: 9999px; }
-    ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
+    :root {
+      --gold-primary: #d4af37;
+      --gold-light: #fbe083;
+      --gold-dark: #8c6d1f;
+      --navy-deep: #060b14;
+      --navy-card: #0c1524;
+      --navy-border: #1a2a44;
+      --crimson: #631219;
+    }
 
-    /* Animated Gold Shimmer */
-    .gold-text-gradient {
-      background: linear-gradient(135deg, #fef7db 0%, #d4af37 50%, #aa820a 100%);
+    body {
+      font-family: 'Krub', 'Sarabun', sans-serif;
+      background-color: var(--navy-deep);
+      color: #f1f5f9;
+      background-image: 
+        radial-gradient(circle at 50% 10%, rgba(212, 175, 55, 0.08) 0%, transparent 60%),
+        radial-gradient(circle at 10% 90%, rgba(99, 18, 25, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 90% 90%, rgba(26, 42, 68, 0.3) 0%, transparent 50%);
+      background-attachment: fixed;
+      min-height: 100vh;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .font-cinzel { font-family: 'Cinzel Decorative', cursive, serif; }
+    
+    .gold-gradient-text {
+      background: linear-gradient(135deg, #fff2b2 0%, #d4af37 50%, #aa820a 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
 
-    .card-gold-frame {
-      border: 2px solid #d4af37;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.8), 0 0 20px rgba(212, 175, 55, 0.3);
-      border-radius: 1rem;
-      background: radial-gradient(circle at 50% 30%, #1e293b 0%, #0c1222 100%);
+    .gold-border-glow {
+      border: 1px solid rgba(212, 175, 55, 0.4);
+      box-shadow: 0 0 15px rgba(212, 175, 55, 0.15);
     }
 
-    /* Sacred rotating mandalas */
-    @keyframes spin-slow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .animate-spin-slow {
-      animation: spin-slow 35s linear infinite;
+    .tarot-card-ratio {
+      aspect-ratio: 1 / 1.72;
     }
 
-    /* Subtle Thai Kanok background pattern */
-    .bg-sacred-pattern {
-      background-color: #070a14;
-      background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px), radial-gradient(rgba(212, 175, 55, 0.04) 1px, #070a14 1px);
-      background-size: 40px 40px;
-      background-position: 0 0, 20px 20px;
+    .perspective-1000 {
+      perspective: 1000px;
     }
+
+    .card-inner {
+      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+      transform-style: preserve-3d;
+    }
+
+    .card-flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+    }
+
+    .card-back-pattern {
+      background: 
+        radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.15) 0%, transparent 70%),
+        linear-gradient(135deg, #0f1c30 0%, #060b14 100%);
+      border: 2px solid #8c6d1f;
+      position: relative;
+    }
+
+    .card-back-pattern::before {
+      content: '';
+      position: absolute;
+      inset: 6px;
+      border: 1px dashed rgba(212, 175, 55, 0.5);
+      border-radius: 6px;
+      pointer-events: none;
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #060b14; }
+    ::-webkit-scrollbar-thumb { background: #8c6d1f; border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: #d4af37; }
   </style>
 </head>
-<body class="bg-sacred-pattern text-slate-200 min-h-screen font-thaiBody selection:bg-siam-gold/30 selection:text-siam-goldPale relative overflow-x-hidden">
+<body class="flex flex-col min-h-screen text-slate-100">
 
-  <!-- Ambient Light Orbs -->
-  <div class="fixed top-[-10%] left-[20%] w-[500px] h-[500px] rounded-full bg-amber-500/10 blur-[130px] pointer-events-none -z-10"></div>
-  <div class="fixed bottom-[-10%] right-[10%] w-[600px] h-[600px] rounded-full bg-siam-goldDark/10 blur-[150px] pointer-events-none -z-10"></div>
-
-  <!-- Top Navigation Header -->
-  <header class="sticky top-0 z-40 backdrop-blur-md bg-siam-midnight/85 border-b border-siam-gold/30 px-4 lg:px-8 py-3.5 transition-all">
-    <div class="max-w-7xl mx-auto flex items-center justify-between">
-      
-      <!-- Brand Logo -->
-      <div class="flex items-center space-x-3 cursor-pointer" onclick="resetToHome()">
-        <div class="w-10 h-10 rounded-full border border-siam-gold flex items-center justify-center bg-gradient-to-tr from-siam-goldDark to-amber-200 text-siam-midnight shadow-gold-glow">
-          <i data-lucide="sun" class="w-6 h-6 animate-spin-slow text-siam-midnight"></i>
+  <!-- ================= TOP NAVIGATION ================= -->
+  <header class="sticky top-0 z-40 bg-slate-950/80 backdrop-blur-md border-b border-amber-500/20 px-4 py-3">
+    <div class="max-w-6xl mx-auto flex items-center justify-between">
+      <div class="flex items-center space-x-3 cursor-pointer" onclick="switchView('divination')">
+        <div class="w-10 h-10 rounded-full border border-amber-400/50 flex items-center justify-center bg-gradient-to-br from-amber-900/60 to-slate-900 text-amber-300 font-cinzel text-lg shadow-md shadow-amber-500/20">
+          ॐ
         </div>
         <div>
-          <h1 class="font-thaiTitle text-lg lg:text-xl font-bold tracking-wide gold-text-gradient leading-tight">
-            สยามเทวาพยากรณ์
-          </h1>
-          <p class="text-[10px] sm:text-xs font-thaiHead text-amber-200/70 tracking-wider">
-            ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ
-          </p>
+          <h1 class="text-base sm:text-lg font-bold tracking-wide gold-gradient-text">สยามเทวาพยากรณ์</h1>
+          <p class="text-[10px] text-amber-200/60 tracking-wider">ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</p>
         </div>
       </div>
 
-      <!-- Action Nav Buttons -->
-      <div class="flex items-center space-x-2 sm:space-x-3">
-        <button onclick="openCodexModal()" class="px-3 py-1.5 rounded-full border border-siam-gold/40 bg-siam-gold/15 hover:bg-siam-gold/30 text-siam-goldLight text-xs sm:text-sm font-thaiHead flex items-center space-x-1.5 transition-all shadow-sm">
-          <i data-lucide="book-open" class="w-4 h-4 text-siam-gold"></i>
-          <span>สารานุกรม ๖๔ ใบ</span>
+      <!-- Action Buttons -->
+      <div class="flex items-center space-x-1.5 sm:space-x-2">
+        <button onclick="toggleCodex()" class="px-2.5 py-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 text-amber-300 hover:bg-amber-500/20 transition text-xs sm:text-sm flex items-center space-x-1">
+          <span>📖 สารานุกรม ๖๔ ใบ</span>
         </button>
 
-        <button onclick="openStorageModal()" class="px-3 py-1.5 rounded-full border border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/25 text-amber-200 text-xs sm:text-sm font-thaiHead flex items-center space-x-1.5 transition-all shadow-sm" title="จัดการคลังภาพและการใช้ออฟไลน์">
-          <i data-lucide="hard-drive" class="w-4 h-4 text-amber-300"></i>
-          <span class="hidden sm:inline">คลังภาพออฟไลน์</span>
+        <button onclick="openOfflineModal()" class="px-2.5 py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-200 transition text-xs sm:text-sm flex items-center space-x-1" title="คลังภาพ & ข้อมูลสำรอง">
+          <span>💾 <span class="hidden md:inline">คลังภาพออฟไลน์</span></span>
         </button>
 
-        <button onclick="openApiKeyModal()" class="p-2 rounded-full border border-siam-gold/30 text-siam-gold hover:bg-siam-gold/15 transition-colors" title="ตั้งค่า Gemini API Key สำหรับใช้งานส่วนตัว">
-          <i data-lucide="key" class="w-4 h-4"></i>
+        <button onclick="openApiKeyModal()" class="p-1.5 sm:px-2.5 sm:py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-amber-400 transition text-xs sm:text-sm" title="ตั้งค่า Gemini API Key">
+          <span>🔑</span>
         </button>
 
-        <button id="soundToggleBtn" onclick="toggleAudio()" class="p-2 rounded-full border border-siam-gold/30 text-siam-gold hover:bg-siam-gold/15 transition-colors" title="เปิด/ปิด เสียงกังสดาลทิพย์">
-          <i data-lucide="volume-2" class="w-4 h-4" id="soundIcon"></i>
+        <button id="soundToggleBtn" onclick="toggleSound()" class="p-1.5 sm:px-2 sm:py-1.5 rounded-lg border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-slate-300 transition text-xs" title="เปิด/ปิดเสียง">
+          <span id="soundIcon">🔔</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Notification Toast Container -->
-  <div id="toastContainer" class="fixed top-20 right-4 z-50 flex flex-col space-y-2 pointer-events-none"></div>
+  <!-- ================= MAIN CONTAINER ================= -->
+  <main class="flex-1 max-w-6xl w-full mx-auto px-4 py-6">
 
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-
-    <!-- VIEW 1: Consultation & Setup Screen -->
-    <section id="setupView" class="space-y-8 animate-fadeIn">
+    <!-- VIEW 1: DIVINATION MAIN VIEW -->
+    <div id="divinationSection">
       
-      <!-- Sacred Banner -->
-      <div class="text-center max-w-3xl mx-auto pt-4 pb-2">
-        <div class="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full bg-siam-gold/10 border border-siam-gold/30 text-siam-goldLight text-xs sm:text-sm font-thaiHead mb-4">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5 text-siam-gold animate-pulse"></i>
-          <span>ศาสตร์พยากรณ์เทวะสยาม วรรณคดี ประวัติศาสตร์ และกฎแห่งกรรม</span>
-        </div>
-        <h2 class="font-thaiTitle text-2xl sm:text-4xl lg:text-5xl font-bold gold-text-gradient mb-3 tracking-wide">
-          สดับสารทิพย์ ลิขิตแห่งเทวาลัยสยาม
-        </h2>
-        <p class="font-thaiBody text-slate-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-          สำรับไพ่เทวศาสตร์ ๖๔ ใบ รวบรวมองค์มหาเทพ บรมครู สิบสองนักษัตร มหากาพย์วรรณคดีสยาม และรหัสกรรม 
-          ตั้งจิตให้สงบเป็นสมาธิ แล้วเลือกผังพยากรณ์ที่สอดคล้องกับวาระจิตของคุณ
-        </p>
-      </div>
-
-      <!-- Oracle Consultation Form -->
-      <div class="max-w-2xl mx-auto bg-siam-cardBg/90 border border-siam-gold/30 rounded-3xl p-6 sm:p-8 shadow-gold-glow backdrop-blur-xl">
-        
-        <!-- Question Input -->
-        <div class="mb-6">
-          <label class="block font-thaiHead text-sm font-medium text-siam-goldLight mb-2 flex items-center space-x-2">
-            <i data-lucide="feather" class="w-4 h-4 text-siam-gold"></i>
-            <span>ระบุจิตอธิษฐาน หรือเรื่องที่ต้องการเปิดทิพยเนตร (ไม่บังคับ)</span>
-          </label>
-          <input type="text" id="userQuestion" placeholder="เช่น การงานในไตรมาสนี้, ทางแก้ปัญหาความรัก, ดวงวาสนาภาพรวม..."
-            class="w-full bg-siam-midnight/90 border border-siam-gold/35 rounded-2xl px-4 py-3 text-slate-100 text-sm font-thaiBody placeholder:text-slate-500 focus:outline-none focus:border-siam-gold focus:ring-1 focus:ring-siam-gold transition-all">
+      <!-- STEP 1: INTENT & SETUP -->
+      <section id="intentStep" class="max-w-xl mx-auto bg-slate-900/70 border border-amber-500/20 rounded-2xl p-5 sm:p-7 shadow-xl backdrop-blur-sm">
+        <div class="text-center mb-6">
+          <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">เทวลิขิตแห่งดวงชะตา</span>
+          <h2 class="text-xl sm:text-2xl font-bold mt-1 gold-gradient-text">ตั้งจิตอธิษฐานรับการพยากรณ์</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">รวมมนต์เสน่ห์แห่งวรรณคดี ประวัติศาสตร์ชาติสยาม กฎแห่งกรรม และบารมีมหาเทพ</p>
         </div>
 
-        <!-- Topic & Day of Birth -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+        <div class="space-y-4">
           <div>
-            <label class="block font-thaiHead text-xs text-siam-goldLight mb-1.5 flex items-center space-x-1.5">
-              <i data-lucide="compass" class="w-3.5 h-3.5 text-siam-gold"></i>
-              <span>หมวดเรื่องที่เพ่งจิต</span>
-            </label>
-            <select id="userCategory" class="w-full bg-siam-midnight/90 border border-siam-gold/35 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-thaiBody text-slate-200 focus:outline-none focus:border-siam-gold">
-              <option value="all">ชะตาภาพรวม & รหัสกรรมชีวิต</option>
-              <option value="career">การงาน ยศศักดิ์ อำนาจวาสนา</option>
-              <option value="wealth">โชคลาภ ทรัพย์สิน ความมั่งคั่ง</option>
-              <option value="love">คู่ครอง ความรัก สายใยบุพเพ</option>
-              <option value="health">สุขภาพ สัจธรรม การแก้เคราะห์กรรม</option>
-            </select>
+            <label class="block text-xs text-amber-200/80 mb-1">ชื่อหรือนามสมมุติ (สำหรับตั้งจิต):</label>
+            <input type="text" id="seekerName" placeholder="ระบุชื่อของท่าน..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
+          </div>
+
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-amber-200/80 mb-1">วันกำเนิด (ทักษาพยากรณ์):</label>
+              <select id="seekerDay" class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-sm text-slate-200 outline-none transition">
+                <option value="อาทิตย์">วันอาทิตย์ (สุริยเทพ)</option>
+                <option value="จันทร์">วันจันทร์ (จันทราเทวี)</option>
+                <option value="อังคาร">วันอังคาร (ภุมมเทพ)</option>
+                <option value="พุธกลางวัน">วันพุธกลางวัน (วุธเทพ)</option>
+                <option value="พุธกลางคืน">วันพุธกลางคืน (ราหูมหาโพธิสัตว์)</option>
+                <option value="พฤหัสบดี">วันพฤหัสบดี (ครุเทพศิษย์บรมครู)</option>
+                <option value="ศุกร์">วันศุกร์ (ศุกรเทวี)</option>
+                <option value="เสาร์">วันเสาร์ (โสระเทพ)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-amber-200/80 mb-1">เรื่องที่ต้องการถามเจาะจง:</label>
+              <select id="seekerTopic" class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-sm text-slate-200 outline-none transition">
+                <option value="ภาพรวมชะตาชีวิต">ดวงชะตาทั่วไป / วาสนาบารมี</option>
+                <option value="การงานและการลงทุน">การงาน ธุรกิจ เลื่อนขั้น สอบแข่งขัน</option>
+                <option value="การเงินและโชคลาภ">การเงิน โชคลาภ ทรัพย์สินหนี้สิน</option>
+                <option value="ความรักและคู่ครอง">ความรัก เนื้อคู่ สายสัมพันธ์ ครอบครัว</option>
+                <option value="สุขภาพและเคราะห์กรรม">สุขภาพ เจ้ากรรมนายเวร ทางแก้เคราะห์</option>
+              </select>
+            </div>
           </div>
 
           <div>
-            <label class="block font-thaiHead text-xs text-siam-goldLight mb-1.5 flex items-center space-x-1.5">
-              <i data-lucide="calendar" class="w-3.5 h-3.5 text-siam-gold"></i>
-              <span>วันกำเนิด (ทักษาพยากรณ์)</span>
-            </label>
-            <select id="userBirthDay" class="w-full bg-siam-midnight/90 border border-siam-gold/35 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm font-thaiBody text-slate-200 focus:outline-none focus:border-siam-gold">
-              <option value="sun">วันอาทิตย์ (พระสุริยเทพ)</option>
-              <option value="mon">วันจันทร์ (พระศศิธร)</option>
-              <option value="tue">วันอังคาร (พระภุมมะ)</option>
-              <option value="wed_day">วันพุธกลางวัน (พระพุธราช)</option>
-              <option value="wed_night">วันพุธกลางคืน (พระราหู)</option>
-              <option value="thu">วันพฤหัสบดี (พระพฤหัสบดีบรมครู)</option>
-              <option value="fri">วันศุกร์ (พระศุกรเทวี)</option>
-              <option value="sat">วันเสาร์ (พระโสระเทพ)</option>
-            </select>
+            <label class="block text-xs text-amber-200/80 mb-1.5">ผังการวางไพ่พยากรณ์:</label>
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+              <label class="cursor-pointer border border-slate-700 bg-slate-950/50 hover:border-amber-400/60 p-2.5 rounded-xl text-center flex flex-col items-center transition has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10">
+                <input type="radio" name="spreadType" value="1" checked class="hidden">
+                <span class="text-sm font-bold text-amber-300">๑ ใบ</span>
+                <span class="text-[10px] text-slate-400 mt-0.5">เอกทิวากร (ฉับพลัน)</span>
+              </label>
+
+              <label class="cursor-pointer border border-slate-700 bg-slate-950/50 hover:border-amber-400/60 p-2.5 rounded-xl text-center flex flex-col items-center transition has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10">
+                <input type="radio" name="spreadType" value="3" class="hidden">
+                <span class="text-sm font-bold text-amber-300">๓ ใบ</span>
+                <span class="text-[10px] text-slate-400 mt-0.5">ตรีภพ (อดีต-ปัจจุบัน-อนาคต)</span>
+              </label>
+
+              <label class="cursor-pointer border border-slate-700 bg-slate-950/50 hover:border-amber-400/60 p-2.5 rounded-xl text-center flex flex-col items-center transition has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10">
+                <input type="radio" name="spreadType" value="5" class="hidden">
+                <span class="text-sm font-bold text-amber-300">๕ ใบ</span>
+                <span class="text-[10px] text-slate-400 mt-0.5">เบญจภาคี (เจาะลึกทางแก้)</span>
+              </label>
+
+              <label class="cursor-pointer border border-slate-700 bg-slate-950/50 hover:border-amber-400/60 p-2.5 rounded-xl text-center flex flex-col items-center transition has-[:checked]:border-amber-400 has-[:checked]:bg-amber-500/10">
+                <input type="radio" name="spreadType" value="12" class="hidden">
+                <span class="text-sm font-bold text-amber-300">๑๒ ภพ</span>
+                <span class="text-[10px] text-slate-400 mt-0.5">มหาจักรราศี (ครอบจักรวาล)</span>
+              </label>
+            </div>
           </div>
-        </div>
 
-        <!-- Spread Selection (1, 3, 5, 12 Cards) -->
-        <div class="mb-6">
-          <label class="block font-thaiHead text-sm font-medium text-siam-goldLight mb-3 flex items-center space-x-2">
-            <i data-lucide="layout-grid" class="w-4 h-4 text-siam-gold"></i>
-            <span>เลือกผังพยากรณ์ตามคัมภีร์เทวศาสตร์ (Spreads)</span>
-          </label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-            
-            <!-- 1 Card -->
-            <label class="relative flex flex-col p-3 rounded-xl border-2 border-slate-700 hover:border-siam-gold bg-siam-midnight/60 cursor-pointer transition-all spread-option" onclick="selectSpread(1, this)">
-              <input type="radio" name="spreadSelect" value="1" class="hidden">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-thaiHead text-xs sm:text-sm font-semibold text-siam-goldLight">๑ ใบ เอกทิวากร</span>
-                <span class="text-[10px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-thaiHead">รายวัน</span>
-              </div>
-              <p class="text-[11px] text-slate-400 font-thaiBody">คำตอบชัดแจ้ง ไขข้อข้องใจ ณ ขณะจิตปัจจุบัน</p>
-            </label>
-
-            <!-- 3 Cards -->
-            <label class="relative flex flex-col p-3 rounded-xl border-2 border-siam-gold bg-siam-midnight/90 shadow-gold-glow cursor-pointer transition-all spread-option selected-spread" onclick="selectSpread(3, this)">
-              <input type="radio" name="spreadSelect" value="3" checked class="hidden">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-thaiHead text-xs sm:text-sm font-semibold text-siam-gold">๓ ใบ ตรีภพกาล</span>
-                <span class="text-[10px] bg-siam-gold/20 text-siam-gold px-1.5 py-0.5 rounded font-thaiHead">นิยมสุด</span>
-              </div>
-              <p class="text-[11px] text-slate-300 font-thaiBody">อดีตกรรม ปัจจุบันวาระ และอนาคตทิศทาง</p>
-            </label>
-
-            <!-- 5 Cards -->
-            <label class="relative flex flex-col p-3 rounded-xl border-2 border-slate-700 hover:border-siam-gold bg-siam-midnight/60 cursor-pointer transition-all spread-option" onclick="selectSpread(5, this)">
-              <input type="radio" name="spreadSelect" value="5" class="hidden">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-thaiHead text-xs sm:text-sm font-semibold text-siam-goldLight">๕ ใบ เบญจภาคี</span>
-                <span class="text-[10px] bg-emerald-500/20 text-emerald-300 px-1.5 py-0.5 rounded font-thaiHead">ลึกซึ้ง</span>
-              </div>
-              <p class="text-[11px] text-slate-400 font-thaiBody">ธาตุทั้ง ๕ อุปสรรคกรรม เทพหนุน และทางแก้</p>
-            </label>
-
-            <!-- 12 Cards Wheel -->
-            <label class="relative flex flex-col p-3 rounded-xl border-2 border-slate-700 hover:border-siam-gold bg-siam-midnight/60 cursor-pointer transition-all spread-option" onclick="selectSpread(12, this)">
-              <input type="radio" name="spreadSelect" value="12" class="hidden">
-              <div class="flex items-center justify-between mb-1">
-                <span class="font-thaiHead text-xs sm:text-sm font-semibold text-siam-goldLight">๑๒ ภพ มหาจักร</span>
-                <span class="text-[10px] bg-purple-500/20 text-purple-300 px-1.5 py-0.5 rounded font-thaiHead">ดวงชะตา</span>
-              </div>
-              <p class="text-[11px] text-slate-400 font-thaiBody">ครอบคลุม 12 ภพ ลัคนา เงิน งาน คู่ เคราะห์</p>
-            </label>
-          </div>
-        </div>
-
-        <!-- Action Button -->
-        <button onclick="startMeditation()" class="w-full py-3.5 sm:py-4 px-6 rounded-2xl bg-gradient-to-r from-siam-goldDark via-siam-gold to-amber-200 hover:from-siam-gold hover:to-amber-100 text-siam-midnight font-thaiHead font-bold text-sm sm:text-base shadow-gold-glow hover:shadow-gold-lg transition-all flex items-center justify-center space-x-2 transform active:scale-[0.99]">
-          <i data-lucide="sparkles" class="w-5 h-5 text-siam-midnight"></i>
-          <span>รวมจิตสมาธิ สับสำรับไพ่เทวศาสตร์ ๖๔ ใบ และเริ่มจับดวง</span>
-        </button>
-      </div>
-    </section>
-
-    <!-- VIEW 2: Interactive Card Deck Picking -->
-    <section id="pickingView" class="hidden space-y-6">
-      <div class="flex flex-col sm:flex-row items-center justify-between border-b border-siam-gold/25 pb-4 gap-3">
-        <div>
-          <span class="text-xs font-thaiHead text-siam-gold flex items-center space-x-1 mb-1">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            <span>พิธีสัมผัสทิพย์ดวงชะตา</span>
-          </span>
-          <h2 class="font-thaiTitle text-xl sm:text-2xl font-bold gold-text-gradient">
-            แตะเลือกไพ่ที่ดลจิตดลใจท่าน (<span id="pickedCounter" class="text-white">0</span> / <span id="targetCount">3</span> ใบ)
-          </h2>
-        </div>
-        <div class="flex items-center space-x-2">
-          <button onclick="autoPickRandomCards()" class="px-3.5 py-1.5 rounded-xl border border-siam-gold/40 bg-siam-gold/15 text-siam-goldLight hover:bg-siam-gold/30 text-xs font-thaiHead flex items-center space-x-1.5 transition-all">
-            <i data-lucide="shuffle" class="w-3.5 h-3.5"></i>
-            <span>สุ่มเลือกโดยญาณ</span>
+          <button onclick="startCardSelection()" class="w-full mt-4 py-3 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition transform active:scale-98 flex items-center justify-center space-x-2 text-sm sm:text-base">
+            <span>✨ ตั้งสมาธิ สับไพ่และเลือกไพ่</span>
           </button>
-          <button onclick="resetToHome()" class="px-3.5 py-1.5 rounded-xl border border-slate-700 hover:border-slate-500 text-slate-400 hover:text-white text-xs font-thaiHead transition-all">
+        </div>
+      </section>
+
+      <!-- STEP 2: SHUFFLE & SELECT CARDS -->
+      <section id="selectionStep" class="hidden space-y-6">
+        <div class="text-center max-w-xl mx-auto">
+          <span class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ขั้นตอนเลือกสำรับ</span>
+          <h2 class="text-xl sm:text-2xl font-bold mt-1 gold-gradient-text" id="selectionPrompt">โปรดเลือกไพ่ ๑ ใบ</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">ตั้งจิตนิ่ง หลับตา ๓ วินาที ระลึกถึงเรื่องที่สงสัย แล้วแตะเลือกไพ่ที่ดึงดูดใจท่านที่สุด</p>
+          
+          <div class="mt-3 flex items-center justify-center space-x-3 text-xs">
+            <span class="bg-amber-500/20 text-amber-300 border border-amber-500/30 px-3 py-1 rounded-full" id="selectedCountBadge">เลือกแล้ว 0 / 1 ใบ</span>
+            <button onclick="reshuffleDeck()" class="text-slate-400 hover:text-amber-300 transition underline underline-offset-4">สับไพ่ใหม่อีกครั้ง</button>
+          </div>
+        </div>
+
+        <!-- Card Deck Ribbon (Scrollable or Grid) -->
+        <div class="relative py-4">
+          <div id="deckContainer" class="flex flex-wrap justify-center gap-2 sm:gap-3 max-h-[58vh] overflow-y-auto p-2 rounded-2xl border border-slate-800 bg-slate-950/40">
+            <!-- Render 64 cards back faces -->
+          </div>
+        </div>
+
+        <div class="flex justify-center space-x-3">
+          <button onclick="cancelSelection()" class="px-5 py-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 text-sm transition">
             ย้อนกลับ
           </button>
+          <button id="revealBtn" onclick="revealReading()" disabled class="px-7 py-2.5 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 text-slate-950 font-bold rounded-xl shadow-lg transition opacity-50 cursor-not-allowed text-sm">
+            เปิดคำพยากรณ์
+          </button>
         </div>
-      </div>
+      </section>
 
-      <!-- Spread Slot Targets -->
-      <div id="slotIndicators" class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-5 gap-3 py-2">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <!-- Scrollable Deck Carousel -->
-      <div class="p-4 sm:p-6 bg-siam-cardBg/60 rounded-3xl border border-siam-gold/25 backdrop-blur-md">
-        <p class="text-center text-xs font-thaiHead text-slate-400 mb-4 flex items-center justify-center space-x-2">
-          <i data-lucide="hand" class="w-4 h-4 text-siam-gold"></i>
-          <span>สำรับไพ่เทวศาสตร์ ๖๔ ใบ - เลื่อนแถบแล้วแตะการ์ดใบที่จิตท่านสื่อถึง</span>
-        </p>
-
-        <div id="deckContainer" class="flex space-x-3 sm:space-x-4 overflow-x-auto pb-6 pt-2 px-2 scroll-smooth">
-          <!-- 64 Deck Cards rendered via JS -->
+      <!-- STEP 3: READING RESULT -->
+      <section id="resultStep" class="hidden space-y-8">
+        <div class="text-center max-w-2xl mx-auto">
+          <span class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ผลคำทำนายเทวลิขิต</span>
+          <h2 class="text-xl sm:text-2xl font-bold mt-1 gold-gradient-text" id="readingHeader">คำพยากรณ์แห่งชะตาชีวิต</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1" id="readingSubheader"></p>
         </div>
-      </div>
 
-      <!-- Ready to Reveal Action Bar -->
-      <div id="revealBar" class="hidden text-center py-4">
-        <button onclick="revealReading()" class="py-4 px-8 rounded-full bg-gradient-to-r from-siam-goldDark via-siam-gold to-amber-200 text-siam-midnight font-thaiHead font-bold text-base sm:text-lg shadow-gold-lg hover:scale-105 transition-all flex items-center justify-center space-x-2 mx-auto">
-          <i data-lucide="eye" class="w-5 h-5"></i>
-          <span>เปิดคำทำนายและสดับฟังโองการเทวะ</span>
-        </button>
-      </div>
-    </section>
+        <!-- Cards Display Grid -->
+        <div id="drawnCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <!-- Populated by JavaScript -->
+        </div>
 
-    <!-- VIEW 3: Results & Divination Synthesis -->
-    <section id="resultView" class="hidden space-y-8 animate-fadeIn">
-      
-      <!-- Top Overview Banner -->
-      <div class="bg-siam-cardBg/90 border border-siam-gold/30 rounded-2xl p-5 lg:p-6 shadow-xl flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+        <!-- AI Deep Dive Interpretation -->
+        <div class="bg-slate-900/80 border border-amber-500/30 rounded-2xl p-5 sm:p-7 shadow-2xl relative overflow-hidden">
+          <div class="absolute -top-12 -right-12 w-48 h-48 bg-amber-500/5 rounded-full blur-2xl pointer-events-none"></div>
+          
+          <div class="flex items-center justify-between mb-4 border-b border-amber-500/20 pb-3">
+            <div class="flex items-center space-x-2">
+              <span class="text-xl">🔮</span>
+              <h3 class="font-bold text-base sm:text-lg text-amber-200">คำทำนายสังเคราะห์ & สัจธรรมนำชีวิต</h3>
+            </div>
+            <button id="askAiBtn" onclick="requestAiDeepDive()" class="px-3 py-1.5 rounded-lg border border-amber-500/40 bg-amber-500/10 hover:bg-amber-500/20 text-amber-300 text-xs flex items-center space-x-1.5 transition">
+              <span>✨ ขอคำชี้แนะจาก AI เทวสภา</span>
+            </button>
+          </div>
+
+          <div id="aiReadingContent" class="text-sm leading-relaxed text-slate-300 space-y-3">
+            <p class="text-slate-400 italic">แตะปุ่ม "ขอคำชี้แนะจาก AI เทวสภา" เพื่อสังเคราะห์ความเชื่อมโยงของไพ่ทุกใบ วิเคราะห์จุดเด่น ข้อพึงระวัง พระคาถาบูชา และแนวทางสร้างกุศลหนุนชะตา</p>
+          </div>
+        </div>
+
+        <div class="flex justify-center space-x-4 pt-4">
+          <button onclick="resetDivination()" class="px-6 py-2.5 bg-gradient-to-r from-amber-600 to-amber-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg transition text-sm">
+            ↺ ตั้งจิตพยากรณ์ใหม่
+          </button>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- VIEW 2: CODEX (สารานุกรม ๖๔ ใบ) -->
+    <div id="codexSection" class="hidden space-y-6">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-amber-500/20 pb-4">
         <div>
-          <div class="flex items-center space-x-2 text-xs text-siam-gold font-thaiHead mb-1">
-            <i data-lucide="scroll" class="w-4 h-4"></i>
-            <span id="summarySpreadType">ผังตรีภพกาล (๓ ใบ)</span>
-            <span>•</span>
-            <span id="summaryCategoryText">วาสนาบารมี</span>
-          </div>
-          <h2 id="summaryQuestionText" class="font-thaiHead text-base sm:text-xl font-semibold text-slate-100">
-            "คำถาม: การงานในอนาคต"
-          </h2>
+          <h2 class="text-xl sm:text-2xl font-bold gold-gradient-text">สารานุกรมไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</h2>
+          <p class="text-xs sm:text-sm text-slate-400 mt-1">คลังความรู้แห่งมหาเทพ วรรณคดี ประวัติศาสตร์สยาม และกฎแห่งกรรม</p>
         </div>
 
-        <div class="flex items-center space-x-2 self-stretch md:self-auto justify-end flex-wrap gap-2">
-          <button onclick="downloadAllRevealedCards()" id="downloadCardsBtn" class="px-3 py-2 rounded-xl bg-siam-gold/15 hover:bg-siam-gold/30 border border-siam-gold/40 text-siam-goldLight text-xs font-thaiHead flex items-center space-x-1.5 transition-all shadow-md" title="ดาวน์โหลดไฟล์ภาพไพ่ที่วาดแล้วลงในเครื่อง">
-            <i data-lucide="download" class="w-3.5 h-3.5 text-siam-gold"></i>
-            <span>บันทึกรูปลงเครื่อง</span>
-          </button>
-          <button onclick="copyDivinationText()" class="px-3 py-2 rounded-xl border border-siam-gold/30 bg-siam-gold/5 hover:bg-siam-gold/20 text-siam-gold text-xs font-thaiHead flex items-center space-x-1.5 transition-all">
-            <i data-lucide="copy" class="w-3.5 h-3.5"></i>
-            <span>คัดลอกคำทำนาย</span>
-          </button>
-          <button onclick="resetToHome()" class="px-3 py-2 rounded-xl bg-siam-gold/20 hover:bg-siam-gold/30 text-siam-goldLight text-xs font-thaiHead flex items-center space-x-1.5 transition-all">
-            <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
-            <span>เริ่มทำนายใหม่</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Cards Display Grid / Spread Arrangement -->
-      <div id="revealedCardsGrid" class="mb-10">
-        <!-- Rendered dynamically -->
-      </div>
-
-      <!-- AI Oracle Comprehensive Synthesis -->
-      <div class="bg-siam-cardBg/90 border border-siam-gold/40 rounded-3xl p-6 sm:p-8 shadow-2xl relative overflow-hidden">
-        <div class="absolute -top-12 -right-12 w-48 h-48 bg-siam-gold/10 rounded-full blur-2xl pointer-events-none"></div>
-
-        <div class="flex items-center space-x-3 mb-4">
-          <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-siam-goldDark to-siam-gold flex items-center justify-center text-siam-midnight shadow-gold-glow">
-            <i data-lucide="feather" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <h3 class="font-thaiTitle text-xl sm:text-2xl font-bold gold-text-gradient">
-              คำพยากรณ์สังเคราะห์แห่งเทวาลัยสยาม (Oracle Synthesis)
-            </h3>
-            <p class="text-xs font-thaiHead text-slate-400">
-              วิเคราะห์สังเคราะห์โดยปัญญาประดิษฐ์เทวะ ผสานหลักธรรมและพระคาถามงคล
-            </p>
-          </div>
-        </div>
-
-        <!-- Synthesis Text Area -->
-        <div id="aiSynthesisContent" class="space-y-4 font-thaiBody text-slate-200 text-sm sm:text-base leading-relaxed border-t border-siam-gold/20 pt-4">
-          <div class="flex items-center space-x-2 text-siam-gold font-thaiHead text-sm animate-pulse">
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
-            <span>กำลังร้อยเรียงคำทำนายเทวศาสตร์สยาม...</span>
-          </div>
-        </div>
-
-        <!-- Action inside result: Ask Follow-up Question -->
-        <div class="mt-6 pt-4 border-t border-siam-gold/20 flex flex-col sm:flex-row gap-3">
-          <input type="text" id="followUpQuestion" placeholder="ถามข้อสงสัยเพิ่มเติมต่อคำทำนายชุดนี้..."
-            class="flex-1 bg-siam-midnight border border-siam-gold/30 rounded-xl px-4 py-2.5 text-xs sm:text-sm font-thaiBody text-slate-100 placeholder:text-slate-500 focus:outline-none focus:border-siam-gold">
-          <button onclick="askOracleFollowUp()" class="px-5 py-2.5 rounded-xl bg-siam-gold/20 hover:bg-siam-gold/30 border border-siam-gold/40 text-siam-gold text-xs sm:text-sm font-thaiHead flex items-center justify-center space-x-2">
-            <i data-lucide="send" class="w-4 h-4"></i>
-            <span>สอบถามแม่หมอ</span>
-          </button>
-        </div>
-      </div>
-    </section>
-  </main>
-
-  <!-- CODEX ARCHIVE MODAL (64 Cards Encyclopedia & Master Gallery) -->
-  <div id="codexModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-3 sm:p-5">
-    <div class="bg-siam-cardBg border border-siam-gold/40 rounded-3xl max-w-6xl w-full h-[92vh] flex flex-col shadow-2xl overflow-hidden relative">
-      
-      <!-- Modal Header with MASTER BATCH DRAW BUTTON -->
-      <div class="p-4 sm:p-5 border-b border-siam-gold/20 flex flex-wrap items-center justify-between gap-3">
-        <div class="flex items-center space-x-3">
-          <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-siam-gold/20 flex items-center justify-center text-siam-gold shrink-0">
-            <i data-lucide="book-open" class="w-5 h-5"></i>
-          </div>
-          <div>
-            <h3 class="font-thaiTitle text-lg sm:text-xl font-bold gold-text-gradient">สารานุกรมไพ่เทวศาสตร์ ๖๔ ใบ</h3>
-            <p class="text-[11px] sm:text-xs text-slate-400 font-thaiHead">แตะที่การ์ดเพื่อดูรายละเอียด หรือสั่ง AI วาดภาพสวยงามครบทั้ง ๖๔ ใบได้ทันที</p>
-          </div>
-        </div>
-
-        <!-- Master Batch Draw Actions -->
-        <div class="flex items-center space-x-2">
-          <button id="codexBatchStartBtn" onclick="startCodexBatchDraw('all')" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-siam-goldDark via-siam-gold to-amber-200 text-siam-midnight font-thaiHead font-bold text-xs sm:text-sm shadow-gold-glow hover:scale-105 transition-all flex items-center space-x-1.5 cursor-pointer">
-            <i data-lucide="sparkles" class="w-4 h-4"></i>
+        <div class="flex flex-wrap items-center gap-2">
+          <!-- ปุ่มสั่งวาดครบ 64 ใบทีเดียว -->
+          <button id="batchDrawAllBtn" onclick="startBatchDrawAllCards()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-amber-500 to-yellow-500 text-slate-950 font-bold text-xs sm:text-sm hover:from-amber-400 hover:to-yellow-300 shadow-md shadow-amber-500/20 transition flex items-center space-x-1.5">
             <span>🎨 สั่ง AI วาดครบ ๖๔ ใบทีเดียว</span>
           </button>
-
-          <button id="codexBatchStopBtn" onclick="stopCodexBatchDraw()" class="hidden px-3.5 py-2 rounded-xl bg-rose-900/80 border border-rose-500 text-rose-200 font-thaiHead font-semibold text-xs sm:text-sm hover:bg-rose-800 transition-all flex items-center space-x-1.5 cursor-pointer">
-            <i data-lucide="pause" class="w-4 h-4"></i>
-            <span>หยุดชั่วคราว</span>
-          </button>
-
-          <button onclick="closeCodexModal()" class="text-slate-400 hover:text-siam-gold p-1.5 rounded-xl hover:bg-siam-gold/10 transition-all">
-            <i data-lucide="x" class="w-6 h-6"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- Real-Time Progress Banner -->
-      <div id="codexBatchProgressBanner" class="hidden px-5 py-3 bg-siam-midnight/95 border-b border-siam-gold/30">
-        <div class="flex items-center justify-between text-xs font-thaiHead text-siam-gold mb-1.5">
-          <span class="flex items-center space-x-2">
-            <i data-lucide="loader" class="w-4 h-4 animate-spin text-siam-gold"></i>
-            <span id="codexBatchProgressText">กำลังเนรมิตภาพจิตรกรรม...</span>
-          </span>
-          <span id="codexBatchProgressCount" class="font-bold text-amber-200">0 / 64</span>
-        </div>
-        <div class="w-full h-2 rounded-full bg-slate-800 border border-siam-gold/20 overflow-hidden">
-          <div id="codexBatchProgressBar" class="h-full bg-gradient-to-r from-amber-600 via-siam-gold to-yellow-200 w-0 transition-all duration-300"></div>
-        </div>
-      </div>
-
-      <!-- Filter Categories -->
-      <div class="px-4 sm:px-5 py-2.5 border-b border-siam-gold/15 flex items-center space-x-2 overflow-x-auto text-xs font-thaiHead bg-siam-midnight/60">
-        <button onclick="filterCodex('all')" class="px-3 py-1 rounded-full bg-siam-gold text-siam-midnight font-bold codex-filter">ทั้งหมด (๖๔)</button>
-        <button onclick="filterCodex('deva')" class="px-3 py-1 rounded-full bg-siam-midnight/80 border border-siam-gold/30 text-siam-goldLight codex-filter">๑. มหาเทวะ & บรมครู</button>
-        <button onclick="filterCodex('planets')" class="px-3 py-1 rounded-full bg-siam-midnight/80 border border-siam-gold/30 text-siam-goldLight codex-filter">๒. นพเคราะห์กำเนิด</button>
-        <button onclick="filterCodex('zodiac')" class="px-3 py-1 rounded-full bg-siam-midnight/80 border border-siam-gold/30 text-siam-goldLight codex-filter">๓. นักษัตรเทวราช</button>
-        <button onclick="filterCodex('epic')" class="px-3 py-1 rounded-full bg-siam-midnight/80 border border-siam-gold/30 text-siam-goldLight codex-filter">๔. วรรณคดี & วีรชน</button>
-        <button onclick="filterCodex('dharma')" class="px-3 py-1 rounded-full bg-siam-midnight/80 border border-siam-gold/30 text-siam-goldLight codex-filter">๕. สัจธรรม & กฎแห่งกรรม</button>
-      </div>
-
-      <!-- Codex Grid -->
-      <div id="codexGrid" class="flex-1 overflow-y-auto p-4 sm:p-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-3 sm:gap-4">
-        <!-- Rendered dynamically via JS -->
-      </div>
-    </div>
-  </div>
-
-  <!-- CARD DETAIL MODAL (Pop-up when clicking a card in Codex) -->
-  <div id="cardDetailModal" class="fixed inset-0 z-[60] bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-siam-cardBg border border-siam-gold/50 rounded-3xl max-w-2xl w-full max-h-[92vh] flex flex-col shadow-gold-lg overflow-hidden relative">
-      
-      <!-- Detail Header -->
-      <div class="p-4 border-b border-siam-gold/20 flex items-center justify-between">
-        <div class="flex items-center space-x-2">
-          <span id="detailBadgeId" class="px-2.5 py-0.5 rounded-full bg-siam-gold/20 border border-siam-gold/40 text-siam-gold text-xs font-thaiHead font-semibold">ใบที่ 1</span>
-          <span id="detailElement" class="text-xs text-amber-300 font-thaiHead">ธาตุดิน</span>
-        </div>
-        <button onclick="closeCardDetailModal()" class="text-slate-400 hover:text-siam-gold p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
-
-      <!-- Detail Body -->
-      <div class="flex-1 overflow-y-auto p-5 space-y-5">
-        <div class="flex flex-col sm:flex-row gap-5 items-center sm:items-start">
           
-          <!-- Large Card Display Face -->
-          <div class="w-48 sm:w-52 aspect-[1/1.45] card-gold-frame shrink-0 relative overflow-hidden group">
-            <div id="detailCardInner" class="w-full h-full">
-              <!-- Rendered card art -->
-            </div>
-            <div id="detailAiOverlay" class="absolute inset-0 bg-black/80 hidden flex-col items-center justify-center p-3 text-center z-20">
-              <div class="w-7 h-7 border-2 border-siam-gold border-t-transparent rounded-full animate-spin mb-2"></div>
-              <p class="text-xs text-siam-gold font-thaiHead font-semibold">กำลังวาดภาพด้วย AI...</p>
-            </div>
-          </div>
+          <button id="batchStopBtn" onclick="stopBatchDraw()" class="hidden px-3.5 py-2 rounded-xl bg-red-900/80 border border-red-500/40 text-red-200 text-xs sm:text-sm hover:bg-red-800 transition">
+            <span>⏹ หยุดชั่วคราว</span>
+          </button>
 
-          <!-- Card Description & Story Details -->
-          <div class="flex-1 space-y-3">
-            <div>
-              <span id="detailCategory" class="text-[10px] text-siam-gold/80 font-thaiHead block mb-0.5">หมวด: มหาเทวะ</span>
-              <h3 id="detailTitle" class="font-thaiTitle text-xl sm:text-2xl font-bold gold-text-gradient">ท้าวมหาพรหมธาดา</h3>
-              <p id="detailNameEng" class="text-xs text-slate-400 font-thaiHead italic">Brahma The Creator</p>
-            </div>
-
-            <!-- Upright Meaning -->
-            <div class="p-3 rounded-xl bg-siam-midnight/90 border border-siam-gold/25 text-xs font-thaiBody space-y-1">
-              <strong class="text-siam-gold font-thaiHead flex items-center space-x-1.5">
-                <i data-lucide="sun" class="w-3.5 h-3.5 text-amber-400"></i>
-                <span>นัยความหมายมงคล (ไพ่หัวตั้ง):</span>
-              </strong>
-              <p id="detailUpright" class="text-slate-300 leading-relaxed pl-5">ความหมายมงคล</p>
-            </div>
-
-            <!-- Reversed Meaning -->
-            <div class="p-3 rounded-xl bg-siam-midnight/90 border border-rose-500/25 text-xs font-thaiBody space-y-1">
-              <strong class="text-rose-400 font-thaiHead flex items-center space-x-1.5">
-                <i data-lucide="moon" class="w-3.5 h-3.5 text-rose-400"></i>
-                <span>ข้อเตือนสติ / เงาชะตา (ไพ่กลับหัว):</span>
-              </strong>
-              <p id="detailReversed" class="text-slate-300 leading-relaxed pl-5">ข้อควรระวัง</p>
-            </div>
-
-            <!-- Sacred Quote -->
-            <div class="p-2.5 rounded-lg bg-siam-gold/10 border border-siam-gold/20">
-              <p id="detailQuote" class="text-center text-xs text-amber-200/90 font-thaiHead italic">
-                "พรหมวิหาร ๔ เป็นธรรมคุ้มครองโลก"
-              </p>
-            </div>
-          </div>
+          <button onclick="toggleCodex()" class="px-3 py-2 rounded-xl border border-slate-700 bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs sm:text-sm transition">
+            กลับหน้าดูดวง
+          </button>
         </div>
       </div>
 
-      <!-- Detail Footer Actions -->
-      <div class="p-4 border-t border-siam-gold/20 flex items-center justify-end space-x-2 bg-siam-midnight/80">
-        <button onclick="downloadDetailCardImage()" class="px-3.5 py-2 rounded-xl border border-siam-gold/40 bg-siam-gold/15 text-siam-goldLight text-xs font-thaiHead flex items-center space-x-1.5 hover:bg-siam-gold/25 transition-all">
-          <i data-lucide="download" class="w-3.5 h-3.5"></i>
-          <span>ดาวน์โหลดภาพลงเครื่อง</span>
-        </button>
-        <button onclick="generateAiForDetailCard()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-siam-goldDark to-siam-gold text-siam-midnight text-xs font-thaiHead font-bold flex items-center space-x-1.5 hover:scale-105 transition-all shadow-md">
-          <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-          <span>สั่ง AI วาดภาพสมจริงใบนี้</span>
-        </button>
+      <!-- Batch Draw Progress Banner -->
+      <div id="batchProgressBanner" class="hidden bg-slate-900 border border-amber-500/30 rounded-xl p-3 text-xs space-y-2">
+        <div class="flex justify-between text-amber-300">
+          <span id="batchStatusText">กำลังเตรียมเนรมิตภาพจิตรกรรม...</span>
+          <span id="batchPercentText">0%</span>
+        </div>
+        <div class="w-full bg-slate-950 h-2 rounded-full overflow-hidden border border-slate-800">
+          <div id="batchProgressBar" class="bg-amber-400 h-full w-0 transition-all duration-300"></div>
+        </div>
+      </div>
+
+      <!-- Category Filter Tabs -->
+      <div class="flex flex-wrap gap-1.5 text-xs">
+        <button onclick="filterCodex('all')" class="codex-tab active px-3 py-1.5 rounded-lg border border-amber-500 bg-amber-500/20 text-amber-200">ทั้งหมด (๖๔)</button>
+        <button onclick="filterCodex('guru')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๑. บรมครู & เทวสถิต (๑-๘)</button>
+        <button onclick="filterCodex('deva_day')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๒. เทพประจำวันเกิด (๙-๑๖)</button>
+        <button onclick="filterCodex('zodiac')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๓. นักษัตร & ราศีกาล (๑๗-๒๘)</button>
+        <button onclick="filterCodex('myth_history')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๔. วรรณคดี & ประวัติศาสตร์ (๒๙-๔๘)</button>
+        <button onclick="filterCodex('karma_dharma')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๕. สัจธรรม & กฎแห่งกรรม (๔๙-๖๔)</button>
+      </div>
+
+      <!-- Codex Visual Cards Grid -->
+      <div id="codexGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
+        <!-- Render 64 cards -->
       </div>
     </div>
-  </div>
 
-  <!-- OFFLINE STORAGE & EXPORT MODAL -->
-  <div id="storageModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-siam-cardBg border border-siam-gold/40 rounded-3xl max-w-xl w-full p-6 flex flex-col shadow-2xl overflow-hidden relative">
-      <div class="flex items-center justify-between border-b border-siam-gold/20 pb-4 mb-4">
-        <div class="flex items-center space-x-2.5">
-          <div class="w-9 h-9 rounded-xl bg-siam-gold/20 flex items-center justify-center text-siam-gold">
-            <i data-lucide="hard-drive" class="w-5 h-5"></i>
+  </main>
+
+  <!-- ================= CARD DETAIL MODAL ================= -->
+  <div id="cardDetailModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto p-5 sm:p-7 shadow-2xl relative">
+      <button onclick="closeCardDetailModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">✕</button>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+        <div class="flex flex-col items-center">
+          <div id="modalCardVisual" class="w-full max-w-[240px] tarot-card-ratio rounded-xl overflow-hidden shadow-2xl border-2 border-amber-500/40 relative bg-slate-950 flex flex-col justify-center items-center text-center p-3">
+            <!-- Injected image or placeholder -->
           </div>
+          <div class="mt-3 flex flex-wrap gap-2 justify-center">
+            <button id="modalGenerateAiBtn" class="px-3 py-1.5 rounded-lg bg-amber-500/20 border border-amber-500/40 text-amber-300 hover:bg-amber-500/30 text-xs transition">
+              ✨ สั่ง AI วาดภาพนี้
+            </button>
+            <button id="modalDownloadImgBtn" class="px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-200 hover:bg-slate-700 text-xs transition">
+              💾 บันทึกรูป (PNG)
+            </button>
+          </div>
+        </div>
+
+        <div class="space-y-3 text-xs sm:text-sm">
           <div>
-            <h3 class="font-thaiTitle text-xl font-bold gold-text-gradient">คลังภาพออฟไลน์ (Offline Backup)</h3>
-            <p class="text-[11px] text-slate-400 font-thaiHead">บันทึกรูปภาพที่ AI วาดแล้วเก็บในเครื่อง ไม่ต้องพึ่งพา Drive และใช้แบบออฟไลน์ได้ 100%</p>
+            <span id="modalCardNumber" class="text-amber-400 font-bold text-xs uppercase tracking-wider"></span>
+            <h3 id="modalCardTitle" class="text-xl font-bold gold-gradient-text mt-0.5"></h3>
+            <p id="modalCardSubtitle" class="text-slate-400 text-xs italic mt-0.5"></p>
           </div>
-        </div>
-        <button onclick="closeStorageModal()" class="text-slate-400 hover:text-siam-gold p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
-      </div>
 
-      <div class="space-y-4 text-xs font-thaiBody text-slate-300">
-        <div class="p-3.5 rounded-xl bg-siam-midnight/80 border border-siam-gold/25 flex items-center justify-between">
-          <div>
-            <span class="text-siam-gold font-thaiHead font-semibold block text-sm">ภาพที่ถูกวาดและแคชไว้ในเครื่องขณะนี้</span>
-            <span id="cachedCountLabel" class="text-xs text-slate-400 font-thaiBody">0 จาก 64 ใบ</span>
+          <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+            <span class="text-amber-300/80 font-semibold block text-[11px] mb-1">📜 วรรณคดี / ตำนาน / ประวัติศาสตร์:</span>
+            <p id="modalCardLore" class="text-slate-300 leading-relaxed"></p>
           </div>
-          <button onclick="exportAllCachedCardsAsJson()" class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-siam-goldDark to-siam-gold text-siam-midnight font-thaiHead font-bold text-xs shadow-md flex items-center space-x-1.5 cursor-pointer">
-            <i data-lucide="download" class="w-4 h-4"></i>
-            <span>ดาวน์โหลดชุดภาพ (.JSON)</span>
-          </button>
-        </div>
 
-        <div class="p-3.5 rounded-xl bg-siam-midnight/80 border border-siam-gold/25">
-          <span class="text-siam-gold font-thaiHead font-semibold block mb-1 text-sm">นำเข้าคลังภาพที่เคยบันทึกไว้ (Import Saved Deck)</span>
-          <p class="text-[11px] text-slate-400 mb-3">หากคุณเคยส่งออกไฟล์คลังภาพไว้ สามารถเลือกไฟล์ JSON เพื่อดึงภาพทั้งหมดกลับมาแสดงผลได้ทันทีโดยไม่ต้องเชื่อมต่อ AI หรือใช้อินเทอร์เน็ต</p>
-          <input type="file" id="importDeckInput" accept=".json" onchange="importCachedCardsFile(event)" class="hidden">
-          <button onclick="document.getElementById('importDeckInput').click()" class="w-full py-2.5 rounded-xl border border-siam-gold/40 bg-siam-gold/10 hover:bg-siam-gold/20 text-siam-goldLight font-thaiHead text-xs flex items-center justify-center space-x-2 transition-all cursor-pointer">
-            <i data-lucide="upload" class="w-4 h-4"></i>
-            <span>เลือกไฟล์ชุดภาพสำรอง (.JSON) เพื่อเปิดใช้งานออฟไลน์</span>
-          </button>
-        </div>
+          <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+            <span class="text-amber-300/80 font-semibold block text-[11px] mb-1">🔮 ความหมายพยากรณ์:</span>
+            <p id="modalCardMeaningUpright" class="text-slate-200"></p>
+          </div>
 
-        <div class="p-3 bg-amber-500/10 border border-amber-500/20 rounded-xl text-amber-200/90 text-[11px] leading-relaxed">
-          <strong class="font-semibold text-amber-300">💡 เคล็ดลับการใช้งานออฟไลน์:</strong> คุณสามารถกดปุ่ม "สั่ง AI วาดครบ ๖๔ ใบทีเดียว" ในสารานุกรม แล้วกด "ดาวน์โหลดชุดภาพ (.JSON)" เก็บไว้ในเครื่อง เมื่อเปิดเว็บแบบไม่มีเน็ต เพียงกดนำเข้าไฟล์นี้ ภาพทั้งหมดจะกลับมาปรากฏทันทีครับ!
+          <div class="bg-slate-950/60 p-3 rounded-lg border border-slate-800">
+            <span class="text-amber-300/80 font-semibold block text-[11px] mb-1">📿 พระคาถา / พุทธภาษิตกำกับ:</span>
+            <p id="modalCardMantra" class="text-amber-200/90 font-mono text-[11px]"></p>
+          </div>
         </div>
       </div>
     </div>
   </div>
 
-  <!-- API KEY CONFIG MODAL -->
-  <div id="apiKeyModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden items-center justify-center p-4">
-    <div class="bg-siam-cardBg border border-siam-gold/40 rounded-3xl max-w-md w-full p-6 flex flex-col shadow-2xl relative">
-      <div class="flex items-center justify-between border-b border-siam-gold/20 pb-3 mb-4">
-        <div class="flex items-center space-x-2">
-          <div class="w-8 h-8 rounded-lg bg-siam-gold/20 flex items-center justify-center text-siam-gold">
-            <i data-lucide="key" class="w-4 h-4"></i>
-          </div>
-          <h4 class="font-thaiTitle text-lg font-bold gold-text-gradient">ตั้งค่า Google Gemini API Key</h4>
-        </div>
-        <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-siam-gold p-1">
-          <i data-lucide="x" class="w-5 h-5"></i>
-        </button>
+  <!-- ================= OFFLINE STORAGE MODAL ================= -->
+  <div id="offlineModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-base text-amber-300">💾 คลังภาพและการสำรองข้อมูล</h3>
+        <button onclick="closeOfflineModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
 
-      <p class="text-xs text-slate-300 font-thaiBody mb-3 leading-relaxed">
-        หากนำเว็บนี้ไปเปิดใช้งานบน iPad, มือถือ หรือนำขึ้น Netlify/GitHub ส่วนตัว คุณสามารถนำ <strong class="text-amber-300">Gemini API Key (ฟรี)</strong> จาก Google AI Studio มาใส่ไว้ที่นี่เพื่อเปิดระบบวาดภาพ AI ได้โดยตรง
+      <p class="text-xs text-slate-300 leading-relaxed">
+        ระบบบันทึกภาพลงในเครื่องได้โดยตรง เมื่อบันทึกเป็น <span class="text-amber-300 font-bold">tarot_images.js</span> แล้ววางคู่กับไฟล์ index.html จะสามารถเปิดใช้งานแบบออฟไลน์ได้ 100% โดยไม่ต้องต่อเน็ตและเบราว์เซอร์ไม่บล็อก
       </p>
 
-      <input type="password" id="customApiKeyInput" placeholder="AIzaSy..." class="w-full bg-siam-midnight border border-siam-gold/40 rounded-xl px-3.5 py-2.5 text-xs text-slate-100 font-mono mb-4 focus:outline-none focus:border-siam-gold">
+      <div class="bg-slate-950 p-3 rounded-xl border border-slate-800 text-xs space-y-1.5">
+        <div class="flex justify-between">
+          <span class="text-slate-400">ภาพที่อยู่ในระบบปัจจุบัน:</span>
+          <span id="cacheCountText" class="font-bold text-amber-400">0 / 64 ใบ</span>
+        </div>
+      </div>
 
-      <div class="flex items-center justify-end space-x-2">
-        <button onclick="clearCustomApiKey()" class="px-3 py-1.5 rounded-lg border border-slate-700 text-slate-400 text-xs font-thaiHead hover:text-white">
-          ล้างค่า
+      <div class="space-y-2 pt-1">
+        <!-- แนะนำ: บันทึกเป็น tarot_images.js ทันที ไม่ต้องแก้ Notepad เอง -->
+        <button onclick="exportAsScriptJS()" class="w-full py-2.5 px-3 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl text-xs flex items-center justify-center space-x-2 transition shadow-md shadow-amber-500/20">
+          <span>⚡ ดาวน์โหลดเป็น tarot_images.js (แนะนำ)</span>
         </button>
-        <button onclick="saveCustomApiKey()" class="px-4 py-1.5 rounded-lg bg-gradient-to-r from-siam-goldDark to-siam-gold text-siam-midnight font-thaiHead font-bold text-xs shadow-md">
-          บันทึกกุญแจ
+
+        <button onclick="exportImagesJSON()" class="w-full py-2 px-3 bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 rounded-xl text-xs flex items-center justify-center space-x-2 transition">
+          <span>📦 ดาวน์โหลดเป็นไฟล์สำรอง (.JSON)</span>
         </button>
+
+        <div class="pt-2 border-t border-slate-800">
+          <label class="block text-xs text-slate-400 mb-1.5">นำเข้าไฟล์สำรอง (.JSON หรือ .JS):</label>
+          <input type="file" id="importJsonInput" accept=".json,.js" onchange="handleImportFile(event)" class="w-full text-xs text-slate-400 file:mr-2 file:py-1.5 file:px-3 file:rounded-lg file:border-0 file:text-xs file:bg-slate-800 file:text-amber-300 hover:file:bg-slate-700 cursor-pointer">
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Footer -->
-  <footer class="border-t border-siam-gold/20 bg-siam-midnight/90 py-6 mt-12 text-center text-xs font-thaiHead text-slate-500">
-    <div class="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-3">
-      <p>© สยามเทวาพยากรณ์ | สำรับไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</p>
-      <p class="text-slate-400">ศิลปะจิตรกรรมไทยประยุกต์ • ปัญญาประดิษฐ์พยากรณ์กรรม • ออฟไลน์ 100%</p>
+  <!-- ================= API KEY MODAL ================= -->
+  <div id="apiKeyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
+    <div class="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4">
+      <div class="flex justify-between items-center border-b border-slate-800 pb-3">
+        <h3 class="font-bold text-base text-amber-300">🔑 ตั้งค่า Gemini API Key</h3>
+        <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-white">✕</button>
+      </div>
+
+      <p class="text-xs text-slate-300 leading-relaxed">
+        ใส่ Gemini API Key ของท่านเพื่อใช้งานระบบวาดภาพจิตรกรรมไทย AI และระบบสังเคราะห์คำทำนายลึกซึ้ง (เก็บไว้ในเครื่องของท่านอย่างปลอดภัย ไม่ส่งต่อที่อื่น)
+      </p>
+
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">API Key:</label>
+        <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none">
+      </div>
+
+      <div class="flex justify-end space-x-2">
+        <button onclick="closeApiKeyModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded-lg text-xs">ยกเลิก</button>
+        <button onclick="saveApiKey()" class="px-4 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">บันทึก</button>
+      </div>
     </div>
-  </footer>
+  </div>
 
+  <!-- ================= JAVASCRIPT APPLICATION LOGIC ================= -->
   <script>
-    /* Global Application State */
-    let currentSpreadCount = 3;
-    let selectedCards = [];
-    let isSoundEnabled = true;
-    let audioCtx = null;
-    let cardAiImageCache = {};
-    let isCodexBatchRunning = false;
-    let codexBatchAbort = false;
-    let activeCodexCategory = 'all';
-    let currentDetailCard = null;
+    // --- 64 SACRED DECK DATABASE ---
+    const DECK_64 = [
+      // 1. บรมครู & เทวสถิต (1-8)
+      { id: 1, name: "ท้าวมหาพรหมธาดา", category: "guru", subtitle: "บรมครูผู้สร้างโลก ลิขิตพรหมประสิทธิ์", lore: "พระผู้สร้างจักรวาล สถิต ณ พรหมโลก เปี่ยมด้วยพรหมวิหารสี่ เมตตา กรุณา มุทิตา อุเบกขา", meaning: "จุดเริ่มต้นใหม่ โอกาสที่ฟ้าประทาน พรสวรรค์ สมาธิปัญญา ความบริสุทธิ์แห่งจิต", mantra: "โอม พรหมมายะ นะมะฮา" },
+      { id: 2, name: "พญาพิเภกโหราธิบดี", category: "guru", subtitle: "บรมครูแห่งโหราศาสตร์ สัจธรรมหยั่งรู้", lore: "อนุชาแห่งทศกัณฐ์ ผู้ยึดมั่นในสัจจะและความถูกต้อง ยอมทิ้งยศศักดิ์มาอยู่ฝ่ายธรรมะ", meaning: "การหยั่งรู้ล่วงหน้า การวางแผนรอบคอบ ความซื่อตรง ชนะอุปสรรคด้วยปัญญา", mantra: "สัจจัง เว อมตา วาจา" },
+      { id: 3, name: "พระพิฆเนศวร", category: "guru", subtitle: "เทพเจ้าแห่งศิลปวิทยาการและขจัดอุปสรรค", lore: "มหาเทพผู้ประสิทธิ์ประสาทวิชาการ ศิลปะ และเป็นเจ้าแห่งการขจัดความขัดข้องทั้งปวง", meaning: "ความสำเร็จราบรื่น ศิลปะ ความคิดสร้างสรรค์ การขจัดอุปสรรคสิ้นสูญ", mantra: "โอม ศรี คเณศายะ นะมะฮา" },
+      { id: 4, name: "พระอิศวรศิวเทพ", category: "guru", subtitle: "มหาเทพผู้ทำลายความชั่วร้าย ประทานพรสูงสุด", lore: "องค์ศิวะนาฏราช มหาโยคีผู้บำเพ็ญตบะ ประทับ ณ เขาไกรลาส ผู้สยบมารและกิเลสทั้งมวล", meaning: "การเปลี่ยนแปลงใหญ่ การละทิ้งสิ่งเก่าเพื่อรับสิ่งใหม่ อำนาจบารมีเด็ดขาด", mantra: "โอม นะมัส ศิวายะ" },
+      { id: 5, name: "พระนารายณ์มหาจักร", category: "guru", subtitle: "เทพผู้พิทักษ์รักษา อวตารปราบยุคเข็ญ", lore: "พระวิษณุผู้บรรทมสินธุ์บนเกษียรสมุทร อวตารลงมาผดุงความยุติธรรมทุกคราที่โลกเดือดร้อน", meaning: "การคุ้มครองแคล้วคลาด ชัยชนะเหนือศัตรู ความมั่นคงยั่งยืน หน้าที่การงานรุ่งเรือง", mantra: "โอม นะโม นารายะนายะ นะมะฮา" },
+      { id: 6, name: "พระแม่อุมามหาเทวี", category: "guru", subtitle: "พระแม่ผู้เป็นใหญ่ในสากลโลก พลังศักติสูงสุด", lore: "มหาเทวีผู้ทรงอำนาจ เปี่ยมล้นด้วยความเมตตาต่อบุตร แต่เด็ดขาดเมื่อปราบอสูรร้าย", meaning: "พลังอำนาจสตรี ความอุปถัมภ์ค้ำชู ความรักมั่นคง จิตใจเข้มแข็งไม่ยอมแพ้", mantra: "โอม ศรี มหาอุมาเทวไย นะมะฮา" },
+      { id: 7, name: "พระแม่ลักษมีเทวี", category: "guru", subtitle: "เทวีแห่งความมั่งคั่ง โภคทรัพย์ และความงาม", lore: "ชายาแห่งองค์นารายณ์ ประสูติจากเกษียรสมุทร ผู้นำพาความอุดมสมบูรณ์และเสน่ห์สิริมงคล", meaning: "โชคลาภเงินทองไหลมา ความร่ำรวย เสน่ห์เมตตามหานิยม ความรักสมหวัง", mantra: "โอม ศรี มหาลักษมีไย นะมะฮา" },
+      { id: 8, name: "พระแม่สุรัสวดี", category: "guru", subtitle: "เทวีแห่งปัญญา วาจา ดนตรี และการศึกษา", lore: "เทวีแห่งแม่น้ำศักดิ์สิทธิ์ ผู้ถือพิณและคัมภีร์ สัญลักษณ์แห่งปัญญาญาณอันบริสุทธิ์", meaning: "ความสำเร็จในการศึกษา สอบแข่งขัน การเขียน การพูด และการคิดค้นวิทยาการ", mantra: "โอม ศรี สุรัสวะไย นะมะฮา" },
 
-    /* Custom API Key Storage */
-    let customApiKey = "";
-    try {
-      customApiKey = localStorage.getItem('siam_gemini_api_key') || "";
-    } catch(e) {}
+      // 2. เทพประจำวันเกิด (9-16)
+      { id: 9, name: "พระอาทิตย์เทพบุตร", category: "deva_day", subtitle: "เกียรติยศ ผู้นำ อำนาจ รัศมีเจิดจรัส", lore: "เทพประจำวันอาทิตย์ เทพพาหนะคือราชสีห์ ทรงเครื่องทองคำเปล่งประกาย", meaning: "เกียรติยศชื่อเสียง ความเป็นผู้นำ งานราชการ โดดเด่นเป็นที่ยอมรับ", mantra: "อิติปิโส ภะคะวา พระอาทิตย์จะมัสมัง" },
+      { id: 10, name: "พระจันทร์เทพธิดา", category: "deva_day", subtitle: "เสน่ห์ จินตนาการ ความอ่อนหวานและจิตวิทยา", lore: "เทพประจำวันจันทร์ สถิตบนวิมานเงิน นุ่มนวล ชวนมอง เปี่ยมด้วยเมตตามหานิยม", meaning: "เสน่ห์ต่อคนรอบข้าง งานบริการ การใช้ความรู้สึกและศิลปะ ความรักโรแมนติก", mantra: "อิ ระ ชา คะ ตะ ระ สา" },
+      { id: 11, name: "พระอังคารเทพสงคราม", category: "deva_day", subtitle: "ความกล้าหาญ การต่อสู้ พลังกายอันไม่สิ้นสุด", lore: "เทพประจำวันอังคาร ทรงกระบือเป็นพาหนะ ดุดัน ตรงไปตรงมา รักเพื่อนพ้อง", meaning: "ความมุ่งมั่นลุยงานหนัก ชัยชนะจากการแข่งขัน ช่าง ฝีมือ หรือการเดินทางไกล", mantra: "ติ หัง จะ โต โร ถิ นัง" },
+      { id: 12, name: "พระพุธเทววาที", category: "deva_day", subtitle: "การเจรจา วาทศิลป์ ปัญญา และการค้าขาย", lore: "เทพประจำวันพุธ ทรงช้างเป็นพาหนะ ผู้ประสานสิบทิศ มีไหวพริบปฏิภาณยอดเยี่ยม", meaning: "การติดต่อสื่อสารสำเร็จ ค้าขายกำไรดี การเจรจาต่อรอง สัญญาทางธุรกิจราบรื่น", mantra: "ปิ สัม ระ โล ปุ สัต พุท" },
+      { id: 13, name: "พระพฤหัสบดีคุรุเทพ", category: "deva_day", subtitle: "คุณธรรม ความรู้ ครูบาอาจารย์ และผู้ใหญ่เมตตา", lore: "ครูแห่งทวยเทพ สถิตบนกวางทอง ผู้ทรงศีล สมาธิ ปัญญาอันบริสุทธิ์", meaning: "ผู้ใหญ่เกื้อหนุน การเรียนรู้ธรรมะ สุขภาพแข็งแรง ชีวิตสงบสุขร่มเย็น", mantra: "ภะ สัม สัม วิ สะ เท ภะ" },
+      { id: 14, name: "พระศุกร์เทวโสภา", category: "deva_day", subtitle: "โชคลาภ ความสุข ศิลปะ และความรื่นรมย์", lore: "เทพประจำวันศุกร์ ทรงโคเป็นพาหนะ ตัวแทนแห่งความสุข ความมั่งคั่งและความรัก", meaning: "ความสุขสมบูรณ์ การเงินหมุนเวียนคล่องตัว ความบันเทิง มีกินมีใช้ไม่ขาดมือ", mantra: "วา โธ โน อะ มะ มะ วา" },
+      { id: 15, name: "พระเสาร์เทวราช", category: "deva_day", subtitle: "ความอดทน หนักแน่น มรดก และบททดสอบชีวิต", lore: "เทพประจำวันเสาร์ ทรงเสือเป็นพาหนะ เงียบขรึม ทรงพลัง อดทนต่อความยากลำบาก", meaning: "ความอดทนนำมาซึ่งความสำเร็จ งานระยะยาว อสังหาริมทรัพย์ มรดกตกทอด", mantra: "โส มา ณะ กะ ริ ถา โธ" },
+      { id: 16, name: "พระราหูสุรินทราหู", category: "deva_day", subtitle: "ความพลิกผัน เงาราหู โชคลาภเสี่ยงทาย และต่างแดน", lore: "มหาอสุรินทราหู พระโพธิสัตว์ในอนาคตกาล ผู้กลืนกินความมืดเพื่อส่องแสงแห่งการตื่นรู้", meaning: "โชคลาภแบบไม่คาดฝัน ธุรกิจกลางคืน งานต่างประเทศ การแก้เคล็ดพลิกดวง", mantra: "คะ พุท ปัน ทู ธัม วะ คะ" },
 
-    function getApiKey() {
-      return customApiKey || "";
-    }
+      // 3. นักษัตร & ราศีกาล (17-28)
+      { id: 17, name: "พญานาคราชมหาราช", category: "zodiac", subtitle: "ทรัพย์ในดินสินในน้ำ มหามนต์แห่งเสน่ห์และศรัทธา", lore: "เจ้าแห่งบาดาล ผู้รักษาพระพุทธศาสนาและสมบัติทิพย์", meaning: "โชคลาภก้อนโต ทรัพย์สมบัติ ศรัทธานำพาสิ่งมหัศจรรย์", mantra: "กายะ วาจา จิตตัง อะหังวันทา นาคาธิบดี" },
+      { id: 18, name: "พญาเวนไตยสุบรรณครุฑ", category: "zodiac", subtitle: "อำนาจบารมี ชัยชนะเหนืออุปสรรค ความกตัญญู", lore: "พญานกผู้ทรงฤทธิ์ ยอมสู้กับเทพทั้งปวงเพื่อนำน้ำอมฤตไปไถ่แม่", meaning: "เลื่อนยศเลื่อนตำแหน่ง อำนาจวาสนา ล้างอาถรรพ์", mantra: "โอม คะรุฑา คะรุเฑ นะมะฮา" },
+      { id: 19, name: "วานรพญาหนุมาน", category: "zodiac", subtitle: "ความภักดี ไหวพริบยอดเยี่ยม ความสำเร็จเกินคาดคิด", lore: "ทหารเอกแห่งพระราม ผู้ฆ่าไม่ตาย ลมพัดก็ฟื้น สัญลักษณ์แห่งความจงรักภักดี", meaning: "งานลุล่วงผ่านฉลุย มีคนคอยช่วย มีพละกำลังล้นเหลือ", mantra: "หนุมานะ นะสังสะตัง อะหังวันทา" },
+      { id: 20, name: "พญาคชสารเอราวัณ", category: "zodiac", subtitle: "ความยิ่งใหญ่ มั่นคง สง่างาม และเกียรติภูมิ", lore: "ช้างทรงแห่งท้าวสักกะเทวราช ทรงพลังสถิตในสรวงสวรรค์", meaning: "ความมั่นคงในหน้าที่การงาน กิจการขยายใหญ่โต", mantra: "เอราวัณโณ มหาลาโภ ชะโย นิจจัง" },
+      { id: 21, name: "พญาสิงหราชไกรสร", category: "zodiac", subtitle: "ศักดิ์ศรี ความเด็ดเดี่ยว ผู้ทรงอิทธิพล", lore: "ราชสีห์ผู้เป็นใหญ่ในป่าหิมพานต์ เสียงคำรามทำให้สัตว์ทั้งปวงยอมสยบ", meaning: "การเป็นผู้นำ การตัดสินใจเด็ดขาด บริวารยำเกรง", mantra: "ราชะสีโห มหานาโท ยะถา" },
+      { id: 22, name: "พยัคฆ์สมิงพราย", category: "zodiac", subtitle: "ความว่องไว มหาอำนาจ สัญชาตญาณเอาตัวรอด", lore: "เสือสมิงเจ้าป่า เปี่ยมด้วยตบะอำนาจเร้นลับและไหวพริบ", meaning: "การระวังภัย สัญชาตญาณแม่นยำ ไม่ตกเป็นเบี้ยล่างใคร", mantra: "พยัคโฆ จะ มะหาเตโช" },
+      { id: 23, name: "มัจฉานุบุตรมหาภักดี", category: "zodiac", subtitle: "ความกตัญญู สายสัมพันธ์สองภพ ความรับผิดชอบ", lore: "ลูกแห่งหนุมานและนางสุพรรณมัจฉา ผู้รักษาสัจจะต่อบิดาและผู้มีพระคุณ", meaning: "ความกตัญญูนำทาง สายสัมพันธ์ครอบครัว การประนีประนอม", mantra: "มาตาปิตุ อุปัฏฐานัง เอตัมมังคะละมุตตะมัง" },
+      { id: 24, name: "กินรีมโนราห์", category: "zodiac", subtitle: "ความงาม ความรักแท้ การหลุดพ้นสู่อิสรภาพ", lore: "นางกินรีผู้ถูกพรากปีกหาง แต่ด้วยรักแท้และสัจจะจึงบินกลับสู่เขาไกรลาสได้", meaning: "การปลดปล่อยจากพันธนาการ อิสรภาพ ความรักบริสุทธิ์", mantra: "ปิโย เทวะมนุสสานัง ปิโย พรหมา" },
+      { id: 25, name: "ม้านิลมังกร", category: "zodiac", subtitle: "พลังอัศจรรย์ ความรวดเร็ว การคุ้มครองผู้บริสุทธิ์", lore: "สัตว์วิเศษพาหนะของสุดสาคร หัวเป็นมังกร ตัวเป็นม้า มีเขี้ยวเพชรเกล็ดนิล", meaning: "ความก้าวหน้าอย่างรวดเร็ว แคล้วคลาดปลอดภัย มีของดีคุ้มตัว", mantra: "ชะโย มังคะลัง ปะฐะมัง" },
+      { id: 26, name: "พญาอนันตนาคราช", category: "zodiac", subtitle: "ความสงบเยือกเย็น แท่นบรรทมแห่งความมั่นคง", lore: "พญานาคพันเศียร ผู้เป็นบัลลังก์รองรับองค์นารายณ์กลางเกษียรสมุทร", meaning: "ความสุขุม การตั้งมั่นในความสงบ การค้ำจุนช่วยเหลือผู้อื่น", mantra: "สันติ สันติ สันติสุขัง" },
+      { id: 27, name: "สุพรรณหงส์มงคลนาม", category: "zodiac", subtitle: "ความสง่างาม บารมี วาสนาแห่งสายน้ำ", lore: "เรือพระที่นั่งสุพรรณหงส์ สัญลักษณ์แห่งพระมหากษัตริย์และเกียรติยศสูงสุด", meaning: "ชีวิตสูงส่ง ได้รับการยกย่อง การเดินทางราบรื่น", mantra: "หังโส สุวัณโณ มหาเตโช" },
+      { id: 28, name: "กุณฑีราชเต่าเรือน", category: "zodiac", subtitle: "อายุยืนยาว ทรัพย์มั่นคง ป้องกันภัยอันตราย", lore: "พญาเต่าเรือนพระโพธิสัตว์ ผู้สละกายช่วยมนุษย์ และมีอายุขัยยืนยาว", meaning: "สุขภาพแข็งแรง หนี้สินหมดไป การเงินค่อยๆ มั่นคงระยะยาว", mantra: "นาสังสิโม พรหมาจะมหาเทวา" },
 
-    function openApiKeyModal() {
-      document.getElementById('customApiKeyInput').value = customApiKey;
-      const modal = document.getElementById('apiKeyModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+      // 4. วรรณคดี & ประวัติศาสตร์ (29-48)
+      { id: 29, name: "พระรามคืนนคร", category: "myth_history", subtitle: "ชัยชนะแห่งความดี คุณธรรมเหนืออธรรม", lore: "พระรามเสด็จกลับอยุธยาหลังชนะศึกทศกัณฐ์ ทวยราษฎร์แซ่ซ้องสรรเสริญ", meaning: "การสิ้นสุดความลำบาก ชัยชนะแห่งความซื่อสัตย์ การคืนสู่ฐานะเดิม", mantra: "ธัมโม หะเว รักขะติ ธัมมะจาริง" },
+      { id: 30, name: "พระลักษมณ์ร่วมรบ", category: "myth_history", subtitle: "ความซื่อสัตย์ การเสียสละ มิตรแท้ร่วมเป็นร่วมตาย", lore: "อนุชาผู้ภักดี ติดตามพระรามเดินดง ๑๔ ปี โดยไม่บ่นยอมลำบากเพื่อพี่ชาย", meaning: "การมีกัลยาณมิตร มิตรแท้คอยช่วยเหลือ ความเสียสละเพื่อส่วนรวม", mantra: "มิตตะภาโว สุขาวะโห" },
+      { id: 31, name: "นางสีดาพิสูจน์พรหมจรรย์", category: "myth_history", subtitle: "ความบริสุทธิ์ ศักดิ์ศรี ไฟพิสูจน์ทองคำ", lore: "นางสีดาลุยไฟพิสูจน์ความบริสุทธิ์ ไฟกลับเย็นดั่งบัวรองรับเท้า", meaning: "ความจริงจะปรากฏ พ้นมลทิน การอดทนต่อคำนินทา", mantra: "สัจจะเมวะ ชะยะเต" },
+      { id: 32, name: "ทศกัณฐ์จอมลงกา", category: "myth_history", subtitle: "ความทะเยอทะยาน อัตตา พลังมหาศาลและบทเรียน", lore: "พญายักษ์สิบหน้ายี่สิบมือ ผู้มีฤทธิ์มหาศาลแต่พ่ายแพ้เพราะกิเลสตัณหา", meaning: "เตือนสติเรื่องความหลงตัวเอง ระวังอารมณ์พาเสียงานใหญ่", mantra: "กิเลสะมารัง ปะหาตัพพัง" },
+      { id: 33, name: "สุดสาครผจญภัย", category: "myth_history", subtitle: "การเรียนรู้โลกกว้าง ปัญญาวัยเยาว์ ความกล้าหาญ", lore: "โอรสพระอภัยมณี ออกตามหาพ่อตั้งแต่วัยเด็ก เผชิญหน้าสิ่งลี้ลับด้วยไม้เท้าวิเศษ", meaning: "การเริ่มต้นทำสิ่งใหม่ การออกเดินทางหาประสบการณ์ การพึ่งพาตนเอง", mantra: "ปัญญา โลกัสมิง ปัชโชโต" },
+      { id: 34, name: "ชีเปลือยใจคด", category: "myth_history", subtitle: "การระวังการหลอกลวง คนหน้าไหว้หลังหลอก ภาพลวงตา", lore: "ชีเปลือยผู้หลอกผลักสุดสาครตกเหวเพื่อชิงม้านิลมังกรและไม้เท้าวิเศษ", meaning: "เตือนระวังคนไม่หวังดี อย่าไว้ใจคนง่าย สัญญาที่ซ่อนเงื่อน", mantra: "นะ วิสสะเส อะวิสสัตเถ" },
+      { id: 35, name: "ขุนแผนดาบฟ้าฟื้น", category: "myth_history", subtitle: "มนต์ตรา เสน่ห์ ชัยชนะในสมรภูมิ ของขลัง", lore: "ยอดนักรบและจอมขมังเวทย์แห่งสุพรรณบุรี เจ้าของดาบฟ้าฟื้นและกุมารทอง", meaning: "เสน่ห์เมตตา ความมั่นใจ การเอาชนะคู่แข่งด้วยความสามารถเฉพาะตัว", mantra: "สุนะโมโล นะโมพุทธายะ" },
+      { id: 36, name: "ขุนช้างคหบดี", category: "myth_history", subtitle: "ทรัพย์สินมหาศาล ความเพียรด้านความรัก ความอุดมสมบูรณ์", lore: "เศรษฐีใหญ่แห่งสุพรรณบุรี ร่ำรวยทองคำและบริวาร แม้รูปชั่วแต่ทุ่มเทหัวใจ", meaning: "การเงินอุดมสมบูรณ์ ความพยายามไม่ลดละ ได้รับความช่วยเหลือเรื่องเงิน", mantra: "เอหิลาภัง มานะมานัง มหาธะนัง" },
+      { id: 37, name: "นางวันทองสองใจ", category: "myth_history", subtitle: "การเลือกทางเดิน ทางสองแพร่งในชีวิต ชะตากรรมสตรี", lore: "หญิงงามผู้ตกอยู่ท่ามกลางความรักของสองชาย และกลายเป็นเหยื่อแห่งกฎเกณฑ์", meaning: "ภาวะกลืนไม่เข้าคายไม่ออก การต้องตัดสินใจเลือกทางใดทางหนึ่งอย่างเด็ดขาด", mantra: "อนิจจัง ทุกขัง อนัตตา" },
+      { id: 38, name: "พลายงามสะสางคดี", category: "myth_history", subtitle: "การสร้างตัว ปัญญาเยาวชน ความก้าวหน้าในยศศักดิ์", lore: "บุตรขุนแผน ผู้เล่าเรียนจนได้ดี ปฏิบัติราชการจนได้เป็นจหมื่นไวยวรนาถ", meaning: "คนรุ่นใหม่ได้แสดงฝีมือ การได้เลื่อนตำแหน่ง ความยุติธรรม", mantra: "อัปปะมาโท อะมะตัง ปะทัง" },
+      { id: 39, name: "พระอภัยมณีเป่าปี่", category: "myth_history", subtitle: "พลังแห่งสุนทรีย์ การเจรจาสยบศึก การสะกดใจคน", lore: "เจ้าชายผู้ใช้วิชาเป่าปี่สยบทัพ ปี่ที่เสียงหวานทำให้คนหลับใหลและยอมแพ้", meaning: "ใช้คำพูดไพเราะสยบความขัดแย้ง งานด้านบันเทิง ศิลปะ สื่อสารได้ผลเลิศ", mantra: "วาจา สัจจา ปิยายะ วาจา" },
+      { id: 40, name: "ผีเสื้อสมุทรคลั่งรัก", category: "myth_history", subtitle: "ความลุ่มหลง อารมณ์เหนือเหตุผล ความรักที่ผูกมัด", lore: "นางยักษ์ผู้รักพระอภัยมณีจนหมดใจ แต่ความรักที่บีบคั้นกลับนำมาซึ่งความพลัดพราก", meaning: "ระวังอารมณ์หึงหวง ความยึดติดในรักจนเกิดทุกข์ ควรปล่อยวาง", mantra: "ตัณหา ชายะตี โสโก" },
+      { id: 41, name: "ชาละวันกุมภีล์", category: "myth_history", subtitle: "อำนาจลับใต้บาดาล ความประมาท การกักขังตนเอง", lore: "พญาจระเข้เจ้าแห่งถ้ำทอง ผู้มีเขี้ยวเพชร แต่พ่ายแพ้เพราะความประมาทและลุ่มหลง", meaning: "อย่าประมาทในอำนาจที่มี ระวังเรื่องชู้สาวและสิ่งซ่อนเร้น", mantra: "ปะมาโท มัจจุโน ปะทัง" },
+      { id: 42, name: "ไกรทองปราบจระเข้", category: "myth_history", subtitle: "วิชาความสามารถเฉพาะทาง กล้าเผชิญหน้าอันตราย", lore: "หมอจระเข้หนุ่มจากเมืองนนท์ ผู้ใช้วิชาอาคมและหอกสัตตโลหะสยบชาละวัน", meaning: "การแก้ปัญหาด้วยความเชี่ยวชาญเฉพาะด้าน ได้รับรางวัลและชื่อเสียง", mantra: "วิริเยนะ ทุกขะมัจเจติ" },
+      { id: 43, name: "สมเด็จพระนเรศวร", category: "myth_history", subtitle: "อิสรภาพ ความเด็ดเดี่ยว ปราบอริราชศัตรู เอกราช", lore: "มหาราชผู้ทรงชนไก่และประกาศอิสรภาพ ณ เมืองแครง และกระทำยุทธหัตถีมีชัย", meaning: "การปลดแอกพ้นจากอิทธิพลคนอื่น การเป็นนายตัวเอง ชัยชนะเด็ดขาด", mantra: "ชะยะ ชะยะ ชะยะ ชัยโย" },
+      { id: 44, name: "พระสุพรรณกัลยา", category: "myth_history", subtitle: "การเสียสละอันยิ่งใหญ่เพื่อส่วนรวม บารมีพระพี่นาง", lore: "พระสุพรรณกัลยา ผู้ยอมเสียสละตนเป็นองค์ประกัน ณ กรุงหงสาวดีเพื่อแผ่นดินสยาม", meaning: "การยอมเสียสละบางอย่างเพื่อผลลัพธ์ที่ยิ่งใหญ่กว่า ผลบุญหนุนนำ", mantra: "ปะระหิตัง มหาปุญญัง" },
+      { id: 45, name: "วีรชนค่ายบางระจัน", category: "myth_history", subtitle: "ความสามัคคี หัวใจนักสู้ ไม่ยอมจำนนต่อชะตา", lore: "ชาวบ้านบางระจันรวมพลังต่อสู้ข้าศึกจนหยดเลือดสุดท้าย แม้ไร้ปืนใหญ่", meaning: "พลังแห่งความร่วมมือ การสู้ไม่ถอยแม้เสียเปรียบ จิตใจเข้มแข็ง", mantra: "สามัคคี พลัง สัจจัง" },
+      { id: 46, name: "พระเจ้าตากสินกู้แผ่นดิน", category: "myth_history", subtitle: "การพลิกวิกฤต สร้างฐานอำนาจใหม่ ความเด็ดขาด", lore: "มหาราชผู้ตีฝ่าวงล้อมพม่าและทุบหม้อข้าวเข้าตีเมืองจันทบุรี กอบกู้สยามใน ๗ เดือน", meaning: "การเริ่มต้นใหม่จากศูนย์ พลิกวิกฤตให้เป็นโอกาสทอง ความกล้าหาญ", mantra: "อุฏฐานะวะโต สะติมะโต" },
+      { id: 47, name: "แม่นากพระโขนง", category: "myth_history", subtitle: "ความรักอมตะเหนือความตาย ความผูกพันห่วงหา", lore: "ตำนานรักแท้แห่งทุ่งพระโขนง แม้ความตายก็มิอาจพรากความห่วงใยต่อสามี", meaning: "ความรักแท้ที่มั่นคง แต่อาจมีเรื่องห่วงหาอาวรณ์ ควรทำบุญอุทิศส่วนกุศล", mantra: "เมตตา กรุณา มุทิตา อุเบกขา" },
+      { id: 48, name: "นางสิบสองผจญกรรม", category: "myth_history", subtitle: "วิบากกรรม ชะตากรรมที่ต้องอดทน ฟ้าหลังฝน", lore: "เรื่องราวนางสิบสองผู้ถูกควักลูกตา แต่ด้วยผลบุญสุดท้ายจึงได้ดวงตากลับคืน", meaning: "ช่วงเวลาชดใช้กรรม ต้องใช้ขันติความอดทน ฟ้าจะสว่างหลังมรสุมผ่านพ้น", mantra: "ขันตี ปะระมัง ตะโป ตีติกขา" },
 
-    function closeApiKeyModal() {
-      const modal = document.getElementById('apiKeyModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function saveCustomApiKey() {
-      const val = document.getElementById('customApiKeyInput').value.trim();
-      customApiKey = val;
-      try {
-        localStorage.setItem('siam_gemini_api_key', val);
-      } catch(e) {}
-      closeApiKeyModal();
-      showToast("บันทึกกุญแจสำเร็จ", "ระบบเชื่อมโยง Gemini API Key เรียบร้อยแล้ว");
-    }
-
-    function clearCustomApiKey() {
-      customApiKey = "";
-      try {
-        localStorage.removeItem('siam_gemini_api_key');
-      } catch(e) {}
-      document.getElementById('customApiKeyInput').value = "";
-      closeApiKeyModal();
-      showToast("ล้างกุญแจสำเร็จ", "กลับสู่โหมดเริ่มต้น");
-    }
-
-    /* 64 Sacred Cards Dataset (5 Sacred Realms) */
-    const SACRED_CARDS_64 = [
-      // Realm 1: Deva & Teachers (1 - 8)
-      { id: 1, nameThai: "ท้าวมหาพรหมธาดา", nameEng: "Brahma The Creator", category: "deva", element: "อากาศธาตุ", upright: "การริเริ่มสร้างสรรค์ พรหมวิหารสี่ วาสนาขั้นสูง", reversed: "การยึดติดในอัตตา ความเฉยเมยขาดเมตตา", icon: "crown", color: "#f59e0b", quote: "พรหมวิหาร ๔ เป็นธรรมคุ้มครองโลก" },
-      { id: 2, nameThai: "พญาพิเภกโหราธิบดี", nameEng: "Bibhek The Prophet", category: "deva", element: "ธาตุดิน", upright: "สติปัญญาหยั่งรู้ญาณทัศน์ ความจริงใจ ตัดสินใจแม่นยำ", reversed: "การถูกเข้าใจผิด ข้อครหา ความลังเลในสัจจะ", icon: "eye", color: "#38bdf8", quote: "สัจจะวาจา ย่อมชนะมารทั้งปวง" },
-      { id: 3, nameThai: "พระพิฆเนศวรมหาเทวะ", nameEng: "Ganesha The Remover of Obstacles", category: "deva", element: "ธาตุดิน", upright: "ขจัดอุปสรรคทั้งปวง เริ่มต้นสำเร็จ ศิลปวิทยาการ", reversed: "อุปสรรคชั่วคราว ความใจร้อนขาดพิธีกรรม", icon: "sparkles", color: "#ec4899", quote: "ความเพียรที่ถูกทาง ย่อมนำมาซึ่งชัยชนะ" },
-      { id: 4, nameThai: "พระอิศวรบรมศิวะเจ้า", nameEng: "Lord Shiva The Transformer", category: "deva", element: "ธาตุไฟ", upright: "การเปลี่ยนแปลงใหญ่ ล้างสิ่งเก่าสู่สิ่งใหม่ มหาอำนาจ", reversed: "การทำลายล้าง โทสะครอบงำ ความสูญเสีย", icon: "flame", color: "#ef4444", quote: "เมื่อสิ่งเก่าแตกสลาย สิ่งใหม่จึงงอกงาม" },
-      { id: 5, nameThai: "พระนารายณ์อวตาร", nameEng: "Lord Vishnu The Preserver", category: "deva", element: "ธาตุน้ำ", upright: "การพิทักษ์รักษา ความยุติธรรม ชัยชนะเหนืออธรรม", reversed: "ภาระหนักอึ้ง การต้องแบกรับปัญหาผู้อื่น", icon: "shield", color: "#3b82f6", quote: "ธรรมะย่อมรักษาผู้ประพฤติธรรม" },
-      { id: 6, nameThai: "พระแม่อุมามหาเทวี", nameEng: "Goddess Uma Parvati", category: "deva", element: "ธาตุไฟ", upright: "พลังอำนาจฝ่ายหญิง ความเมตตาแต่เด็ดขาด คุ้มครองบริวาร", reversed: "อารมณ์เกรี้ยวกราด ความกดดันในครอบครัว", icon: "heart", color: "#f43f5e", quote: "ความอ่อนโยนที่แฝงพลังเด็ดขาด" },
-      { id: 7, nameThai: "พระแม่ลักษมีเทวี", nameEng: "Goddess Lakshmi of Wealth", category: "deva", element: "ธาตุทอง", upright: "ความมั่งคั่ง ร่ำรวย เสน่ห์เมตตามหานิยม ความรักสมหวัง", reversed: "ความฟุ่มเฟือย เสียทรัพย์เพราะลุ่มหลง", icon: "gem", color: "#fbbf24", quote: "โภคทรัพย์ย่อมเกิดแก่ผู้มีจิตยินดีแบ่งปัน" },
-      { id: 8, nameThai: "พระแม่สุรัสวดีเทวี", nameEng: "Goddess Saraswati of Wisdom", category: "deva", element: "ธาตุลม", upright: "ปัญญาญาณ การศึกษา การพูดจา ศิลปะดนตรี", reversed: "ความรู้ท่วมหัวเอาตัวไม่รอด การสื่อสารผิดพลาด", icon: "book", color: "#a855f7", quote: "ปัญญาประดุจแสงสว่างส่องทางพ้นทุกข์" },
-
-      // Realm 2: Planetary Deities (9 - 16)
-      { id: 9, nameThai: "พระอาทิตย์มหาเทวราช", nameEng: "Surya Sun Deity", category: "planets", element: "ธาตุไฟ", upright: "เกียรติยศ ผู้นำ ชัยชนะเด่นชัด แสงสว่างส่องทาง", reversed: "ความหยิ่งทะนง เผาผลาญตนเองด้วยทิฐิ", icon: "sun", color: "#f97316", quote: "ดวงตะวันย่อมส่องแสงแก่สรรพสัตว์อย่างเท่าเทียม" },
-      { id: 10, nameThai: "พระจันทร์เทวมณฑล", nameEng: "Chandra Moon Deity", category: "planets", element: "ธาตุน้ำ", upright: "ความอ่อนหวาน จินตนาการ เสน่ห์น่าค้นหา มารดา", reversed: "ความหวั่นไหว จิตใจโลเล โรคซึมเศร้า", icon: "moon", color: "#e0e7ff", quote: "ความสงบเยือกเย็น สยบคลื่นลมพายุ" },
-      { id: 11, nameThai: "พระอังคารเทพสงคราม", nameEng: "Mangala Mars Warrior", category: "planets", element: "ธาตุลม", upright: "ความกล้าหาญ ขยันขันแข็ง การแข่งขัน ยานพาหนะ", reversed: "อุบัติเหตุ การวิวาท ความบุ่มบ่าม", icon: "swords", color: "#dc2626", quote: "ความกล้าที่ไร้สติ คือหนทางสู่หายนะ" },
-      { id: 12, nameThai: "พระพุธเทพพุทธโธ", nameEng: "Budha Mercury Deity", category: "planets", element: "ธาตุน้ำ", upright: "การเจรจา ค้าขาย ไหวพริบ ความคล่องตัว", reversed: "คำโกหก เอกสารสัญญาผิดพลาด ถูกหลอกลวง", icon: "message-square", color: "#10b981", quote: "วาจาสุภาษิต มีค่ายิ่งกว่าทรัพย์นับล้าน" },
-      { id: 13, nameThai: "พระพฤหัสบดีบรมครู", nameEng: "Brihaspati Jupiter Master", category: "planets", element: "ธาตุดิน", upright: "คุณธรรม ผู้ใหญ่เมตตา สอบผ่าน ก้าวหน้าทางวิชาการ", reversed: "ความหัวโบราณ การตัดสินใจตามตำราจนเสียการ", icon: "graduation-cap", color: "#d97706", quote: "ครูคือผู้จุดประทีปนำทางชีวิต" },
-      { id: 14, nameThai: "พระศุกร์เทพมหาลาภ", nameEng: "Shukra Venus Deity", category: "planets", element: "ธาตุน้ำ", upright: "ความสุขสำราญ โภคทรัพย์ ความรักรื่นรมย์ ศิลปะ", reversed: "ความลุ่มหลงมัวเมา โรคภัยจากความเพลิดเพลิน", icon: "flower-2", color: "#06b6d4", quote: "ความสุขที่แท้จริง อยู่ที่ความพอใจในตน" },
-      { id: 15, nameThai: "พระเสาร์เทพมหาเกตุ", nameEng: "Shani Saturn Deity", category: "planets", element: "ธาตุดิน", upright: "ความอดทน ทนทาน รากฐานระยะยาว อสังหาริมทรัพย์", reversed: "ความทุกข์ระทม แบกรับภาระยาวนาน ความโดดเดี่ยว", icon: "mountain", color: "#475569", quote: "เหล็กกล้าย่อมแกร่งได้ด้วยไฟอันร้อนแรง" },
-      { id: 16, nameThai: "พระราหูสุริยคราส", nameEng: "Rahu Eclipse Deity", category: "planets", element: "ธาตุลม", upright: "โชคลาภการเสี่ยง ต่างแดน พลิกวิกฤตเป็นโอกาส", reversed: "คดีความ การหลงผิด ตกอยู่ในมุมมืดกิเลส", icon: "disc", color: "#6b21a8", quote: "แม้ราหูจะอมจันทร์ ไม่ช้าแสงจันทร์ก็สว่างดั่งเดิม" },
-
-      // Realm 3: Sacred Beasts & Zodiac Warriors (17 - 28)
-      { id: 17, nameThai: "พญาอนันตนาคราช", nameEng: "Ananta Shesha Naga King", category: "zodiac", element: "ธาตุน้ำ", upright: "บารมีคุ้มครอง ทรัพย์ใต้พิภพ สายญาณพญานาค สัจจะ", reversed: "คำสาปแช่ง ความแค้นฝังใจ อาถรรพ์ทางน้ำ", icon: "waves", color: "#059669", quote: "นาคราชย่อมรักษาศีลและสัจจะเป็นยอดบารมี" },
-      { id: 18, nameThai: "พญาเวนไตยครุฑราชา", nameEng: "Garuda Celestial King", category: "zodiac", element: "ธาตุไฟ", upright: "มหาอำนาจ เลื่อนขั้นเลื่อนตำแหน่ง ชนะศัตรู ล้างอาถรรพ์", reversed: "ใช้อำนาจบาตรใหญ่ ความกดขี่ผู้น้อย", icon: "feather", color: "#ea580c", quote: "ปีกแห่งพญาครุฑ ย่อมนำพาสู่ท้องฟ้าอันกว้างใหญ่" },
-      { id: 19, nameThai: "พระยาหนุมานชาญสมร", nameEng: "Hanuman The Invincible", category: "zodiac", element: "ธาตุลม", upright: "ความซื่อสัตย์ ไหวพริบปฏิภาณ กตัญญู ไม่มีวันแพ้", reversed: "เหน็ดเหนื่อยกับการช่วยผู้อื่น ถูกเอาเปรียบ", icon: "zap", color: "#f59e0b", quote: "ความกตัญญูกตเวทิตา เป็นเครื่องหมายของคนดี" },
-      { id: 20, nameThai: "พญาคชสารเอราวัณ", nameEng: "Erawan Royal Elephant", category: "zodiac", element: "ธาตุดิน", upright: "ความยิ่งใหญ่ พละกำลังมหาศาล ความมั่นคงในยศฐา", reversed: "ความอุ้ยอ้าย เชื่องช้า การปรับตัวไม่ทันการณ์", icon: "shield-alert", color: "#64748b", quote: "กำลังช้างสาร ยังพ่ายแพ้ต่อพลังแห่งปัญญา" },
-      { id: 21, nameThai: "พญาสิงหราชไกรสร", nameEng: "Kraison Singha Lion King", category: "zodiac", element: "ธาตุไฟ", upright: "ศักดิ์ศรี ความสง่างาม ความเป็นเจ้าคนนายคน ปกป้องพวกพ้อง", reversed: "ความเย่อหยิ่ง ถือดี ถูกโดดเดี่ยวจากฝูง", icon: "sparkle", color: "#d97706", quote: "ราชสีห์ย่อมไม่หวั่นไหวต่อเสียงหมาเห่า" },
-      { id: 22, nameThai: "พญาพยัคฆ์สมิงทอง", nameEng: "Golden Royal Tiger", category: "zodiac", element: "ธาตุดิน", upright: "ความดุดัน น่าเกรงขาม การพุ่งชนเป้าหมาย สัญชาตญาณแม่น", reversed: "ความโหดร้าย โทสะไร้การควบคุม", icon: "activity", color: "#b45309", quote: "เสือซ่อนเล็บ ย่อมสงบนิ่งก่อนกระโจนเหยื่อ" },
-      { id: 23, nameThai: "พญาสุบรรณหงส์ร่อน", nameEng: "Suphannahong Celestial Swan", category: "zodiac", element: "ธาตุลม", upright: "ความบริสุทธิ์ การเดินทางไกล สงบสง่างาม ลอยเหนือกิเลส", reversed: "ความหลงใหลในรูปลักษณ์ภายนอก ความเหินห่าง", icon: "navigation", color: "#fcd34d", quote: "หงส์ย่อมเลือกเกาะกิ่งไม้ที่มั่นคง" },
-      { id: 24, nameThai: "พญาวานรพาลีเจ้าเมือง", nameEng: "King Vali The Mighty", category: "zodiac", element: "ธาตุลม", upright: "อำนาจหักกำลังศัตรู ความเป็นผู้นำเด็ดขาด ชัยชนะรวดเร็ว", reversed: "การเสียสัจจะจนภัยมาถึงตัว ความมั่นใจเกินเหตุ", icon: "award", color: "#ca8a04", quote: "สัจจะที่ลั่นไว้ ย่อมผูกมัดผู้เอ่ยชั่วชีวิต" },
-      { id: 25, nameThai: "พญาสุครีพยอดขุนพล", nameEng: "Sugriva Loyal General", category: "zodiac", element: "ธาตุดิน", upright: "ความจงรักภักดี พันธมิตรที่ไว้ใจได้ การจัดระเบียบ", reversed: "ความน้อยเนื้อต่ำใจ การถูกบดบังรัศมี", icon: "users", color: "#a16207", quote: "มิตรแท้ย่อมเคียงข้างในยามยากลำบาก" },
-      { id: 26, nameThai: "นิลพัททหารกล้า", nameEng: "Nilapat The Black Warrior", category: "zodiac", element: "ธาตุดิน", upright: "ความทรหด อดทนต่อแรงกดดัน ปฏิบัติหน้าที่ไม่ย่อท้อ", reversed: "ความดื้อรั้น ความขัดแย้งกับเพื่อนร่วมงาน", icon: "anchor", color: "#334155", quote: "หน้าที่ต้องมาก่อนอารมณ์ส่วนตน" },
-      { id: 27, nameThai: "มัจฉานุบุตรมัจฉา", nameEng: "Macchanu The Hybrid Prince", category: "zodiac", element: "ธาตุน้ำ", upright: "ความกตัญญูสองสายเลือด การประนีประนอม ทางออกสันติ", reversed: "ความกลืนไม่เข้าคายไม่ออก การเลือกระหว่างพ่อแม่", icon: "heart-handshake", color: "#0284c7", quote: "ความกตัญญูย่อมเป็นสะพานเชื่อมสองฟากฝั่ง" },
-      { id: 28, nameThai: "พระยาฉัททันต์มหาราช", nameEng: "Chaddanta Bodhisattva", category: "zodiac", element: "ธาตุดิน", upright: "บารมีโพธิสัตว์ การให้อภัยอย่างหมดหัวใจ มหาทานบารมี", reversed: "การถูกคนใกล้ชิดหักหลัง ความเสียสละที่ไร้ค่า", icon: "gift", color: "#e2e8f0", quote: "การให้อภัย คือทานอันประเสริฐสูงสุด" },
-
-      // Realm 4: Siamese Epics & Heroes (29 - 48)
-      { id: 29, nameThai: "สมเด็จพระนเรศวรมหาราช", nameEng: "King Naresuan Independence", category: "epic", element: "ธาตุไฟ", upright: "อิสรภาพ ชัยชนะเหนืออุปสรรคทั้งปวง มหาบารมีผู้นำ", reversed: "การต้องต่อสู้โดดเดี่ยว แรงกดดันจากรอบทิศ", icon: "crosshair", color: "#b91c1c", quote: "อิสรภาพย่อมแลกมาด้วยความเด็ดเดี่ยวกล้าหาญ" },
-      { id: 30, nameThai: "สมเด็จพระสุพรรณกัลยา", nameEng: "Queen Suphankanlaya", category: "epic", element: "ธาตุน้ำ", upright: "ความเสียสละเพื่อส่วนรวม ความอดกลั้น บารมีเงียบอันยิ่งใหญ่", reversed: "การยอมจำนนต่อชะตากรรม ความทุกข์ที่บอกใครไม่ได้", icon: "shield-check", color: "#f472b6", quote: "ความเสียสละที่แท้จริง ไม่ต้องการเสียงสรรเสริญ" },
-      { id: 31, nameThai: "วีรชนค่ายบางระจัน", nameEng: "Bang Rajan Heroes", category: "epic", element: "ธาตุดิน", upright: "ความสามัคคี สู้จนหยดสุดท้าย จิตวิญญาณแห่งการรวมพลัง", reversed: "ความโดดเดี่ยวไร้คนหนุนหลัง การรบที่เสียเปรียบ", icon: "flame", color: "#c2410c", quote: "ความพร้อมเพรียงของหมู่คณะ ย่อมยังความสำเร็จให้เกิด" },
-      { id: 32, nameThai: "พระรามคืนพระนคร", nameEng: "King Rama Victory", category: "epic", element: "ธาตุทอง", upright: "ธรรมะชนะอธรรม การฟื้นฟูเกียรติยศ สิ้นสุดการรอคอยอันยาวนาน", reversed: "การเคลือบแคลงสงสัย ความสมบูรณ์แบบที่สร้างแรงกดดัน", icon: "sun", color: "#eab308", quote: "ความจริงย่อมปรากฏเมื่อเวลามาถึง" },
-      { id: 33, nameThai: "นางสีดาลุยไฟพิสูจน์สัจจะ", nameEng: "Queen Sita Fire Ordeal", category: "epic", element: "ธาตุไฟ", upright: "ความบริสุทธิ์ใจ ความจริงใจเอาชนะไฟกิเลส การพ้นมลทิน", reversed: "การถูกกล่าวหาใส่ร้าย ความเจ็บปวดจากคำครหา", icon: "sparkles", color: "#f97316", quote: "ทองแท้ย่อมไม่กลัวไฟ สัจจะย่อมทนต่อการพิสูจน์" },
-      { id: 34, nameThai: "สุดสาครกับม้ามังกร", nameEng: "Sudsamorn & Dragon Horse", category: "epic", element: "ธาตุน้ำ", upright: "การเริ่มต้นผจญภัย ความกล้าหาญเยาว์วัย สหายผู้ภักดี", reversed: "ความไร้เดียงสาจนถูกล่อลวง การตกหลุมพราง", icon: "compass", color: "#38bdf8", quote: "การเดินทางหมื่นลี้ เริ่มต้นที่ก้าวแรกอันกล้าหาญ" },
-      { id: 35, nameThai: "พระอภัยมณีเป่าปี่มนต์", nameEng: "Phra Aphai Mani The Bard", category: "epic", element: "ธาตุลม", upright: "เสน่ห์เมตตามหานิยม วาจาตรึงใจ ศิลปะสยบความขัดแย้ง", reversed: "เสน่ห์ที่นำมาซึ่งความวุ่นวาย ความรักซ้อนซ่อนเร้น", icon: "music", color: "#06b6d4", quote: "เสียงดนตรีย่อมกล่อมเกลาจิตใจที่แข็งกระด้าง" },
-      { id: 36, nameThai: "ขุนแผนดาบฟ้าฟื้น", nameEng: "Khun Phaen Sorcerer Warrior", category: "epic", element: "ธาตุไฟ", upright: "มนต์เสน่ห์ ยุทธวิธี อาวุธประจำกายชั้นเลิศ ชัยชนะศึก", reversed: "ความเจ้าชู้ ปัญหารักสามเส้า การใช้อารมณ์ตัดสิน", icon: "sword", color: "#e11d48", quote: "ปัญญาและวิชาการ ย่อมเป็นอาวุธที่ไร้เทียมทาน" },
-      { id: 37, nameThai: "ขุนช้างคหบดีใหญ่", nameEng: "Khun Chang The Tycoon", category: "epic", element: "ธาตุดิน", upright: "โภคทรัพย์มหาศาล ความมั่นคงทางการเงิน การตื๊อเพื่อความสำเร็จ", reversed: "การยึดติดในทรัพย์สินและคนรักจนหน้ามืดตามัว", icon: "coins", color: "#ca8a04", quote: "ทรัพย์สินมีค่า แต่หาซื้อความจริงใจไม่ได้" },
-      { id: 38, nameThai: "นางวันทองสองใจ", nameEng: "Wan Thong The Crossroads", category: "epic", element: "ธาตุลม", upright: "ทางแยกชะตาชีวิต การเลือกที่ต้องเด็ดขาด การรักษาสิทธิ", reversed: "ความลังเลจนเสียการ ตกเป็นเหยื่อของการตัดสินใจของผู้อื่น", icon: "git-fork", color: "#ec4899", quote: "ชีวิตเป็นของท่าน จงกล้าเลือกทางเดินด้วยตนเอง" },
-      { id: 39, nameThai: "นางมโนราห์ปีกทอง", nameEng: "Manorah The Kinnari", category: "epic", element: "ธาตุลม", upright: "อิสรภาพ ความหลุดพ้นจากพันธนาการ โผบินสู่วิมาน", reversed: "การถูกกักขัง ถูกพรากจากสิ่งที่รัก การพลัดพราก", icon: "feather", color: "#f472b6", quote: "ปีกแห่งปัญญาย่อมพาท่านโบยบินข้ามผ่านหุบเหวแห่งทุกข์" },
-      { id: 40, nameThai: "พระสุธนตามนาง", nameEng: "Phra Suthon The Seeker", category: "epic", element: "ธาตุดิน", upright: "ความเพียรไม่ท้อถอย ความรักแท้ที่ข้ามผ่านอุปสรรคนับพัน", reversed: "การหลงทาง ความท้อแท้กลางคัน การสูญเสียศรัทธา", icon: "map-pin", color: "#84cc16", quote: "ความเพียรอยู่ที่ไหน ความสำเร็จย่อมอยู่ที่นั่น" },
-      { id: 41, nameThai: "พญาชาละวันราชาจระเข้", nameEng: "Chalawan The Crocodile King", category: "epic", element: "ธาตุน้ำ", upright: "อำนาจลี้ลับใต้ผืนน้ำ การกุมความลับ ความสุขในถ้ำทอง", reversed: "ความประมาท การลุ่มหลงในอำนาจจนนำภัยมาถึงตัว", icon: "anchor", color: "#047857", quote: "ความประมาทเป็นหนทางแห่งความตาย" },
-      { id: 42, nameThai: "ไกรทองปราบกุมภีล์", nameEng: "Krai Thong The Vanquisher", category: "epic", element: "ธาตุไฟ", upright: "วิชาอาคม ความเชี่ยวชาญเฉพาะทาง ชัยชนะเหนืออุปสรรคใหญ่", reversed: "ความโลภในลาภยศ ศึกชิงผลประโยชน์ในครอบครัว", icon: "zap", color: "#b45309", quote: "ผู้มีวิชาย่อมไม่อดตายในใต้หล้า" },
-      { id: 43, nameThai: "นางมณีเมขลาล่อแก้ว", nameEng: "Mani Mekkhala & Jewel", category: "epic", element: "ธาตุน้ำ", upright: "ความหวัง แสงสว่างนำทางในพายุ การรอดพ้นภัยพิบัติฉิวเฉียด", reversed: "การยั่วเย้าอันตราย การเล่นกับไฟจนเกิดเรื่อง", icon: "sparkles", color: "#38bdf8", quote: "แม้ในพายุอันมืดมิด แก้วมณียังคงส่องแสงนำทาง" },
-      { id: 44, nameThai: "รามสูรขว้างขวานฟ้า", nameEng: "Ramasun The Thunderer", category: "epic", element: "ธาตุลม", upright: "การเปลี่ยนแปลงฉับพลัน พลังเสียงฟ้าร้อง ตื่นรู้จากความหลง", reversed: "อารมณ์ฉุนเฉียว การทำลายล้างความสัมพันธ์ชั่ววูบ", icon: "cloud-lightning", color: "#6366f1", quote: "สายฟ้าฟาด ย่อมปลุกผู้หลับใหลให้ตื่นขึ้น" },
-      { id: 45, nameThai: "พระเวสสันดรมหาทาน", nameEng: "Vessantara Great Generosity", category: "epic", element: "ธาตุทอง", upright: "ทานบารมีขั้นสูงสุด การสละเพื่อสิ่งที่ยิ่งใหญ่กว่า ปล่อยวาง", reversed: "การถูกคนโลภเอารัดเอาเปรียบ ความตระหนี่ถี่เหนียว", icon: "heart-handshake", color: "#f59e0b", quote: "ผู้ให้ย่อมผูกไมตรีไว้ได้ ผู้ให้ย่อมเป็นที่รัก" },
-      { id: 46, nameThai: "นางกากีลอยฟ้า", nameEng: "Kaki The Allure", category: "epic", element: "ธาตุลม", upright: "เสน่ห์เย้ายวน ความหลงใหล รูปโฉมงดงามดึงดูดใจ", reversed: "ความรักเป็นพิษ การตกเป็นเหยื่อแห่งตัณหา การถูกลงทัณฑ์", icon: "wind", color: "#f43f5e", quote: "ความลุ่มหลงในรูป ย่อมนำมาซึ่งความระทมใจ" },
-      { id: 47, nameThai: "แม่นากพระโขนง", nameEng: "Mae Nak Immortal Love", category: "epic", element: "ธาตุน้ำ", upright: "ความรักมั่นคงชั่วนิรันดร์ จิตวิญญาณผูกพัน การรอคอย", reversed: "การไม่ยอมปล่อยวาง ยึดติดในอดีต ภาพลวงตาที่หลอกตนเอง", icon: "ghost", color: "#64748b", quote: "ความรักที่แท้จริง ย่อมพร้อมปล่อยวางให้คนที่รักเป็นสุข" },
-      { id: 48, nameThai: "ท้าวศรีสุดาจันทร์", nameEng: "Thao Si Sudachan Ambition", category: "epic", element: "ธาตุไฟ", upright: "ความทะเยอทะยาน การวางแผนซับซ้อน เสน่ห์กลศึกชิงอำนาจ", reversed: "การทรยศหักหลัง การเล่นเกมอำนาจจนนำไปสู่จุดจบ", icon: "crown", color: "#991b1b", quote: "อำนาจที่ได้มาด้วยเล่ห์กล ย่อมสูญสลายด้วยเล่ห์กล" },
-
-      // Realm 5: Dharma & Karma (49 - 64)
-      { id: 49, nameThai: "พระพุทธเจ้าชนะพญามาร", nameEng: "The Buddha Conquers Mara", category: "dharma", element: "อากาศธาตุ", upright: "การตรัสรู้ ชนะกิเลสทั้งปวง จิตสงบเหนือโลก สิ้นสุดทุกข์", reversed: "มารผจญ จิตใจฟุ้งซ่าน กิเลสครอบงำช่วงวิกฤต", icon: "sun", color: "#eab308", quote: "ชนะตนเอง ย่อมประเสริฐกว่าชนะสงครามนับพันครั้ง" },
-      { id: 50, nameThai: "พญายมราชตุลาการ", nameEng: "Lord Yama Karmic Judge", category: "dharma", element: "ธาตุดิน", upright: "ความยุติธรรม กฎแห่งกรรมตัดสิน บัญญัติความดีงาม", reversed: "วิบากกรรมตามทัน คดีความ การถูกตัดสินอย่างเข้มงวด", icon: "scale", color: "#475569", quote: "สัตว์โลกย่อมเป็นไปตามกรรม หว่านพืชเช่นไรได้ผลเช่นนั้น" },
-      { id: 51, nameThai: "พระกาฬไชยศรี", nameEng: "Phra Kal The End of Time", category: "dharma", element: "ธาตุไฟ", upright: "การสิ้นสุดวงจรเก่าเพื่อเกิดใหม่ กาลเวลาเยียวยาทุกสิ่ง", reversed: "ความกลัวต่อความตาย การหมดเวลา การผลัดวันประกันพรุ่ง", icon: "hourglass", color: "#1e293b", quote: "กาลเวลาย่อมกลืนกินสรรพสิ่งและตัวมันเอง" },
-      { id: 52, nameThai: "พระแม่ธรณีบีบมวยผม", nameEng: "Mae Thorani Earth Mother", category: "dharma", element: "ธาตุดิน", upright: "ความมั่นคง รากฐานชีวิตที่แข็งแกร่ง ล้างมารด้วยความดี", reversed: "ปัญหาที่ดินที่อยู่อาศัย ขาดความมั่นคงทางอารมณ์", icon: "shield", color: "#15803d", quote: "แผ่นดินย่อมรองรับสรรพสิ่งด้วยความหนักแน่นมั่นคง" },
-      { id: 53, nameThai: "พระแม่โพสพขวัญข้าว", nameEng: "Mae Phosop Grain Goddess", category: "dharma", element: "ธาตุดิน", upright: "ความอุดมสมบูรณ์ อาหารการกินไม่อดอยาก ผลผลิตงอกงาม", reversed: "ความแห้งแล้ง ข้าวยากหมากแพง การสูญเสียผลกำไร", icon: "wheat", color: "#eab308", quote: "ความกตัญญูต่อผืนดิน ย่อมนำมาซึ่งความอิ่มหนำสำราญ" },
-      { id: 54, nameThai: "พระแม่คงคาสายธารทิพย์", nameEng: "Mae Ganga Holy River", category: "dharma", element: "ธาตุน้ำ", upright: "การชำระล้างจิตใจ เริ่มต้นใหม่ สดชื่น อารมณ์ไหลลื่น", reversed: "อารมณ์ท่วมท้นจนคุมไม่อยู่ ปัญหาน้ำท่วมหรือการรั่วไหล", icon: "droplets", color: "#0284c7", quote: "สายน้ำย่อมชะล้างมลทินและนำความชุ่มชื้นมาสู่แผ่นดิน" },
-      { id: 55, nameThai: "แม่ย่านางนาวาทิพย์", nameEng: "Mae Yanang Vehicle Guardian", category: "dharma", element: "ธาตุน้ำ", upright: "การเดินทางปลอดภัย แคล้วคลาด ยานพาหนะนำโชคลาภ", reversed: "อุบัติเหตุจากการเดินทาง เครื่องยนต์ขัดข้อง ความประมาท", icon: "navigation-2", color: "#0d9488", quote: "สติคือเครื่องคุ้มครองความปลอดภัยในทุกเส้นทาง" },
-      { id: 56, nameThai: "นางกวักมหาลาภมหารวย", nameEng: "Nang Kwak Beckoning Fortune", category: "dharma", element: "ธาตุทอง", upright: "กวักเงินกวักทอง ค้าขายร่ำรวย ลูกค้าเนืองแน่น เรียกลาภ", reversed: "การค้าซบเซา เรียกร้องความสนใจเกินเหตุ เสียเงินก้อน", icon: "sparkles", color: "#d97706", quote: "ยิ้มแย้มแจ่มใส วาจาไพเราะ ย่อมกวักทรัพย์เข้าเรือน" },
-      { id: 57, nameThai: "พระสังกัจจายน์มหาโชค", nameEng: "Phra Sangkachai Abundance", category: "dharma", element: "ธาตุดิน", upright: "ความสุข สมบูรณ์พูนสุข ลาภผลพูนทวี ปัญญาเฉียบแหลม", reversed: "ความเกียจคร้าน กินจุตามใจปาก ปัญหาไขมันสุขภาพ", icon: "smile", color: "#f59e0b", quote: "ความสุขใจเป็นยอดทรัพย์ ความพอใจเป็นยอดลาภ" },
-      { id: 58, nameThai: "พระสีวลีมหาเถระ", nameEng: "Phra Sivali Eternal Travel", category: "dharma", element: "ธาตุลม", upright: "มหาลาภไม่ขาดสาย ไปที่ใดย่อมมีคนอุปถัมภ์ โชคจากการเดินทาง", reversed: "การพลัดที่นาคาที่อยู่ ติดขัดเรื่องที่พักอาศัยชั่วคราว", icon: "footprints", color: "#b45309", quote: "ผู้สั่งสมทานบารมี ย่อมไม่อดอยากในทุกทิศ" },
-      { id: 59, nameThai: "พระมาลัยโปรดสวรรค์นรก", nameEng: "Phra Malai Realm Traveler", category: "dharma", element: "ธาตุไฟ", upright: "การอุทิศกุศล ความเมตตาไร้พรมแดน การช่วยปลดปล่อยวิญญาณ", reversed: "ความยึดติดในภพภูมิ ความกลัวต่อโลกหลังความตาย", icon: "lotus", color: "#f43f5e", quote: "บุญกุศลย่อมติดตามตัวไปดุจเงาตามตัว" },
-      { id: 60, nameThai: "เปรตวัดสุทัศน์ชดใช้กรรม", nameEng: "Preta The Hungry Ghost", category: "dharma", element: "ธาตุลม", upright: "การเตือนสติเรื่องกรรม การเร่งทำบุญ กรวดน้ำให้เจ้ากรรมนายเวร", reversed: "ความหิวกระหายไม่รู้จบ ความโลภที่ไม่เคยอิ่ม", icon: "alert-triangle", color: "#6b7280", quote: "ความอยากอันไร้ที่สิ้นสุด ย่อมเผาผลาญจิตใจประดุจไฟนรก" },
-      { id: 61, nameThai: "เจ้าป่าเจ้าเขาและนางตานี", nameEng: "Nang Tani Nature Spirits", category: "dharma", element: "ธาตุดิน", upright: "ความลี้ลับแห่งธรรมชาติ การขอขมา ผัสสะที่หกแม่นยำ", reversed: "การลบหลู่สิ่งศักดิ์สิทธิ์ เจ้าที่เจ้าทางตักเตือน", icon: "trees", color: "#15803d", quote: "ธรรมชาติย่อมมีเจ้าของ จงให้ความเคารพแก่สรรพชีวิต" },
-      { id: 62, nameThai: "กุมารทองทิพย์สมบัติ", nameEng: "Kuman Thong Spirit Guardian", category: "dharma", element: "ธาตุลม", upright: "กระซิบบอกโชค สิ่งศักดิ์สิทธิ์คุ้มครองบ้านเรือน ลางสังหรณ์", reversed: "ความซุกซนทำให้วุ่นวาย การบนบานแล้วลืมแก้บน", icon: "baby", color: "#e11d48", quote: "คำมั่นสัญญาต่อสิ่งศักดิ์สิทธิ์ ย่อมต้องรักษาดั่งชีวิต" },
-      { id: 63, nameThai: "กงล้อธรรมจักรมหาวัฏฏะ", nameEng: "Wheel of Samsara Cycle", category: "dharma", element: "อากาศธาตุ", upright: "การหมุนเวียนแห่งโชคชะตา จังหวะชีวิตขาขึ้น ยอมรับความจริง", reversed: "ช่วงมรสุมชีวิต การต่อต้านการเปลี่ยนแปลงของโลก", icon: "refresh-cw", color: "#8b5cf6", quote: "สิ่งใดเกิดขึ้น สิ่งนั้นย่อมดับไปเป็นธรรมดา" },
-      { id: 64, nameThai: "เขาพระสุเมรุและดาวดึงส์", nameEng: "Mount Meru Universe Center", category: "dharma", element: "อากาศธาตุ", upright: "ความสำเร็จสมบูรณ์แบบ จุดสูงสุดแห่งชีวิต บารมีคุ้มเกล้า", reversed: "การอยู่สูงจนหนาว ความโดดเดี่ยวบนยอดเขา", icon: "landmark", color: "#d97706", quote: "ความสำเร็จที่แท้จริง คือจิตใจที่มั่นคงดั่งขุนเขา" }
+      // 5. สัจธรรม & กฎแห่งกรรม (49-64)
+      { id: 49, name: "พญายมราชตุลาการ", category: "karma_dharma", subtitle: "กฎแห่งกรรม บัญชีบุญบาป ความเที่ยงธรรมสูงสุด", lore: "ผู้พิพากษาแห่งยมโลก ตัดสินดวงวิญญาณตามกรรมที่ทำไว้ ไม่มีติดสินบน", meaning: "ความเที่ยงธรรม กฎแห่งกรรมตอบสนอง ทำดีได้ดี ทำชั่วได้ชั่ว ชนะคดีความถ้าบริสุทธิ์", mantra: "ปะโตเมตัง ปะระชีวินัง สุขะโตจุติ" },
+      { id: 50, name: "พระกาฬไชยศรี", category: "karma_dharma", subtitle: "กาลเวลา ความไม่แน่นอน การหมดอายุขัย การตื่นรู้", lore: "เทวะผู้ถือบ่วงบาศและพระขรรค์ เป็นสัญลักษณ์แห่งกาลเวลาที่กลืนกินทุกสรรพสิ่ง", meaning: "อย่าผัดวันประกันพรุ่ง การสิ้นสุดของปัญหาเก่า เวลาเป็นเครื่องเยียวยา", mantra: "กาโล ฆะสะติ ภูตานิ สัพพาเนวะ" },
+      { id: 51, name: "พระแม่ธรณีบีบมวยผม", category: "karma_dharma", subtitle: "การชนะมาร บารมีสั่งสม แผ่นดินเป็นพยาน", lore: "พระแม่ธรณีทรงบีบมวยผมหลั่งน้ำทักษิโณทกที่พระพุทธองค์ทรงกรวดไว้ ท่วมทัพพญามารพ่าย", meaning: "ความดีที่ทำไว้จะกลับมาช่วยให้ชนะอุปสรรคทั้งปวง มั่นคงดั่งแผ่นดิน", mantra: "ตัสสา เกสีสะโต ยะถาคังคา สวาหะ" },
+      { id: 52, name: "พระแม่โพสพ", category: "karma_dharma", subtitle: "ความอุดมสมบูรณ์ ข้าวปลาอาหาร ลาภผลพูนทวี", lore: "เทวีแห่งรวงข้าว ผู้หล่อเลี้ยงชีวิตมนุษย์ นำพาความอิ่มหนำสำราญ", meaning: "การเก็บเกี่ยวผลกำไร มีกินมีใช้ เหลือกินเหลือเก็บ ธุรกิจการเกษตร/อาหารดีเลิศ", mantra: "โพสะวะโภชะนัง อุตตะมัง มหาลาภัง" },
+      { id: 53, name: "พระแม่คงคา", category: "karma_dharma", subtitle: "การชำระล้าง จิตใจเย็นฉ่ำ ความอ่อนโยน ปรับตัว", lore: "สายน้ำศักดิ์สิทธิ์ที่ชำระล้างบาปมลทินและหล่อเลี้ยงสรรพชีวิตให้อยู่รอด", meaning: "การให้อภัย การชำระจิตใจให้บริสุทธิ์ ความใจเย็นและการปรับตัวตามสถานการณ์", mantra: "คงคา มหาชีวัง สันติสุขัง" },
+      { id: 54, name: "แม่ย่านางนาวา", category: "karma_dharma", subtitle: "การเดินทางปลอดภัย ยานพาหนะ การค้าทางไกล", lore: "สิ่งศักดิ์สิทธิ์ผู้คุ้มครองเรือและยานพาหนะ คอยเตือนภัยยามออกทะเล", meaning: "การเดินทางปลอดภัย ยานพาหนะนำโชค ธุรกิจโลจิสติกส์และการท่องเที่ยวรุ่งเรือง", mantra: "สุโข ปะวะสะโต ลาโภ นิวาสิโน" },
+      { id: 55, name: "นางกวักมหาลาภ", category: "karma_dharma", subtitle: "การค้าขาย กวักเงินกวักทอง เรียกลูกค้า เมตตาค้าขาย", lore: "ธิดาปู่เจ้าเขาเขียว ผู้ได้รับพรให้กวักเรียกผู้คนและทรัพย์สินเงินทอง", meaning: "ลูกค้าแน่นร้าน ค้าขายคล่อง ได้เงินสดหมุนเวียน เมตตามหานิยมสูง", mantra: "โอม มหาลาโภ ปิยัง มะมะ เอหิ เอหิ" },
+      { id: 56, name: "พระสังกัจจายน์มหาโชค", category: "karma_dharma", subtitle: "ความสุข รอยยิ้ม โชคลาภพูนทวี ความมั่งคั่ง", lore: "พระอรหันต์ผู้เป็นเลิศด้านอธิบายธรรมและลาภสักการะ รูปร่างอวบอ้วนเปี่ยมสุข", meaning: "ความสุขสมหวัง ร่ำรวย ลาภลอย เงินทองหลั่งไหล สุขภาพจิตดีเยี่ยม", mantra: "กัจจายะนะ มหาเถโร มหาลาโภ ภะวันตุ เม" },
+      { id: 57, name: "พระสีวลีเถระ", category: "karma_dharma", subtitle: "เอตทัคคะด้านลาภสักการะ ไปที่ใดไม่มีวันอดอยาก", lore: "พระอรหันต์ผู้มีลาภสักการะมากที่สุด แม้เดินทางในป่าทึบทวยเทพก็เนรมิตภัตตาหารถวาย", meaning: "มีผู้อุปถัมภ์ตลอดเวลา ไม่อดอยาก การเงินคล่องตัวสุดขีด", mantra: "สีวะลี จะ มหาเถโร ลาภะลาโภ ภะวันตุ เม" },
+      { id: 58, name: "เปรตวัดสุทัศน์", category: "karma_dharma", subtitle: "ผลแห่งบาป การสำนึกผิด บทเรียนกรรม ความโลภ", lore: "วิญญาณผู้ทนทุกข์เพราะความโลภและการเบียดเบียนผู้อื่น ร้องขอส่วนบุญกุศล", meaning: "เตือนสติอย่าโลภ ระวังการกระทำที่ผิดศีลธรรม ควรหมั่นทำบุญอุทิศส่วนกุศล", mantra: "กัมมัสสะโกมหิ กัมมะทายาโท" },
+      { id: 59, name: "พระมาลัยโปรดนรก", category: "karma_dharma", subtitle: "ความเมตตาธรรม การอุทิศบุญกุศล การช่วยเหลือผู้ตกทุกข์", lore: "พระอรหันต์ผู้เหาะไปโปรดสัตว์นรกและนำข่าวสารมาบอกแก่ญาติมิตรบนโลกมนุษย์", meaning: "การทำบุญใหญ่ การแผ่เมตตาช่วยปลดเปลื้องทุกข์ของคนรอบข้าง", mantra: "สัพเพ สัตตา อะเวรา โหนตุ" },
+      { id: 60, name: "พระธุดงค์ในดงลึก", category: "karma_dharma", subtitle: "ความสงบระงับ การฝึกจิต สมาธิภาวนา การปลีกวิเวก", lore: "พระป่าผู้บำเพ็ญสมณธรรมกลางดงเสือช้าง ยึดมั่นในพระรัตนตรัยเหนือความตาย", meaning: "ควรหาเวลาพักผ่อน สงบจิตใจ การทำสมาธิจะช่วยให้เห็นทางออกของปัญหา", mantra: "เอโกวะ มะละมัตตัง ปะหายะ" },
+      { id: 61, name: "กงล้อวัฏสงสาร", category: "karma_dharma", subtitle: "การเวียนว่ายตายเกิด ทุกข์สุขหมุนเวียน ชะตาพลิกผัน", lore: "กงล้อแห่งกรรมที่หมุนไปตามการกระทำ ยามขึ้นอย่าหลง ยามลงอย่าท้อ", meaning: "ชีวิตมีขึ้นมีลง สิ่งที่ร้ายกำลังจะกลายเป็นดี สิ่งที่ดีจงรักษาด้วยสติ", mantra: "อะนิจจา วะตะ สังขารา" },
+      { id: 62, name: "เขาพระสุเมรุจักรวาล", category: "karma_dharma", subtitle: "ศูนย์กลางจักรวาล ความสำเร็จสูงสุด สัจธรรมค้ำจุน", lore: "ภูเขาแก้วศูนย์กลางแห่งจักรวาล ที่ตั้งแห่งสวรรค์ชั้นดาวดึงส์ มั่นคงถาวร", meaning: "ความสำเร็จขั้นสูงสุด การบรรลุเป้าหมายใหญ่ ความมั่นคงในเกียรติยศ", mantra: "ธัมโม ทิโป จะ เลเก ตัฏฐิโต" },
+      { id: 63, name: "สระอโนดาตทิพย์ธารา", category: "karma_dharma", subtitle: "ความบริสุทธิ์ การฟื้นฟูเยียวยาชีวิต น้ำทิพย์บำบัด", lore: "สระน้ำศักดิ์สิทธิ์ในป่าหิมพานต์ ใสสะอาดบริสุทธิ์ บรรเทาความร้อนรุ่มทั้งปวง", meaning: "การหายจากโรคภัย การเยียวยาจิตใจที่เหนื่อยล้า การเริ่มต้นด้วยใจบริสุทธิ์", mantra: "อาโรคยะปะระมา ลาภา" },
+      { id: 64, name: "พระพุทธเจ้าชนะมาร", category: "karma_dharma", subtitle: "การหลุดพ้น แสงสว่างแห่งปัญญา ชัยชนะเด็ดขาดเหนือทุกข์", lore: "พระผู้มีพระภาคเจ้าตรัสรู้ใต้ร่มพระศรีมหาโพธิ์ ทรงสยบกองทัพพญามารด้วยพระบารมีสิบทัศ", meaning: "ชัยชนะเด็ดขาด ปัญญาญาณสว่างไสว หมดเคราะห์หมดโศก พ้นจากบ่วงทุกข์ทั้งปวง", mantra: "นะโม ตัสสะ ภะคะวะโต อะระหะโต สัมมาสัมพุทธัสสะ" }
     ];
 
-    // Initialize application on page load
-    window.addEventListener('DOMContentLoaded', () => {
-      renderDeckCards();
-      renderSlotIndicators();
-      updateCachedCountDisplay();
-      if (window.lucide) lucide.createIcons();
-    });
+    // --- APPLICATION STATE ---
+    let cardImages = {}; // Cache for images
+    let selectedCards = [];
+    let currentSpreadLimit = 1;
+    let isSoundEnabled = true;
+    let isBatchDrawing = false;
+    let batchCancelRequested = false;
+    let audioCtx = null;
 
-    /* Sound Synthesizer */
+    // --- AUDIO SYNTHESIZER (No external files) ---
     function initAudio() {
       if (!audioCtx) {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        audioCtx = new AudioContext();
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       }
       if (audioCtx.state === 'suspended') {
         audioCtx.resume();
       }
     }
 
-    function playSacredChime(freq = 528, duration = 2.0) {
+    function playSound(type) {
       if (!isSoundEnabled) return;
       try {
         initAudio();
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
-
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(freq, audioCtx.currentTime);
-        osc.frequency.exponentialRampToValueAtTime(freq * 1.5, audioCtx.currentTime + 0.3);
-        osc.frequency.exponentialRampToValueAtTime(freq, audioCtx.currentTime + duration);
-
-        gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
-        gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + duration);
-
         osc.connect(gain);
         gain.connect(audioCtx.destination);
+        const now = audioCtx.currentTime;
 
-        osc.start();
-        osc.stop(audioCtx.currentTime + duration);
-      } catch (e) {}
-    }
-
-    function toggleAudio() {
-      isSoundEnabled = !isSoundEnabled;
-      const icon = document.getElementById('soundIcon');
-      if (isSoundEnabled) {
-        icon.setAttribute('data-lucide', 'volume-2');
-        showToast("เปิดเสียงทิพยกังสดาล", "เสียงระฆังและกังสดาลทิพย์พร้อมทำงาน");
-        playSacredChime(528, 1.5);
-      } else {
-        icon.setAttribute('data-lucide', 'volume-x');
-        showToast("ปิดเสียงทิพยกังสดาล", "เข้าสู่โหมดสมาธิเงียบสงบ");
+        if (type === 'bell') {
+          // กังสดาลทิพย์ (Gong / Singing bowl tone)
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(528, now); // 528 Hz Love/Miracle frequency
+          osc.frequency.exponentialRampToValueAtTime(264, now + 1.2);
+          gain.gain.setValueAtTime(0.3, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 1.5);
+          osc.start(now);
+          osc.stop(now + 1.5);
+        } else if (type === 'card') {
+          // เสียงกรีดไพ่
+          osc.type = 'triangle';
+          osc.frequency.setValueAtTime(180, now);
+          osc.frequency.exponentialRampToValueAtTime(60, now + 0.15);
+          gain.gain.setValueAtTime(0.15, now);
+          gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
+          osc.start(now);
+          osc.stop(now + 0.15);
+        }
+      } catch (e) {
+        console.warn('Audio not allowed yet:', e);
       }
-      if (window.lucide) lucide.createIcons();
     }
 
-    /* Custom Toast Message Box */
-    function showToast(title, message) {
-      const container = document.getElementById('toastContainer');
-      const toast = document.createElement('div');
-      toast.className = 'bg-siam-cardBg/95 border border-siam-gold/50 rounded-2xl p-3.5 shadow-gold-glow backdrop-blur-md max-w-xs transition-all duration-300 transform translate-x-10 opacity-0 pointer-events-auto flex items-start space-x-3';
-      toast.innerHTML = `
-        <div class="w-7 h-7 rounded-lg bg-siam-gold/20 flex items-center justify-center text-siam-gold shrink-0 mt-0.5">
-          <i data-lucide="bell" class="w-4 h-4"></i>
-        </div>
-        <div class="flex-1">
-          <h5 class="text-xs font-thaiHead font-semibold text-siam-gold">${title}</h5>
-          <p class="text-[11px] font-thaiBody text-slate-300 mt-0.5">${message}</p>
-        </div>
-      `;
-      container.appendChild(toast);
-      if (window.lucide) lucide.createIcons();
-
-      setTimeout(() => {
-        toast.classList.remove('translate-x-10', 'opacity-0');
-      }, 50);
-
-      setTimeout(() => {
-        toast.classList.add('translate-x-10', 'opacity-0');
-        setTimeout(() => toast.remove(), 350);
-      }, 4000);
+    function toggleSound() {
+      isSoundEnabled = !isSoundEnabled;
+      document.getElementById('soundIcon').innerText = isSoundEnabled ? '🔔' : '🔕';
     }
 
-    function selectSpread(count, elem) {
-      currentSpreadCount = count;
-      document.querySelectorAll('.spread-option').forEach(el => {
-        el.classList.remove('border-siam-gold', 'bg-siam-midnight/90', 'shadow-gold-glow', 'selected-spread');
-        el.classList.add('border-slate-700', 'bg-siam-midnight/60');
-      });
-      elem.classList.remove('border-slate-700', 'bg-siam-midnight/60');
-      elem.classList.add('border-siam-gold', 'bg-siam-midnight/90', 'shadow-gold-glow', 'selected-spread');
-      
-      const radio = elem.querySelector('input[type="radio"]');
-      if (radio) radio.checked = true;
-      document.getElementById('targetCount').textContent = count;
-      renderSlotIndicators();
-      playSacredChime(640, 0.6);
+    // --- LOAD IMAGES AT INITIALIZATION ---
+    // ตรวจหาภาพจาก tarot_images.js ก่อนเสมอ (ผ่าน window.SAVED_TAROT_IMAGES)
+    // หากไม่พบ จึงค่อยลอง fetch หาไฟล์ JSON เผื่อใช้งานบน Server
+    window.addEventListener('DOMContentLoaded', async () => {
+      // 1. ตรวจสอบจาก tarot_images.js (วิธีที่ดีที่สุด ไม่ติด CORS)
+      if (window.SAVED_TAROT_IMAGES && typeof window.SAVED_TAROT_IMAGES === 'object') {
+        Object.assign(cardImages, window.SAVED_TAROT_IMAGES);
+        console.log(`✅ โหลดภาพสำเร็จจาก tarot_images.js ครบ ${Object.keys(cardImages).length} ใบ!`);
+      } else {
+        // 2. เผื่อรันบน GitHub Pages / Netlify และมีไฟล์ .json
+        const fallbackFiles = ['tarot_images_small.json', 'tarot_images.json'];
+        for (const fileName of fallbackFiles) {
+          try {
+            const resp = await fetch(fileName);
+            if (resp.ok) {
+              const data = await resp.json();
+              if (data && typeof data === 'object') {
+                Object.assign(cardImages, data);
+                console.log(`✅ โหลดภาพสำเร็จจาก ${fileName} ครบ ${Object.keys(data).length} ใบ!`);
+                break;
+              }
+            }
+          } catch (e) {}
+        }
+      }
+
+      updateCacheCountUI();
+      renderDeckBacks();
+      renderCodexGrid();
+    });
+
+    function updateCacheCountUI() {
+      const count = Object.keys(cardImages).length;
+      const el = document.getElementById('cacheCountText');
+      if (el) el.innerText = `${count} / 64 ใบ`;
     }
 
-    function startMeditation() {
-      playSacredChime(528, 2.5);
-      showToast("รวมจิตสมาธิ", "สับสำรับไพ่เทวศาสตร์ ๖๔ ใบเรียบร้อยแล้ว แตะเลือกไพ่ที่ดลจิตท่าน");
+    // --- NAVIGATION & VIEWS ---
+    function switchView(view) {
+      document.getElementById('divinationSection').classList.toggle('hidden', view !== 'divination');
+      document.getElementById('codexSection').classList.toggle('hidden', view !== 'codex');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 
-      const setupView = document.getElementById('setupView');
-      const pickingView = document.getElementById('pickingView');
-      const resultView = document.getElementById('resultView');
+    function toggleCodex() {
+      const isCodexHidden = document.getElementById('codexSection').classList.contains('hidden');
+      switchView(isCodexHidden ? 'codex' : 'divination');
+    }
+
+    // --- STEP 1 -> STEP 2: START SELECTION ---
+    function startCardSelection() {
+      const radios = document.getElementsByName('spreadType');
+      for (const r of radios) {
+        if (r.checked) currentSpreadLimit = parseInt(r.value);
+      }
 
       selectedCards = [];
-      updatePickedCounter();
-      renderSlotIndicators();
-      renderDeckCards();
+      document.getElementById('intentStep').classList.add('hidden');
+      document.getElementById('selectionStep').classList.remove('hidden');
+      document.getElementById('resultStep').classList.add('hidden');
 
-      setupView.classList.add('opacity-0');
-      setTimeout(() => {
-        setupView.classList.add('hidden');
-        resultView.classList.add('hidden');
-        pickingView.classList.remove('hidden');
-        pickingView.classList.add('opacity-0');
-        setTimeout(() => {
-          pickingView.classList.remove('opacity-0');
-        }, 50);
-      }, 300);
+      document.getElementById('selectionPrompt').innerText = `โปรดตั้งจิตเลือกไพ่ ${currentSpreadLimit} ใบ`;
+      updateSelectionBadge();
+      reshuffleDeck();
+      playSound('bell');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    function resetToHome() {
-      selectedCards = [];
-      const setupView = document.getElementById('setupView');
-      const pickingView = document.getElementById('pickingView');
-      const resultView = document.getElementById('resultView');
-
-      pickingView.classList.add('hidden');
-      resultView.classList.add('hidden');
-      setupView.classList.remove('hidden');
-      setupView.classList.remove('opacity-0');
+    function cancelSelection() {
+      document.getElementById('intentStep').classList.remove('hidden');
+      document.getElementById('selectionStep').classList.add('hidden');
     }
 
-    function renderDeckCards() {
+    function reshuffleDeck() {
+      playSound('card');
       const container = document.getElementById('deckContainer');
       container.innerHTML = '';
-
-      const displayDeck = [...SACRED_CARDS_64].sort(() => Math.random() - 0.5);
-
-      displayDeck.forEach((card) => {
-        const cardDiv = document.createElement('div');
-        cardDiv.className = 'shrink-0 w-28 sm:w-36 aspect-[1/1.55] card-gold-frame relative cursor-pointer group transform hover:-translate-y-2 transition-all duration-300 overflow-hidden';
-        cardDiv.id = `deck-card-${card.id}`;
-        cardDiv.onclick = () => pickCard(card, cardDiv);
-
-        cardDiv.innerHTML = `
-          <div class="w-full h-full p-2 flex flex-col items-center justify-between bg-gradient-to-b from-siam-deepIndigo via-siam-midnight to-siam-deepIndigo relative">
-            <div class="w-full h-full border border-siam-gold/40 rounded-lg flex flex-col items-center justify-between p-2 relative overflow-hidden">
-              <span class="text-[9px] font-thaiHead text-siam-gold/60">เทวศาสตร์</span>
-              <div class="w-12 h-12 rounded-full border border-siam-gold/40 flex items-center justify-center bg-siam-gold/10 group-hover:scale-110 transition-transform">
-                <i data-lucide="sun" class="w-6 h-6 text-siam-gold animate-spin-slow"></i>
-              </div>
-              <span class="text-[9px] font-thaiHead text-siam-gold/60">๖๔ ใบ</span>
-            </div>
-          </div>
-        `;
-        container.appendChild(cardDiv);
-      });
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function renderSlotIndicators() {
-      const container = document.getElementById('slotIndicators');
-      container.innerHTML = '';
-
-      const slotLabels12 = [
-        "๑. ตนุ (วาสนาตน)", "๒. กดุมภะ (การเงิน)", "๓. สหัชชะ (มิตรบริวาร)",
-        "๔. พันธุ (ญาติ/ยานพาหนะ)", "๕. ปุตตะ (บริวาร/โชค)", "๖. อริ (อุปสรรค)",
-        "๗. ปัตนิ (คู่ครอง/หุ้นส่วน)", "๘. มรณะ (โรคภัย/พลัดพราก)", "๙. ศุภะ (ความสำเร็จ/ธรรม)",
-        "๑๐. กัมมะ (การงาน)", "๑๑. ลาภะ (โชคลาภใหญ่)", "๑๒. วินาศ (เคราะห์กรรม/บทสรุป)"
-      ];
-      const slotLabels3 = ["๑. อดีตกรรม / ภูมิหลัง", "๒. ปัจจุบันวาระ / จิตวิญญาณ", "๓. อนาคตทิศทาง / บทสรุป"];
-      const slotLabels5 = ["๑. ตัวตนวาสนา (ปฐวี)", "๒. ทรัพย์สินเงินทอง (อาโป)", "๓. อุปสรรคกรรม (เตโช)", "๔. เทพหนุนนำ (วาโย)", "๕. ผลสัมฤทธิ์ (อากาศ)"];
-      const slotLabels1 = ["๑. คำตอบแห่งจิต (เอกทิวากร)"];
-
-      let labels = slotLabels3;
-      if (currentSpreadCount === 1) labels = slotLabels1;
-      else if (currentSpreadCount === 5) labels = slotLabels5;
-      else if (currentSpreadCount === 12) labels = slotLabels12;
-
-      for (let i = 0; i < currentSpreadCount; i++) {
-        const slot = document.createElement('div');
-        const isFilled = selectedCards.length > i;
-        slot.className = `p-2.5 rounded-xl border ${isFilled ? 'border-siam-gold bg-siam-gold/10' : 'border-slate-800 bg-siam-midnight/60'} text-center transition-all flex items-center justify-between sm:flex-col sm:justify-center`;
-        slot.innerHTML = `
-          <span class="text-[11px] font-thaiHead ${isFilled ? 'text-siam-gold font-bold' : 'text-slate-400'}">${labels[i] || `ตำแหน่งที่ ${i+1}`}</span>
-          <span class="text-[10px] font-thaiBody ${isFilled ? 'text-amber-200' : 'text-slate-600'}">${isFilled ? selectedCards[i].card.nameThai : 'แตะเลือกไพ่'}</span>
-        `;
-        container.appendChild(slot);
-      }
-    }
-
-    function pickCard(card, cardElement) {
-      if (selectedCards.length >= currentSpreadCount) {
-        showToast("เลือกครบแล้ว", "คุณได้เลือกไพ่ครบตามจำนวนผังแล้ว กดเปิดคำพยากรณ์ได้เลย");
-        return;
-      }
-
-      if (selectedCards.some(item => item.card.id === card.id)) {
-        showToast("ไพ่ใบนี้ถูกเลือกแล้ว", "กรุณาเลือกไพ่ใบอื่นในสำรับ");
-        return;
-      }
-
-      const isReversed = Math.random() < 0.15;
-      selectedCards.push({ card, isReversed, slotIndex: selectedCards.length });
-
-      playSacredChime(700 + selectedCards.length * 80, 1.2);
-      cardElement.classList.add('opacity-40', 'pointer-events-none', 'scale-90', 'border-emerald-500');
-
-      updatePickedCounter();
-      renderSlotIndicators();
-
-      if (selectedCards.length === currentSpreadCount) {
-        document.getElementById('revealBar').classList.remove('hidden');
-        showToast("เลือกครบสมบูรณ์แล้ว", "แตะปุ่มด้านล่างเพื่อเปิดอ่านคำพยากรณ์");
-      }
-    }
-
-    function autoPickRandomCards() {
-      const remainingNeeded = currentSpreadCount - selectedCards.length;
-      if (remainingNeeded <= 0) return;
-
-      const unpicked = SACRED_CARDS_64.filter(c => !selectedCards.some(s => s.card.id === c.id));
-      const shuffled = unpicked.sort(() => Math.random() - 0.5);
-
-      for (let i = 0; i < remainingNeeded; i++) {
-        const card = shuffled[i];
-        const isReversed = Math.random() < 0.15;
-        selectedCards.push({ card, isReversed, slotIndex: selectedCards.length });
-
-        const elem = document.getElementById(`deck-card-${card.id}`);
-        if (elem) elem.classList.add('opacity-40', 'pointer-events-none', 'scale-90');
-      }
-
-      playSacredChime(880, 2.0);
-      updatePickedCounter();
-      renderSlotIndicators();
-      document.getElementById('revealBar').classList.remove('hidden');
-      showToast("สุ่มเลือกโดยญาณสำเร็จ", "จับไพ่ครบเรียบร้อยแล้ว พร้อมเปิดดวงชะตา");
-    }
-
-    function updatePickedCounter() {
-      document.getElementById('pickedCounter').textContent = selectedCards.length;
-    }
-
-    function revealReading() {
-      playSacredChime(640, 2.8);
-      const pickingView = document.getElementById('pickingView');
-      const resultView = document.getElementById('resultView');
-
-      const spreadNames = { 1: 'เอกทิวากร (๑ ใบ)', 3: 'ตรีภพกาล (๓ ใบ)', 5: 'เบญจภาคี (๕ ใบ)', 12: 'มหาจักร ๑๒ ภพเทวศาสตร์' };
-      document.getElementById('summarySpreadType').textContent = `ผัง${spreadNames[currentSpreadCount] || 'พยากรณ์'}`;
       
-      const categorySelect = document.getElementById('userCategory');
-      document.getElementById('summaryCategoryText').textContent = categorySelect.options[categorySelect.selectedIndex].text.split('(')[0];
+      // สลับลำดับไพ่แบบสุ่ม
+      const shuffled = [...DECK_64].sort(() => Math.random() - 0.5);
 
-      const userQuestion = document.getElementById('userQuestion').value.trim();
-      document.getElementById('summaryQuestionText').textContent = userQuestion ? `"${userQuestion}"` : `"ชะตาภาพรวมและรหัสกรรมชีวิต"`;
+      shuffled.forEach((card, index) => {
+        const cardEl = document.createElement('div');
+        cardEl.className = 'w-16 sm:w-20 tarot-card-ratio rounded-lg card-back-pattern cursor-pointer hover:-translate-y-2 hover:shadow-lg hover:shadow-amber-500/30 transition-all duration-200 flex flex-col items-center justify-center p-1 relative border border-amber-500/40 select-none';
+        cardEl.dataset.id = card.id;
 
-      pickingView.classList.add('opacity-0');
-      setTimeout(() => {
-        pickingView.classList.add('hidden');
-        resultView.classList.remove('hidden');
-        resultView.classList.add('opacity-0');
-
-        renderRevealedCards();
-        renderInitialAiSynthesis();
-
-        setTimeout(() => {
-          resultView.classList.remove('opacity-0');
-        }, 50);
-      }, 300);
-    }
-
-    function renderRevealedCards() {
-      const grid = document.getElementById('revealedCardsGrid');
-      grid.innerHTML = '';
-
-      let colClass = "grid-cols-1 sm:grid-cols-3 max-w-4xl mx-auto";
-      if (currentSpreadCount === 1) colClass = "grid-cols-1 max-w-sm mx-auto";
-      else if (currentSpreadCount === 5) colClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-5";
-      else if (currentSpreadCount === 12) colClass = "grid-cols-1 sm:grid-cols-2 lg:grid-cols-4";
-
-      grid.className = `grid gap-6 ${colClass}`;
-
-      selectedCards.forEach((item, idx) => {
-        const { card, isReversed } = item;
-        const positionTitle = getSpreadPositionName(currentSpreadCount, idx);
-
-        const cardContainer = document.createElement('div');
-        cardContainer.className = 'flex flex-col items-center bg-siam-cardBg/60 border border-siam-gold/25 rounded-2xl p-4 shadow-xl hover:border-siam-gold/50 transition-all';
-        
-        cardContainer.innerHTML = `
-          <div class="mb-3 px-3 py-1 rounded-full border border-siam-gold/35 bg-siam-midnight/90 text-xs font-thaiHead text-siam-gold flex items-center space-x-1.5 shadow-md">
-            <span>${positionTitle}</span>
-            ${isReversed ? '<span class="text-rose-400 text-[10px] bg-rose-950/60 px-1.5 rounded">(เงาชะตา)</span>' : ''}
-          </div>
-
-          <div class="w-full max-w-[250px] aspect-[1/1.45] card-gold-frame mb-3 relative group">
-            <div id="card-inner-display-${idx}" class="w-full h-full rounded-xl overflow-hidden ${isReversed ? 'rotate-180' : ''}">
-              ${renderCardArtSvg(card)}
-            </div>
-            
-            <div class="absolute top-2 right-2 z-20 flex items-center space-x-1">
-              <button onclick="downloadSingleCardImage(${card.id}, '${card.nameThai}')" title="ดาวน์โหลดรูปภาพนี้ลงเครื่อง" class="p-1.5 rounded-full bg-siam-midnight/90 border border-siam-gold/50 text-siam-gold hover:text-white hover:bg-siam-gold transition-all shadow-md">
-                <i data-lucide="download" class="w-3.5 h-3.5"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="w-full text-center space-y-1.5">
-            <div class="flex items-center justify-center space-x-1.5">
-              <span class="text-xs text-siam-gold/80 font-thaiHead">ใบที่ ${card.id}</span>
-              <span class="text-xs text-slate-500">•</span>
-              <span class="text-xs text-amber-300 font-thaiHead font-semibold">${card.element}</span>
-            </div>
-            <h4 class="font-thaiTitle text-base font-bold gold-text-gradient">${card.nameThai}</h4>
-            <p class="text-[11px] font-thaiHead text-slate-400 italic">${card.nameEng}</p>
-            
-            <div class="mt-2 text-left p-2.5 rounded-xl bg-siam-midnight/80 border border-siam-gold/20 text-xs font-thaiBody text-slate-200">
-              <strong class="text-siam-gold font-thaiHead block mb-1">
-                ${isReversed ? '⚠️ เงาชะตา (ไพ่กลับหัว):' : '✨ นัยแห่งลิขิต (หัวตั้ง):'}
-              </strong>
-              <p class="text-[11px] leading-relaxed text-slate-300">
-                ${isReversed ? card.reversed : card.upright}
-              </p>
-            </div>
-
-            <p class="text-[10px] text-amber-200/70 font-thaiHead mt-1 italic">
-              "${card.quote}"
-            </p>
-          </div>
+        cardEl.innerHTML = `
+          <div class="w-6 h-6 rounded-full border border-amber-400/40 flex items-center justify-center text-[10px] text-amber-300 font-cinzel">ॐ</div>
+          <div class="text-[9px] text-amber-400/60 mt-1 font-mono">${index + 1}</div>
         `;
-        grid.appendChild(cardContainer);
+
+        cardEl.onclick = () => selectCard(card, cardEl);
+        container.appendChild(cardEl);
       });
-      if (window.lucide) lucide.createIcons();
     }
 
-    function getSpreadPositionName(spread, idx) {
-      if (spread === 1) return "เอกทิวากร (คำตอบแห่งจิต)";
-      if (spread === 3) return ["อดีตกรรม / ภูมิหลัง", "ปัจจุบันวาระ / สติ", "อนาคตทิศทาง / บทสรุป"][idx] || `ใบที่ ${idx+1}`;
-      if (spread === 5) return ["๑. วาสนาตน", "๒. การเงินทรัพย์", "๓. อุปสรรคกรรม", "๔. เทพหนุนนำ", "๕. บทสรุปสำเร็จ"][idx] || `ใบที่ ${idx+1}`;
-      if (spread === 12) {
-        const p = ["ตนุ (ตนเอง)", "กดุมภะ (การเงิน)", "สหัชชะ (มิตร)", "พันธุ (ญาติ)", "ปุตตะ (โชค)", "อริ (ศัตรู)", "ปัตนิ (คู่ครอง)", "มรณะ (เคราะห์)", "ศุภะ (สำเร็จ)", "กัมมะ (การงาน)", "ลาภะ (โชคใหญ่)", "วินาศ (บทสรุป)"];
-        return p[idx] || `ภพที่ ${idx+1}`;
-      }
-      return `ตำแหน่งที่ ${idx+1}`;
-    }
-
-    /* Render Card Graphic */
-    function renderCardArtSvg(card) {
-      if (cardAiImageCache[card.id]) {
-        return `
-          <div class="w-full h-full relative overflow-hidden bg-black">
-            <img src="${cardAiImageCache[card.id]}" alt="${card.nameThai}" class="w-full h-full object-cover object-center transform transition-transform duration-700 hover:scale-110">
-            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/30 pointer-events-none"></div>
-            <div class="absolute bottom-2 left-2 right-2 text-center pointer-events-none">
-              <span class="text-[10px] font-thaiHead text-siam-gold font-bold drop-shadow-md bg-black/60 px-2 py-0.5 rounded-full">${card.nameThai}</span>
-            </div>
-          </div>
-        `;
-      }
-
-      return `
-        <div class="w-full h-full p-2.5 flex flex-col items-center justify-between relative bg-gradient-to-b from-[#172033] via-[#0d1424] to-[#080d1a]">
-          <div class="absolute inset-2 border border-siam-gold/40 rounded-lg pointer-events-none"></div>
-          <div class="absolute top-3 left-3 w-3 h-3 border-t-2 border-l-2 border-siam-gold pointer-events-none"></div>
-          <div class="absolute top-3 right-3 w-3 h-3 border-t-2 border-r-2 border-siam-gold pointer-events-none"></div>
-          <div class="absolute bottom-3 left-3 w-3 h-3 border-b-2 border-l-2 border-siam-gold pointer-events-none"></div>
-          <div class="absolute bottom-3 right-3 w-3 h-3 border-b-2 border-r-2 border-siam-gold pointer-events-none"></div>
-
-          <div class="relative z-10 text-center pt-1">
-            <span class="text-[9px] font-thaiHead tracking-wider text-siam-gold block">${card.category.toUpperCase()}</span>
-            <span class="text-[10px] font-thaiTitle font-bold text-amber-100">${card.nameThai}</span>
-          </div>
-
-          <div class="relative z-10 w-24 h-24 rounded-full border-2 border-siam-gold/60 flex items-center justify-center bg-radial-gradient from-amber-500/20 to-transparent shadow-inner-gold">
-            <div class="w-20 h-20 rounded-full border border-siam-gold/30 flex items-center justify-center animate-spin-slow">
-              <div class="w-1.5 h-1.5 bg-siam-gold rounded-full absolute -top-1"></div>
-              <div class="w-1.5 h-1.5 bg-siam-gold rounded-full absolute -bottom-1"></div>
-              <div class="w-1.5 h-1.5 bg-siam-gold rounded-full absolute -left-1"></div>
-              <div class="w-1.5 h-1.5 bg-siam-gold rounded-full absolute -right-1"></div>
-            </div>
-            <div class="absolute flex flex-col items-center justify-center text-siam-gold drop-shadow-md">
-              <i data-lucide="${card.icon}" class="w-9 h-9" style="color: ${card.color};"></i>
-            </div>
-          </div>
-
-          <div class="relative z-10 text-center pb-1">
-            <span class="text-[9px] font-thaiHead text-slate-300 block">ธาตุ${card.element}</span>
-            <span class="text-[8px] font-thaiHead text-siam-gold/70">ไพ่ลำดับที่ ${card.id}</span>
-          </div>
-        </div>
-      `;
-    }
-
-    /* Core Unified AI Painter Function for any card */
-    async function generateAiImageForCard(card) {
-      if (cardAiImageCache[card.id]) return cardAiImageCache[card.id];
-
-      const prompt = `A magnificent ultra-detailed digital painting of the Royal Siamese Deva Tarot Card '${card.nameThai}' (${card.nameEng}). Character and theme: ${card.upright}, element: ${card.element}. Aesthetic style: Classical Ayutthaya and Rattanakosin royal Siamese fine art, ornate golden Chada crown, gilded gold leaf 24k leafing, divine celestial aura glow, sacred smoke, dramatic volumetric lighting, cinematic masterpiece, 8k resolution, oil painting on canvas texture, dignified and sacred.`;
-
-      const apiKey = getApiKey();
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3.1-flash-image:generateContent?key=${apiKey}`;
-
-      const payload = {
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: {
-          responseModalities: ['IMAGE'],
-          imageConfig: { aspectRatio: "3:4" }
-        }
-      };
-
-      const response = await fetch(apiUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
-      });
-
-      if (!response.ok) throw new Error(`API error ${response.status}`);
-      const result = await response.json();
-      const base64Data = result?.candidates?.[0]?.content?.parts?.find(p => p.inlineData)?.inlineData?.data;
-
-      if (base64Data) {
-        const fullImgUrl = `data:image/png;base64,${base64Data}`;
-        cardAiImageCache[card.id] = fullImgUrl;
-        return fullImgUrl;
-      }
-      throw new Error("No image data returned from API");
-    }
-
-    /* Master Codex Batch Draw Engine (Draw all 64 cards at once) */
-    async function startCodexBatchDraw(targetScope = 'all') {
-      if (isCodexBatchRunning) return;
-
-      const listToDraw = SACRED_CARDS_64.filter(c => !cardAiImageCache[c.id]);
-
-      if (listToDraw.length === 0) {
-        showToast("ภาพสมบูรณ์ครบแล้ว", "ไพ่ทุกใบได้รับการวาดภาพจิตรกรรมเรียบร้อยแล้วครับ");
-        return;
-      }
-
-      isCodexBatchRunning = true;
-      codexBatchAbort = false;
-
-      const banner = document.getElementById('codexBatchProgressBanner');
-      const bar = document.getElementById('codexBatchProgressBar');
-      const text = document.getElementById('codexBatchProgressText');
-      const countLabel = document.getElementById('codexBatchProgressCount');
-      const btnStart = document.getElementById('codexBatchStartBtn');
-      const btnStop = document.getElementById('codexBatchStopBtn');
-
-      if (banner) banner.classList.remove('hidden');
-      if (btnStart) btnStart.classList.add('hidden');
-      if (btnStop) btnStop.classList.remove('hidden');
-
-      const total = listToDraw.length;
-      let completed = 0;
-
-      for (let i = 0; i < listToDraw.length; i++) {
-        if (codexBatchAbort) break;
-
-        const card = listToDraw[i];
-        if (text) text.textContent = `กำลังเนรมิตภาพ: [${card.id}/64] "${card.nameThai}" (${card.nameEng})...`;
-        if (countLabel) countLabel.textContent = `${completed + 1} / ${total}`;
-        if (bar) bar.style.width = `${((completed + 1) / total) * 100}%`;
-
-        try {
-          await generateAiImageForCard(card);
-          completed++;
-          updateCachedCountDisplay();
-          
-          const cardElem = document.getElementById(`codex-thumb-${card.id}`);
-          if (cardElem) {
-            const inner = cardElem.querySelector('.codex-thumb-inner');
-            if (inner) inner.innerHTML = renderCardArtSvg(card);
-            if (!cardElem.querySelector('.ai-badge')) {
-              const badge = document.createElement('div');
-              badge.className = 'ai-badge absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/50 text-[9px] text-emerald-300 font-thaiHead flex items-center space-x-1 shadow';
-              badge.innerHTML = '<i data-lucide="sparkles" class="w-2.5 h-2.5 text-emerald-400"></i><span>AI ภาพเสร็จ</span>';
-              cardElem.querySelector('.card-gold-frame').appendChild(badge);
-              if (window.lucide) lucide.createIcons();
-            }
-          }
-        } catch (err) {
-          console.warn(`Error drawing card ${card.nameThai}:`, err);
-        }
-
-        await new Promise(r => setTimeout(r, 600));
-      }
-
-      isCodexBatchRunning = false;
-      if (btnStart) btnStart.classList.remove('hidden');
-      if (btnStop) btnStop.classList.add('hidden');
-
-      if (!codexBatchAbort) {
-        if (text) text.textContent = "✨ สิ้นสุดการวาดภาพครบถ้วนแล้ว! ไพ่ทั้งหมดพร้อมใช้งานแล้ว";
-        if (bar) bar.style.width = '100%';
-        playSacredChime(880, 2.5);
-        showToast("วาดภาพครบเสร็จสมบูรณ์!", `เนรมิตภาพเสร็จสิ้น สามารถกด "คลังภาพออฟไลน์" เพื่อดาวน์โหลดสำรองไว้ได้ทันที`);
-        setTimeout(() => {
-          if (banner) banner.classList.add('hidden');
-        }, 3500);
+    function selectCard(card, element) {
+      const existsIndex = selectedCards.findIndex(c => c.id === card.id);
+      
+      if (existsIndex > -1) {
+        selectedCards.splice(existsIndex, 1);
+        element.classList.remove('ring-2', 'ring-amber-400', '-translate-y-3', 'opacity-60');
       } else {
-        if (banner) banner.classList.add('hidden');
-        showToast("หยุดการวาดชั่วคราว", "คุณสามารถกดเริ่มวาดต่อได้ตลอดเวลา");
-      }
-    }
-
-    function stopCodexBatchDraw() {
-      codexBatchAbort = true;
-    }
-
-    /* Single Card Image Downloader */
-    function downloadSingleCardImage(cardId, cardTitle) {
-      const dataUrl = cardAiImageCache[cardId];
-      if (!dataUrl) {
-        showToast("ยังไม่มีไฟล์ภาพ AI", "กรุณากดให้ AI วาดภาพไพ่ใบนี้ก่อนดาวน์โหลด");
-        return;
-      }
-      const link = document.createElement('a');
-      link.href = dataUrl;
-      link.download = `SiamTarot_${cardId}_${cardTitle.replace(/\s+/g, '_')}.png`;
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-      showToast("บันทึกภาพลงเครื่องแล้ว", `ดาวน์โหลดรูป ${cardTitle} สำเร็จ`);
-    }
-
-    function downloadAllRevealedCards() {
-      let count = 0;
-      selectedCards.forEach((c) => {
-        if (cardAiImageCache[c.card.id]) {
-          setTimeout(() => {
-            downloadSingleCardImage(c.card.id, c.card.nameThai);
-          }, count * 350);
-          count++;
-        }
-      });
-      if (count === 0) {
-        showToast("ยังไม่มีรูปภาพ AI", "กรุณาสั่งวาดภาพ AI ในสารานุกรมก่อนดาวน์โหลด");
-      } else {
-        showToast("เริ่มดาวน์โหลดรูปลงเครื่อง", `กำลังบันทึกภาพไพ่จำนวน ${count} ใบลงในอุปกรณ์ของคุณ`);
-      }
-    }
-
-    /* Copy Divination Text to Clipboard */
-    function copyDivinationText() {
-      const question = document.getElementById('summaryQuestionText').textContent;
-      const spread = document.getElementById('summarySpreadType').textContent;
-      let text = `🔮 สยามเทวาพยากรณ์ - คำทำนายเทวศาสตร์ ๖๔ ใบ\n${spread} | ${question}\n\n`;
-
-      selectedCards.forEach((item, idx) => {
-        const pos = getSpreadPositionName(currentSpreadCount, idx);
-        text += `[${pos}]: ${item.card.nameThai} (${item.isReversed ? 'เงาชะตา' : 'หัวตั้ง'}) - ธาตุ${item.card.element}\n`;
-        text += `นัยคำทำนาย: ${item.isReversed ? item.card.reversed : item.card.upright}\n\n`;
-      });
-
-      const tempInput = document.createElement('textarea');
-      tempInput.value = text;
-      document.body.appendChild(tempInput);
-      tempInput.select();
-      document.execCommand('copy');
-      document.body.removeChild(tempInput);
-
-      showToast("คัดลอกคำทำนายแล้ว", "ข้อความผลการพยากรณ์ถูกคัดลอกลงคลิปบอร์ดเรียบร้อย");
-    }
-
-    /* AI Synthesis Divination via gemini-3-flash-preview */
-    async function renderInitialAiSynthesis() {
-      const container = document.getElementById('aiSynthesisContent');
-      const question = document.getElementById('userQuestion').value.trim() || "ชะตาภาพรวมและรหัสกรรมชีวิต";
-      const category = document.getElementById('userCategory').value;
-      const birthday = document.getElementById('userBirthDay').options[document.getElementById('userBirthDay').selectedIndex].text;
-
-      const cardSummaries = selectedCards.map((item, idx) => {
-        const pos = getSpreadPositionName(currentSpreadCount, idx);
-        const ori = item.isReversed ? "เงาชะตา/กลับหัว" : "หัวตั้ง/เด่นชัด";
-        return `${pos}: ไพ่ "${item.card.nameThai}" (${item.card.nameEng}, ธาตุ${item.card.element}, ทิศทาง${ori}) - ความหมายหลัก: ${item.isReversed ? item.card.reversed : item.card.upright}`;
-      }).join("\n");
-
-      const systemPrompt = "คุณคือ 'มหาโหรเทวาลัยสยาม' ผู้เชี่ยวชาญพระเวทเทวศาสตร์สยาม ๖๔ ใบ วรรณคดี ประวัติศาสตร์ชาติ และกฎแห่งกรรม จงทำนายดวงชะตาด้วยสำนวนสัจธรรมอันสุขุม นุ่มลึก เปี่ยมด้วยความเมตตา ให้คำแนะนำที่จับต้องได้จริง พร้อมบทสวด/พระคาถา หรือแนวทางทำบุญแก้เคล็ดเสริมสิริมงคล";
-
-      const userPrompt = `
-โปรดพยากรณ์ดวงชะตาอย่างละเอียดสำหรับเจ้าชะตา:
-- วันเกิด: ${birthday}
-- เรื่องที่เพ่งจิต: หมวด ${category}
-- คำถามหรือจิตอธิษฐาน: "${question}"
-- ผังการเปิดไพ่ (${currentSpreadCount} ใบ):
-${cardSummaries}
-
-กรุณาวิเคราะห์ 4 หัวข้อมงคล:
-๑. บทวิเคราะห์แก่นแท้แห่งชะตากรรม (สรุปภาพรวมและพลังงานที่ไหลเวียน)
-๒. เจาะลึกรายตำแหน่งตามผังไพ่ (อธิบายความเชื่อมโยงระหว่างอดีต ปัจจุบัน และอนาคต)
-๓. คำแนะนำเชิงกลยุทธ์และการปฏิบัติเพื่อก้าวผ่านอุปสรรค
-๔. พระคาถามงคล & กุศลธรรมเสริมบารมี (แนะนำบทสวดสั้นๆ หรือการทำบุญที่ถูกโฉลก)
-`;
-
-      const apiKey = getApiKey();
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: userPrompt }] }],
-            systemInstruction: { parts: [{ text: systemPrompt }] }
-          })
-        });
-
-        if (!response.ok) throw new Error("API Oracle Offline");
-        const data = await response.json();
-        const readingText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-
-        if (readingText) {
-          const formatted = readingText
-            .replace(/^#+\s*(.*)$/gm, '<h4 class="text-siam-gold font-thaiHead font-bold text-sm sm:text-base mt-3 mb-1">$1</h4>')
-            .replace(/\*\*(.*?)\*\*/g, '<strong class="text-amber-200 font-semibold">$1</strong>')
-            .replace(/\n\n/g, '</p><p class="mb-3 leading-relaxed">')
-            .replace(/\n/g, '<br>');
-
-          container.innerHTML = `<div class="prose prose-invert max-w-none text-slate-200 text-xs sm:text-sm"><p class="mb-3 leading-relaxed">${formatted}</p></div>`;
+        if (selectedCards.length >= currentSpreadLimit) {
+          alert(`ท่านเลือกครบ ${currentSpreadLimit} ใบแล้ว กรุณากดปุ่ม "เปิดคำพยากรณ์" หรือแตะเพื่อยกเลิกใบเดิม`);
           return;
         }
-        throw new Error("Empty text");
-      } catch (e) {
-        // High quality offline fallback reading
-        container.innerHTML = `
-          <div class="space-y-4 text-xs sm:text-sm text-slate-200">
-            <div>
-              <h4 class="text-siam-gold font-thaiHead font-bold text-sm mb-1">๑. บทวิเคราะห์แก่นแท้แห่งชะตากรรม</h4>
-              <p class="text-slate-300 leading-relaxed">
-                พลังงานของไพ่หลัก <strong>"${selectedCards[0].card.nameThai}"</strong> ชี้ชัดว่าชะตาของท่านกำลังอยู่ในช่วงแห่งการแปรเปลี่ยนของธาตุ${selectedCards[0].card.element} สิ่งที่เคยติดขัดกำลังเริ่มมีหนทางคลี่คลาย บุญบารมีเก่ากำลังหนุนนำ แต่ต้องระวังอารมณ์และความใจร้อนที่จะนำพาความยุ่งยากมาสู่ตัว
-              </p>
+        
+        // สุ่มหัวตั้ง (75%) หรือกลับหัว (25%)
+        const isReversed = Math.random() < 0.25;
+        selectedCards.push({ ...card, isReversed });
+        element.classList.add('ring-2', 'ring-amber-400', '-translate-y-3', 'opacity-60');
+        playSound('card');
+      }
+
+      updateSelectionBadge();
+    }
+
+    function updateSelectionBadge() {
+      const badge = document.getElementById('selectedCountBadge');
+      badge.innerText = `เลือกแล้ว ${selectedCards.length} / ${currentSpreadLimit} ใบ`;
+
+      const btn = document.getElementById('revealBtn');
+      if (selectedCards.length === currentSpreadLimit) {
+        btn.disabled = false;
+        btn.classList.remove('opacity-50', 'cursor-not-allowed');
+      } else {
+        btn.disabled = true;
+        btn.classList.add('opacity-50', 'cursor-not-allowed');
+      }
+    }
+
+    // --- STEP 2 -> STEP 3: REVEAL READING ---
+    function revealReading() {
+      playSound('bell');
+      document.getElementById('selectionStep').classList.add('hidden');
+      document.getElementById('resultStep').classList.remove('hidden');
+
+      const name = document.getElementById('seekerName').value.trim() || 'ผู้มีจิตศรัทธา';
+      const day = document.getElementById('seekerDay').value;
+      const topic = document.getElementById('seekerTopic').value;
+
+      document.getElementById('readingSubheader').innerText = `ดวงชะตาของ: คุณ${name} (วัน${day}) | เรื่อง: ${topic}`;
+
+      const container = document.getElementById('drawnCardsContainer');
+      container.innerHTML = '';
+
+      // จัด Layout ตามจำนวนไพ่
+      if (currentSpreadLimit === 1) {
+        container.className = "max-w-md mx-auto";
+      } else if (currentSpreadLimit === 3) {
+        container.className = "grid grid-cols-1 md:grid-cols-3 gap-5";
+      } else if (currentSpreadLimit === 5) {
+        container.className = "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4";
+      } else {
+        container.className = "grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4";
+      }
+
+      selectedCards.forEach((c, idx) => {
+        const cardBox = document.createElement('div');
+        cardBox.className = "bg-slate-900/90 border border-amber-500/30 rounded-2xl p-4 flex flex-col items-center text-center shadow-xl";
+
+        let posLabel = `ใบที่ ${idx + 1}`;
+        if (currentSpreadLimit === 3) {
+          posLabel = idx === 0 ? "๑. อดีต / รากเหง้า" : idx === 1 ? "๒. ปัจจุบัน / สถานการณ์" : "๓. อนาคต / บทสรุป";
+        } else if (currentSpreadLimit === 5) {
+          const labels = ["๑. ตัวตน/วาสนา", "๒. อุปสรรค/เจ้ากรรม", "๓. สิ่งศักดิ์สิทธิ์หนุน", "๔. ทางออก/การกระทำ", "๕. ผลลัพธ์สูงสุด"];
+          posLabel = labels[idx];
+        } else if (currentSpreadLimit === 12) {
+          const houses = ["๑. ตนุ (ตนเอง)", "๒. กดุมภะ (การเงิน)", "๓. สหัชชะ (มิตร)", "๔. พันธุ (ครอบครัว)", "๕. ปุตตะ (บริวาร/โชค)", "๖. อริ (อุปสรรค)", "๗. ปัตนิ (คนรัก/หุ้นส่วน)", "๘. มรณะ (เคราะห์/สุขภาพ)", "๙. ศุภะ (ความเจริญ)", "๑๐. กัมมะ (การงาน)", "๑๑. ลาภะ (โชคลาภ)", "๑๒. วินาศ (สิ่งลับ/แก้เคล็ด)"];
+          posLabel = houses[idx];
+        }
+
+        const hasImage = cardImages[c.id];
+        const imgContent = hasImage 
+          ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover">`
+          : `
+            <div class="p-4 flex flex-col items-center justify-center text-center h-full">
+              <span class="text-2xl font-cinzel text-amber-300">ॐ</span>
+              <span class="font-bold text-sm text-amber-200 mt-2">${c.name}</span>
+              <span class="text-[10px] text-slate-400 mt-1">${c.subtitle}</span>
             </div>
-            <div>
-              <h4 class="text-siam-gold font-thaiHead font-bold text-sm mb-1">๒. นัยความหมายตามผังเทวศาสตร์</h4>
-              <ul class="list-disc list-inside space-y-1 text-slate-300">
-                ${selectedCards.map((c, i) => `<li><span class="text-amber-200">${getSpreadPositionName(currentSpreadCount, i)}:</span> ไพ่ <strong>${c.card.nameThai}</strong> (${c.isReversed ? 'เงาชะตา' : 'ทิศทางมงคล'}) - ${c.isReversed ? c.card.reversed : c.card.upright}</li>`).join('')}
-              </ul>
-            </div>
-            <div>
-              <h4 class="text-siam-gold font-thaiHead font-bold text-sm mb-1">๓. คำแนะนำเชิงสัจธรรมและทางแก้กรรม</h4>
-              <p class="text-slate-300 leading-relaxed">
-                จงใช้สติและปัญญาในการตัดสินใจ หลีกเลี่ยงการใช้อารมณ์ปะทะโดยตรง ให้หมั่นสวดมนต์แผ่เมตตาแก่เจ้ากรรมนายเวร และผู้มีพระคุณ
-              </p>
-            </div>
-            <div class="p-3.5 rounded-xl bg-siam-gold/10 border border-siam-gold/30">
-              <h4 class="text-amber-300 font-thaiHead font-bold text-xs mb-1">✨ พระคาถามงคลคุ้มชะตา</h4>
-              <p class="text-amber-100 font-thaiHead text-xs tracking-wider">
-                "นะโม พุทธายะ พระพุทธะไตรรัตนะญาณ มณีนพรัตน์ สีสะหัสสะ สุธรรมา พุทโธ ธัมโม สังโฆ ยะธาพุทโมนะ"
-              </p>
-              <p class="text-[10px] text-amber-300/70 mt-1">แนะนำ: ถวายน้ำสะอาด ๑ แก้ว ดอกบัว ๓ ดอก แด่สิ่งศักดิ์สิทธิ์ที่บ้านเพื่อเสริมพลังบารมี</p>
-            </div>
+          `;
+
+        cardBox.innerHTML = `
+          <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">${posLabel}</span>
+          <div class="w-full max-w-[190px] tarot-card-ratio rounded-xl overflow-hidden shadow-lg border-2 border-amber-500/40 relative bg-slate-950 cursor-pointer hover:border-amber-400 transition" onclick="openCardDetail(${c.id})">
+            ${imgContent}
+            ${c.isReversed ? '<span class="absolute top-2 right-2 bg-red-950/80 border border-red-500 text-red-200 text-[9px] px-1.5 py-0.5 rounded">กลับหัว</span>' : ''}
+          </div>
+          <h4 class="font-bold text-base text-amber-200 mt-3">${c.name}</h4>
+          <p class="text-xs text-slate-400 mt-0.5">${c.isReversed ? '⚠️ พลังแฝง / ความท้าทาย' : '✨ พลังสว่าง / โอกาส'}</p>
+          <div class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300 mt-3 text-left w-full">
+            ${c.meaning}
           </div>
         `;
-      }
+        container.appendChild(cardBox);
+      });
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    async function askOracleFollowUp() {
-      const input = document.getElementById('followUpQuestion');
-      const question = input.value.trim();
-      if (!question) return;
-
-      const container = document.getElementById('aiSynthesisContent');
-      const followUpDiv = document.createElement('div');
-      followUpDiv.className = 'mt-4 p-4 rounded-2xl bg-siam-midnight/90 border border-siam-gold/30';
-      followUpDiv.innerHTML = `
-        <h5 class="text-xs font-thaiHead font-bold text-siam-gold mb-1">คำถามเพิ่มเติม: "${question}"</h5>
-        <p class="text-xs text-slate-300 animate-pulse" id="followUpAnswerText">แม่หมอกำลังตรวจดวงชะตา...</p>
-      `;
-      container.appendChild(followUpDiv);
-      input.value = '';
-
-      const apiKey = getApiKey();
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-3-flash-preview:generateContent?key=${apiKey}`;
-
-      try {
-        const response = await fetch(apiUrl, {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            contents: [{ parts: [{ text: `จากไพ่ที่เปิดไป: ${selectedCards.map(c => c.card.nameThai).join(', ')} ผู้รับคำทำนายถามเพิ่มเติมว่า: "${question}" จงตอบอย่างกระชับ นุ่มลึก และตรงจุด` }] }],
-          })
-        });
-        const res = await response.json();
-        const reply = res?.candidates?.[0]?.content?.parts?.[0]?.text;
-        document.getElementById('followUpAnswerText').classList.remove('animate-pulse');
-        document.getElementById('followUpAnswerText').innerHTML = reply ? reply.replace(/\n/g, '<br>') : "ดวงชะตาของท่านมีคำตอบอยู่ในความสงบและสติสัมปชัญญะของตัวท่านเองแล้ว";
-      } catch (err) {
-        document.getElementById('followUpAnswerText').classList.remove('animate-pulse');
-        document.getElementById('followUpAnswerText').textContent = "เมื่อตั้งจิตมั่นคงในศีลและสัจจะ อุปสรรคทั้งปวงย่อมคลี่คลายในเวลาที่เหมาะสม";
-      }
+    function resetDivination() {
+      document.getElementById('resultStep').classList.add('hidden');
+      document.getElementById('intentStep').classList.remove('hidden');
+      selectedCards = [];
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    /* Storage & Offline Export / Import */
-    function openStorageModal() {
-      updateCachedCountDisplay();
-      const modal = document.getElementById('storageModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-    }
+    // --- AI INTERPRETATION & GEMINI INTEGRATION ---
+    async function requestAiDeepDive() {
+      const apiKey = localStorage.getItem('GEMINI_API_KEY');
+      const contentEl = document.getElementById('aiReadingContent');
+      const btn = document.getElementById('askAiBtn');
 
-    function closeStorageModal() {
-      const modal = document.getElementById('storageModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-    }
-
-    function updateCachedCountDisplay() {
-      const count = Object.keys(cardAiImageCache).length;
-      const label = document.getElementById('cachedCountLabel');
-      if (label) label.textContent = `${count} จาก 64 ใบ`;
-    }
-
-    function exportAllCachedCardsAsJson() {
-      const count = Object.keys(cardAiImageCache).length;
-      if (count === 0) {
-        showToast("ยังไม่มีภาพในคลัง", "กรุณากดสั่ง AI วาดภาพไพ่ก่อนส่งออก");
+      if (!apiKey) {
+        alert('กรุณาใส่ Gemini API Key ก่อนใช้งาน (กดปุ่ม 🔑 รูปกุญแจที่มุมบนขวา)');
+        openApiKeyModal();
         return;
       }
 
-      const exportData = {
-        title: "สยามเทวาพยากรณ์ - ชุดสำรับภาพออฟไลน์",
-        exportedAt: new Date().toISOString(),
-        totalCards: count,
-        images: cardAiImageCache
-      };
+      btn.disabled = true;
+      btn.innerText = '⏳ กำลังตั้งจิตสดับเทวะ...';
+      contentEl.innerHTML = '<p class="text-amber-300 animate-pulse">กำลังสื่อสารกับเทวะสภา สังเคราะห์ดวงชะตาและกฎแห่งกรรม โปรดรอสักครู่...</p>';
 
-      const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(exportData));
-      const downloadAnchor = document.createElement('a');
-      downloadAnchor.setAttribute("href", dataStr);
-      downloadAnchor.setAttribute("download", `SiamTarot_OfflineDeck_${count}Cards.json`);
-      document.body.appendChild(downloadAnchor);
-      downloadAnchor.click();
-      downloadAnchor.remove();
+      const name = document.getElementById('seekerName').value.trim() || 'ผู้มีจิตศรัทธา';
+      const day = document.getElementById('seekerDay').value;
+      const topic = document.getElementById('seekerTopic').value;
 
-      showToast("ส่งออกคลังภาพสำเร็จ", `บันทึกไฟล์สำรอง ${count} ใบลงเครื่องเรียบร้อย นำกลับมาเปิดแบบออฟไลน์ได้ตลอดเวลา`);
+      const cardDetails = selectedCards.map((c, i) => `${i + 1}. ${c.name} (${c.isReversed ? 'กลับหัว' : 'หัวตั้ง'}) - ความหมาย: ${c.meaning}`).join('\n');
+
+      const prompt = `ท่านคือ "บรมครูโหราจารย์สยามเทวาพยากรณ์" ผู้แตกฉานในวรรณคดีไทย ประวัติศาสตร์สยาม ชาดก และกฎแห่งกรรม
+โปรดวิเคราะห์ดวงชะตาให้แก่: คุณ${name} (เกิดวัน${day})
+เรื่องที่กังวล/สงสัย: ${topic}
+ไพ่ที่จับได้ทั้งหมด ${selectedCards.length} ใบ มีดังนี้:
+${cardDetails}
+
+กรุณาให้คำพยากรณ์เป็นภาษาไทยที่ไพเราะ สง่างาม ลึกซึ้ง และมีเมตตาธรรม โดยแบ่งเป็นหัวข้อดังนี้:
+1. 🌟 ปมชะตาและสถานการณ์ภาพรวม (ร้อยเรียงเรื่องราวจากวรรณคดี/ตำนานของไพ่)
+2. 💡 คำแนะนำทางโลกและทางธรรม (แนวทางปฏิบัติที่ชัดเจน)
+3. 📿 พระคาถาเสริมบารมี & การทำบุญแก้เคราะห์ที่ตรงกับธาตุของไพ่
+(ไม่ต้องเขียนเกริ่นทักทายยาว เข้าประเด็นอย่างทรงพลัง)`;
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+        });
+
+        const data = await res.json();
+        const text = data.candidates?.[0]?.content?.parts?.[0]?.text;
+        if (text) {
+          contentEl.innerHTML = text.replace(/\n/g, '<br>');
+        } else {
+          contentEl.innerHTML = '<p class="text-red-400">ไม่สามารถรับสัญญาณพยากรณ์ได้ โปรดตรวจสอบ API Key หรือลองใหม่อีกครั้ง</p>';
+        }
+      } catch (err) {
+        contentEl.innerHTML = `<p class="text-red-400">เกิดข้อผิดพลาดในการเชื่อมต่อ: ${err.message}</p>`;
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '✨ ขอคำชี้แนะจาก AI เทวสภา';
+      }
     }
 
-    function importCachedCardsFile(event) {
+    // --- CODEX (สารานุกรม) LOGIC ---
+    function renderDeckBacks() {
+      // สำหรับเตรียมการ
+    }
+
+    function filterCodex(cat) {
+      document.querySelectorAll('.codex-tab').forEach(t => t.classList.remove('active', 'border-amber-500', 'bg-amber-500/20', 'text-amber-200'));
+      event.target.classList.add('active', 'border-amber-500', 'bg-amber-500/20', 'text-amber-200');
+      renderCodexGrid(cat);
+    }
+
+    function renderCodexGrid(filter = 'all') {
+      const container = document.getElementById('codexGrid');
+      if (!container) return;
+      container.innerHTML = '';
+
+      const filtered = filter === 'all' ? DECK_64 : DECK_64.filter(c => c.category === filter);
+
+      filtered.forEach(c => {
+        const hasImg = cardImages[c.id];
+        const cardEl = document.createElement('div');
+        cardEl.className = "bg-slate-900/80 border border-slate-800 hover:border-amber-400/60 rounded-xl p-2.5 flex flex-col items-center cursor-pointer transition-all duration-200 hover:-translate-y-1 shadow-md";
+        cardEl.onclick = () => openCardDetail(c.id);
+
+        const imgBlock = hasImg
+          ? `<img src="${hasImg}" alt="${c.name}" class="w-full h-full object-cover">`
+          : `
+            <div class="flex flex-col items-center justify-center p-2 text-center h-full">
+              <span class="text-amber-300 font-cinzel text-lg">ॐ</span>
+              <span class="text-[9px] text-slate-400 mt-1 line-clamp-2">${c.subtitle}</span>
+            </div>
+          `;
+
+        cardEl.innerHTML = `
+          <div class="w-full tarot-card-ratio rounded-lg overflow-hidden bg-slate-950 border border-amber-500/20 relative">
+            ${imgBlock}
+            ${hasImg ? '<span class="absolute bottom-1 right-1 bg-emerald-950/80 border border-emerald-400 text-emerald-300 text-[8px] px-1 rounded">มีภาพ</span>' : ''}
+          </div>
+          <span class="text-[10px] text-amber-400/80 mt-2 font-mono">#${c.id}</span>
+          <h4 class="font-bold text-xs text-amber-200 truncate w-full text-center">${c.name}</h4>
+        `;
+        container.appendChild(cardEl);
+      });
+    }
+
+    // --- CARD DETAIL MODAL ---
+    function openCardDetail(cardId) {
+      const card = DECK_64.find(c => c.id === cardId);
+      if (!card) return;
+
+      document.getElementById('modalCardNumber').innerText = `ไพ่ลำดับที่ ${card.id} / ๖๔`;
+      document.getElementById('modalCardTitle').innerText = card.name;
+      document.getElementById('modalCardSubtitle').innerText = card.subtitle;
+      document.getElementById('modalCardLore').innerText = card.lore;
+      document.getElementById('modalCardMeaningUpright').innerText = card.meaning;
+      document.getElementById('modalCardMantra').innerText = card.mantra;
+
+      const visualEl = document.getElementById('modalCardVisual');
+      const hasImg = cardImages[card.id];
+
+      if (hasImg) {
+        visualEl.innerHTML = `<img src="${hasImg}" alt="${card.name}" class="w-full h-full object-cover rounded-lg">`;
+      } else {
+        visualEl.innerHTML = `
+          <span class="text-4xl text-amber-300 font-cinzel">ॐ</span>
+          <span class="font-bold text-sm text-amber-200 mt-3">${card.name}</span>
+          <span class="text-xs text-slate-400 mt-1">${card.subtitle}</span>
+        `;
+      }
+
+      // Hook generate button
+      document.getElementById('modalGenerateAiBtn').onclick = () => generateCardArtWithAi(card.id);
+      
+      // Hook download button
+      const dlBtn = document.getElementById('modalDownloadImgBtn');
+      if (hasImg) {
+        dlBtn.style.display = 'block';
+        dlBtn.onclick = () => downloadSingleCardImage(card.id, card.name);
+      } else {
+        dlBtn.style.display = 'none';
+      }
+
+      document.getElementById('cardDetailModal').classList.remove('hidden');
+    }
+
+    function closeCardDetailModal() {
+      document.getElementById('cardDetailModal').classList.add('hidden');
+    }
+
+    // --- GEMINI ART GENERATION ---
+    async function generateCardArtWithAi(cardId) {
+      const apiKey = localStorage.getItem('GEMINI_API_KEY');
+      if (!apiKey) {
+        alert('กรุณาใส่ Gemini API Key ก่อนใช้งาน (กดปุ่ม 🔑 รูปกุญแจ)');
+        openApiKeyModal();
+        return;
+      }
+
+      const card = DECK_64.find(c => c.id === cardId);
+      const btn = document.getElementById('modalGenerateAiBtn');
+      btn.disabled = true;
+      btn.innerText = '🎨 กำลังเนรมิตภาพ...';
+
+      const prompt = `Masterpiece sacred Thai digital oil painting of "${card.name}" (${card.subtitle}), depicting "${card.lore}". Authentic contemporary Thai fine art, Royal Siamese court aesthetic, covered in genuine 24k gold leaf filigree patterns, glowing celestial divine aura, intricate crown and jewelry, dramatic volumetric lighting, highly detailed, dramatic composition, 8k resolution sacred art.`;
+
+      try {
+        const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            instances: [{ prompt }],
+            parameters: { aspectRatio: "3:4", sampleCount: 1 }
+          })
+        });
+
+        const result = await response.json();
+        const base64Img = result.predictions?.[0]?.bytesBase64Encoded;
+
+        if (base64Img) {
+          const fullDataUrl = `data:image/jpeg;base64,${base64Img}`;
+          cardImages[cardId] = fullDataUrl;
+          openCardDetail(cardId);
+          renderCodexGrid();
+          updateCacheCountUI();
+          playSound('bell');
+        } else {
+          alert('ไม่สามารถสร้างภาพได้ โปรดตรวจสอบโควตา API หรือลองใหม่');
+        }
+      } catch (err) {
+        alert(`เกิดข้อผิดพลาด: ${err.message}`);
+      } finally {
+        btn.disabled = false;
+        btn.innerText = '✨ สั่ง AI วาดภาพนี้';
+      }
+    }
+
+    function downloadSingleCardImage(cardId, name) {
+      const data = cardImages[cardId];
+      if (!data) return;
+      const a = document.createElement('a');
+      a.href = data;
+      a.download = `${cardId}_${name}.png`;
+      a.click();
+    }
+
+    // --- BATCH GENERATE ALL 64 CARDS ---
+    async function startBatchDrawAllCards() {
+      const apiKey = localStorage.getItem('GEMINI_API_KEY');
+      if (!apiKey) {
+        alert('กรุณาตั้งค่า Gemini API Key ก่อนเริ่มวาดทั้งชุด');
+        openApiKeyModal();
+        return;
+      }
+
+      if (!confirm('ระบบจะสั่ง AI ทยอยวาดภาพไพ่ทั้ง 64 ใบอย่างต่อเนื่อง อาจใช้เวลาหลายนาที ท่านต้องการเริ่มเลยหรือไม่?')) return;
+
+      isBatchDrawing = true;
+      batchCancelRequested = false;
+
+      document.getElementById('batchDrawAllBtn').classList.add('hidden');
+      document.getElementById('batchStopBtn').classList.remove('hidden');
+      document.getElementById('batchProgressBanner').classList.remove('hidden');
+
+      const total = DECK_64.length;
+
+      for (let i = 0; i < total; i++) {
+        if (batchCancelRequested) break;
+        const card = DECK_64[i];
+
+        // ถ้ามีภาพแล้ว ให้ข้ามได้เลย
+        if (cardImages[card.id]) {
+          updateBatchProgress(i + 1, total, `ไพ่ที่ ${card.id}: "${card.name}" มีภาพแล้ว (ข้าม)`);
+          continue;
+        }
+
+        updateBatchProgress(i + 1, total, `กำลังวาดไพ่ที่ ${card.id}/${total}: "${card.name}"...`);
+
+        try {
+          const prompt = `Masterpiece sacred Thai digital oil painting of "${card.name}" (${card.subtitle}), depicting "${card.lore}". Authentic contemporary Thai fine art, Royal Siamese court aesthetic, covered in genuine 24k gold leaf filigree patterns, glowing celestial divine aura, intricate crown and jewelry, dramatic volumetric lighting, highly detailed, 8k resolution sacred art.`;
+          
+          const resp = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/imagen-3.0-generate-002:predict?key=${apiKey}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ instances: [{ prompt }], parameters: { aspectRatio: "3:4", sampleCount: 1 } })
+          });
+
+          const data = await resp.json();
+          const b64 = data.predictions?.[0]?.bytesBase64Encoded;
+          if (b64) {
+            cardImages[card.id] = `data:image/jpeg;base64,${b64}`;
+            renderCodexGrid();
+            updateCacheCountUI();
+          }
+        } catch (e) {
+          console.error(`Error drawing card ${card.id}:`, e);
+        }
+
+        // เว้นวรรค 1.5 วินาทีป้องกัน Rate Limit
+        await new Promise(r => setTimeout(r, 1500));
+      }
+
+      stopBatchDraw();
+      alert('กระบวนการวาดภาพเสร็จสมบูรณ์! แนะนำให้ไปที่ "คลังภาพออฟไลน์" แล้วกด "ดาวน์โหลดเป็น tarot_images.js" เก็บไว้ในเครื่อง');
+    }
+
+    function updateBatchProgress(current, total, statusText) {
+      const pct = Math.round((current / total) * 100);
+      document.getElementById('batchProgressBar').style.width = `${pct}%`;
+      document.getElementById('batchPercentText').innerText = `${pct}%`;
+      document.getElementById('batchStatusText').innerText = statusText;
+    }
+
+    function stopBatchDraw() {
+      batchCancelRequested = true;
+      isBatchDrawing = false;
+      document.getElementById('batchDrawAllBtn').classList.remove('hidden');
+      document.getElementById('batchStopBtn').classList.add('hidden');
+    }
+
+    // --- EXPORT AS tarot_images.js (แก้ปัญหา CORS เบราว์เซอร์ ไม่ต้องเปิด Notepad) ---
+    function exportAsScriptJS() {
+      const count = Object.keys(cardImages).length;
+      if (count === 0) {
+        alert('ยังไม่มีภาพในระบบให้ส่งออก');
+        return;
+      }
+
+      // สร้างโค้ด JS ที่ประกาศตัวแปร window.SAVED_TAROT_IMAGES อัตโนมัติ
+      const jsContent = `// ชุดภาพไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ\nwindow.SAVED_TAROT_IMAGES = ${JSON.stringify(cardImages)};\n`;
+      const blob = new Blob([jsContent], { type: 'application/javascript;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tarot_images.js'; // ตั้งชื่อไฟล์ให้ตรงกับที่ index.html เรียกใช้
+      a.click();
+    }
+
+    function exportImagesJSON() {
+      const count = Object.keys(cardImages).length;
+      if (count === 0) {
+        alert('ยังไม่มีภาพในระบบให้ส่งออก');
+        return;
+      }
+      const blob = new Blob([JSON.stringify(cardImages)], { type: 'application/json' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = 'tarot_images.json';
+      a.click();
+    }
+
+    function handleImportFile(event) {
       const file = event.target.files[0];
       if (!file) return;
 
       const reader = new FileReader();
-      reader.onload = function(e) {
+      reader.onload = e => {
         try {
-          const parsed = JSON.parse(e.target.result);
-          if (parsed && parsed.images) {
-            cardAiImageCache = { ...cardAiImageCache, ...parsed.images };
-            updateCachedCountDisplay();
-            closeStorageModal();
-            showToast("นำเข้าคลังภาพสำเร็จ!", `โหลดภาพออฟไลน์เข้ามา ${Object.keys(parsed.images).length} ใบ พร้อมใช้งานโดยไม่ต้องต่อเน็ต`);
-            if (!document.getElementById('resultView').classList.contains('hidden')) {
-              renderRevealedCards();
-            }
-            if (!document.getElementById('codexModal').classList.contains('hidden')) {
-              filterCodex(activeCodexCategory || 'all');
-            }
-          } else {
-            showToast("ไฟล์ไม่ถูกต้อง", "กรุณาเลือกไฟล์สำรองคลังภาพที่ถูกต้อง");
+          let content = e.target.result.trim();
+          
+          // ถ้าเป็นไฟล์ .js ให้ตัดหัว "window.SAVED_TAROT_IMAGES =" ออกเพื่อแปลงเป็น Object
+          if (content.startsWith('window.SAVED_TAROT_IMAGES')) {
+            content = content.replace(/^window\.SAVED_TAROT_IMAGES\s*=\s*/, '').replace(/;\s*$/, '');
+          }
+
+          const parsed = JSON.parse(content);
+          if (parsed && typeof parsed === 'object') {
+            Object.assign(cardImages, parsed);
+            updateCacheCountUI();
+            renderCodexGrid();
+            alert(`นำเข้าภาพสำเร็จครบทั้ง ${Object.keys(parsed).length} ใบเรียบร้อยแล้ว!`);
+            closeOfflineModal();
           }
         } catch (err) {
-          showToast("ข้อผิดพลาด", "ไม่สามารถอ่านไฟล์สำรองได้");
+          alert('รูปแบบไฟล์ไม่ถูกต้อง กรุณาใช้ไฟล์ .json หรือ .js ที่ส่งออกจากระบบนี้');
         }
       };
       reader.readAsText(file);
     }
 
-    /* Codex Gallery & Filters */
-    function openCodexModal() {
-      const modal = document.getElementById('codexModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      filterCodex(activeCodexCategory || 'all');
+    // --- MODAL CONTROLS ---
+    function openOfflineModal() {
+      updateCacheCountUI();
+      document.getElementById('offlineModal').classList.remove('hidden');
+    }
+    function closeOfflineModal() {
+      document.getElementById('offlineModal').classList.add('hidden');
     }
 
-    function closeCodexModal() {
-      const modal = document.getElementById('codexModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
+    function openApiKeyModal() {
+      const curKey = localStorage.getItem('GEMINI_API_KEY') || '';
+      document.getElementById('geminiApiKeyInput').value = curKey;
+      document.getElementById('apiKeyModal').classList.remove('hidden');
     }
-
-    function filterCodex(cat) {
-      activeCodexCategory = cat;
-      const grid = document.getElementById('codexGrid');
-      grid.innerHTML = '';
-
-      const filtered = (cat === 'all') 
-        ? SACRED_CARDS_64 
-        : SACRED_CARDS_64.filter(c => c.category === cat);
-
-      filtered.forEach(c => {
-        const item = document.createElement('div');
-        item.id = `codex-thumb-${c.id}`;
-        item.className = 'flex flex-col bg-siam-midnight/90 border border-siam-gold/30 hover:border-siam-gold/70 rounded-2xl p-2 sm:p-2.5 shadow-lg group cursor-pointer transition-all duration-200 transform active:scale-95 hover:-translate-y-1';
-        item.onclick = () => openCardDetailModal(c.id);
-
-        const hasAi = !!cardAiImageCache[c.id];
-
-        item.innerHTML = `
-          <div class="w-full aspect-[1/1.45] card-gold-frame rounded-xl overflow-hidden mb-2 relative">
-            <div class="w-full h-full codex-thumb-inner">
-              ${renderCardArtSvg(c)}
-            </div>
-            ${hasAi ? `
-              <div class="ai-badge absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded-md bg-emerald-950/80 border border-emerald-500/50 text-[9px] text-emerald-300 font-thaiHead flex items-center space-x-1 shadow">
-                <i data-lucide="sparkles" class="w-2.5 h-2.5 text-emerald-400"></i>
-                <span>AI ภาพเสร็จ</span>
-              </div>
-            ` : ''}
-            <div class="absolute inset-0 bg-siam-gold/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center pointer-events-none">
-              <span class="px-2 py-1 rounded-lg bg-black/80 text-siam-goldLight text-[10px] font-thaiHead border border-siam-gold/40 shadow">
-                แตะดูรายละเอียด
-              </span>
-            </div>
-          </div>
-
-          <div class="text-center">
-            <div class="flex items-center justify-between text-[10px] text-siam-gold/80 font-thaiHead mb-0.5">
-              <span>#${c.id}</span>
-              <span class="text-amber-300">${c.element}</span>
-            </div>
-            <h5 class="font-thaiTitle font-bold text-xs text-slate-100 truncate">${c.nameThai}</h5>
-            <p class="text-[9px] text-slate-400 font-thaiHead truncate italic">${c.nameEng}</p>
-          </div>
-        `;
-        grid.appendChild(item);
-      });
-      if (window.lucide) lucide.createIcons();
+    function closeApiKeyModal() {
+      document.getElementById('apiKeyModal').classList.add('hidden');
     }
-
-    /* Card Detail Modal Handlers */
-    function openCardDetailModal(cardId) {
-      const card = SACRED_CARDS_64.find(c => c.id === cardId);
-      if (!card) return;
-      currentDetailCard = card;
-
-      document.getElementById('detailBadgeId').textContent = `ใบที่ ${card.id}`;
-      document.getElementById('detailTitle').textContent = card.nameThai;
-      document.getElementById('detailNameEng').textContent = card.nameEng;
-      document.getElementById('detailElement').textContent = `ธาตุ: ${card.element}`;
-
-      const catMap = { deva: '๑. มหาเทวะ & บรมครู', planets: '๒. นพเคราะห์กำเนิด', zodiac: '๓. นักษัตรเทวราช', epic: '๔. วรรณคดี & วีรชน', dharma: '๕. สัจธรรม & กฎแห่งกรรม' };
-      document.getElementById('detailCategory').textContent = `หมวด: ${catMap[card.category] || card.category}`;
-      document.getElementById('detailUpright').textContent = card.upright;
-      document.getElementById('detailReversed').textContent = card.reversed;
-      document.getElementById('detailQuote').textContent = `"${card.quote}"`;
-
-      const inner = document.getElementById('detailCardInner');
-      inner.innerHTML = renderCardArtSvg(card);
-
-      const modal = document.getElementById('cardDetailModal');
-      modal.classList.remove('hidden');
-      modal.classList.add('flex');
-      if (window.lucide) lucide.createIcons();
-    }
-
-    function closeCardDetailModal() {
-      const modal = document.getElementById('cardDetailModal');
-      modal.classList.add('hidden');
-      modal.classList.remove('flex');
-      currentDetailCard = null;
-    }
-
-    async function generateAiForDetailCard() {
-      if (!currentDetailCard) return;
-      const targetCard = currentDetailCard;
-      const overlay = document.getElementById('detailAiOverlay');
-      const inner = document.getElementById('detailCardInner');
-
-      overlay.classList.remove('hidden');
-      overlay.classList.add('flex');
-
-      try {
-        await generateAiImageForCard(targetCard);
-        updateCachedCountDisplay();
-
-        overlay.classList.add('hidden');
-        overlay.classList.remove('flex');
-        inner.innerHTML = renderCardArtSvg(targetCard);
-        playSacredChime(780, 1.2);
-        showToast("เนรมิตภาพสำเร็จ!", `สร้างภาพ ${targetCard.nameThai} เรียบร้อยแล้ว`);
-        filterCodex(activeCodexCategory || 'all');
-      } catch (err) {
-        console.warn("AI detail image error:", err);
-        overlay.classList.add('hidden');
-        overlay.classList.remove('flex');
-        showToast("คำแนะนำ", "หากเปิดไฟล์บนเครื่องส่วนตัว สามารถใส่ Gemini API Key ได้ที่ปุ่มรูปกุญแจด้านบนครับ");
+    function saveApiKey() {
+      const key = document.getElementById('geminiApiKeyInput').value.trim();
+      if (key) {
+        localStorage.setItem('GEMINI_API_KEY', key);
+        alert('บันทึก API Key เรียบร้อยแล้ว');
+      } else {
+        localStorage.removeItem('GEMINI_API_KEY');
+        alert('ลบ API Key เรียบร้อย');
       }
-      if (window.lucide) lucide.createIcons();
+      closeApiKeyModal();
     }
-
-    function downloadDetailCardImage() {
-      if (!currentDetailCard) return;
-      downloadSingleCardImage(currentDetailCard.id, currentDetailCard.nameThai);
-    }
-// --- ระบบดึงภาพไพ่อัตโนมัติจากเซิร์ฟเวอร์/GitHub ---
-window.addEventListener('DOMContentLoaded', async () => {
-    const targetFiles = ['tarot_images_small.json', 'tarot_images.json'];
-    for (const fileName of targetFiles) {
-        try {
-            const response = await fetch(fileName);
-            if (response.ok) {
-                const data = await response.json();
-                if (data && typeof data === 'object') {
-                    Object.assign(cardImages, data);
-                    console.log(`✅ โหลดภาพสำเร็จจาก ${fileName} ครบทั้ง ${Object.keys(data).length} ใบ!`);
-                    if (typeof renderCodexGrid === 'function') renderCodexGrid();
-                    return;
-                }
-            }
-        } catch (e) {}
-    }
-});
   </script>
 </body>
 </html>
