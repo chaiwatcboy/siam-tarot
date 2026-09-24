@@ -1653,6 +1653,24 @@ ${cardSummaries}
       if (!currentDetailCard) return;
       downloadSingleCardImage(currentDetailCard.id, currentDetailCard.nameThai);
     }
+// --- ระบบดึงภาพไพ่อัตโนมัติจากเซิร์ฟเวอร์/GitHub ---
+window.addEventListener('DOMContentLoaded', async () => {
+    const targetFiles = ['tarot_images_small.json', 'tarot_images.json'];
+    for (const fileName of targetFiles) {
+        try {
+            const response = await fetch(fileName);
+            if (response.ok) {
+                const data = await response.json();
+                if (data && typeof data === 'object') {
+                    Object.assign(cardImages, data);
+                    console.log(`✅ โหลดภาพสำเร็จจาก ${fileName} ครบทั้ง ${Object.keys(data).length} ใบ!`);
+                    if (typeof renderCodexGrid === 'function') renderCodexGrid();
+                    return;
+                }
+            }
+        } catch (e) {}
+    }
+});
   </script>
 </body>
 </html>
