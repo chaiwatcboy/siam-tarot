@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>สยามเทวาพยากรณ์ | ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</title>
   
-  <!-- โหลดชุดภาพไพ่ทั้ง 4 ส่วน (ผ่านเกณฑ์ GitHub 25MB แน่นอน 100%) -->
+  <!-- โหลดชุดภาพไพ่ทั้ง 4 ส่วน -->
   <script src="tarot_images_part1.js"></script>
   <script src="tarot_images_part2.js"></script>
   <script src="tarot_images_part3.js"></script>
@@ -54,7 +54,6 @@
       aspect-ratio: 2 / 3.2;
     }
 
-    /* ลวดลายหลังไพ่ทรงสี่เหลี่ยมผืนผ้าประณีต */
     .card-back-pattern {
       background: 
         radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.2) 0%, transparent 75%),
@@ -72,7 +71,6 @@
       pointer-events: none;
     }
 
-    /* แอนิเมชันตอนสับไพ่ */
     @keyframes shuffleDeckAnim {
       0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
       25% { transform: scale(0.95) rotate(-3deg); }
@@ -85,7 +83,6 @@
       animation: shuffleDeckAnim 0.35s ease-in-out;
     }
 
-    /* Custom Scrollbar */
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #060b14; }
     ::-webkit-scrollbar-thumb { background: #8c6d1f; border-radius: 3px; }
@@ -158,8 +155,8 @@
               </select>
             </div>
             <div>
-              <label class="block text-xs text-amber-200/80 mb-1">เรื่องที่ต้องการถามเจาะจง:</label>
-              <select id="seekerTopic" class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-sm text-slate-200 outline-none transition">
+              <label class="block text-xs text-amber-200/80 mb-1">หมวดหมู่ดวงชะตา:</label>
+              <select id="seekerCategory" class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-sm text-slate-200 outline-none transition">
                 <option value="ภาพรวมชะตาชีวิต">ดวงชะตาทั่วไป / วาสนาบารมี</option>
                 <option value="การงานและการลงทุน">การงาน ธุรกิจ เลื่อนขั้น สอบแข่งขัน</option>
                 <option value="การเงินและโชคลาภ">การเงิน โชคลาภ ทรัพย์สินหนี้สิน</option>
@@ -167,6 +164,12 @@
                 <option value="สุขภาพและเคราะห์กรรม">สุขภาพ เจ้ากรรมนายเวร ทางแก้เคราะห์</option>
               </select>
             </div>
+          </div>
+
+          <!-- ช่องพิมพ์คำถามอิสระที่เพิ่มเข้ามาให้พิมพ์ได้ตามใจชอบ -->
+          <div>
+            <label class="block text-xs text-amber-200/80 mb-1">คำถามที่ต้องการถามเจาะจง (พิมพ์ถามได้เลย):</label>
+            <input type="text" id="seekerQuestion" placeholder="เช่น การสอบรอบนี้จะผ่านไหม? หรือ มีโอกาสย้ายงานช่วงไหน?..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
           </div>
 
           <div>
@@ -204,7 +207,7 @@
         </div>
       </section>
 
-      <!-- STEP 2: SHUFFLE & SELECT CARDS (Responsive Grid ไม่เลื่อนขวา + ปุ่มสับไพ่) -->
+      <!-- STEP 2: SHUFFLE & SELECT CARDS -->
       <section id="selectionStep" class="hidden space-y-4">
         <div class="text-center max-w-xl mx-auto space-y-2">
           <span class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ขั้นตอนเลือกสำรับ</span>
@@ -222,7 +225,6 @@
           </div>
         </div>
 
-        <!-- ตารางไพ่ ๖๔ ใบ ทรงสี่เหลี่ยมผืนผ้า (Responsive Grid ไม่เลื่อนขวา) -->
         <div class="bg-slate-950/70 border border-amber-500/30 rounded-2xl p-3 sm:p-5 shadow-2xl backdrop-blur-sm max-w-5xl mx-auto">
           <div id="deckContainer" class="grid grid-cols-4 sm:grid-cols-8 md:grid-cols-10 lg:grid-cols-12 gap-2 sm:gap-2.5 max-h-[58vh] overflow-y-auto overflow-x-hidden p-1">
           </div>
@@ -265,7 +267,6 @@
             </button>
           </div>
 
-          <!-- แสดงคำทำนายหลัก -->
           <div id="aiReadingContent" class="text-sm leading-relaxed text-slate-200 bg-slate-950/60 p-4 rounded-xl border border-slate-800 min-h-[100px]">
             <p class="text-slate-400 italic text-center py-4">แตะปุ่ม "อัญเชิญญาณแม่หมอทำนายภาพรวม" เพื่อเปิดพระญาณทัศนะเจาะลึกชะตาชีวิต หรือพิมพ์คำถามเฉพาะเจาะจงด้านล่างได้ทันที</p>
           </div>
@@ -369,26 +370,36 @@
     </div>
   </div>
 
-  <!-- ================= API KEY MODAL ================= -->
+  <!-- ================= API KEY MODAL (พร้อมปุ่มทดสอบและคำแนะนำชัดเจน) ================= -->
   <div id="apiKeyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
-        <h3 class="font-bold text-base text-amber-300">🔑 ตั้งค่า Gemini API Key</h3>
+        <h3 class="font-bold text-base text-amber-300">🔑 ตั้งค่าและทดสอบ Gemini API Key</h3>
         <button onclick="closeApiKeyModal()" class="text-slate-400 hover:text-white">✕</button>
       </div>
 
-      <p class="text-xs text-slate-300 leading-relaxed">
-        ใส่ Gemini API Key เพื่อเปิดใช้งานระบบทำนายแม่หมอสยามเทวา (คีย์จะถูกเก็บไว้ในเครื่องของท่านอย่างปลอดภัย)
-      </p>
-
-      <div>
-        <label class="block text-xs text-slate-400 mb-1">API Key:</label>
-        <input type="password" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none">
+      <div class="text-xs text-slate-300 space-y-2 leading-relaxed">
+        <p>นำ API Key จาก <b>Google AI Studio</b> มาใส่ (รับคีย์ฟรีได้ที่ <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-amber-300 underline font-semibold">aistudio.google.com</a>)</p>
+        <p class="text-[11px] text-amber-400/80">⚠️ คีย์ที่ถูกต้องจะต้องขึ้นต้นด้วยคำว่า <b>AIzaSy...</b></p>
       </div>
 
-      <div class="flex justify-end space-x-2">
-        <button onclick="closeApiKeyModal()" class="px-3 py-1.5 bg-slate-800 text-slate-300 rounded-lg text-xs">ยกเลิก</button>
-        <button onclick="saveApiKey()" class="px-4 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">บันทึก</button>
+      <div>
+        <label class="block text-xs text-slate-400 mb-1">Gemini API Key ของท่าน:</label>
+        <input type="text" id="geminiApiKeyInput" placeholder="AIzaSy..." class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-xs text-slate-100 outline-none">
+      </div>
+
+      <!-- กล่องแสดงสถานะผลการทดสอบ -->
+      <div id="apiKeyTestStatus" class="text-xs min-h-[20px]"></div>
+
+      <div class="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-slate-800">
+        <button onclick="testApiKeyNow()" class="px-3.5 py-1.5 bg-slate-800 hover:bg-slate-700 border border-slate-600 text-amber-300 rounded-lg text-xs font-semibold transition">
+          🧪 กดทดสอบคีย์ทันที
+        </button>
+
+        <div class="flex space-x-2">
+          <button onclick="closeApiKeyModal()" class="px-3 py-1.5 bg-slate-800 text-slate-400 rounded-lg text-xs">ปิด</button>
+          <button onclick="saveApiKey()" class="px-4 py-1.5 bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold rounded-lg text-xs">บันทึก</button>
+        </div>
       </div>
     </div>
   </div>
@@ -631,9 +642,11 @@
 
       const name = document.getElementById('seekerName').value.trim() || 'ผู้มีจิตศรัทธา';
       const day = document.getElementById('seekerDay').value;
-      const topic = document.getElementById('seekerTopic').value;
+      const category = document.getElementById('seekerCategory').value;
+      const customQ = document.getElementById('seekerQuestion').value.trim();
+      const topicDisplay = customQ ? `${category} ("${customQ}")` : category;
 
-      document.getElementById('readingSubheader').innerText = `ดวงชะตาของ: คุณ${name} (วัน${day}) | เรื่อง: ${topic}`;
+      document.getElementById('readingSubheader').innerText = `ดวงชะตาของ: คุณ${name} (วัน${day}) | เรื่อง: ${topicDisplay}`;
 
       const container = document.getElementById('drawnCardsContainer');
       container.innerHTML = '';
@@ -689,11 +702,15 @@
     }
 
     // ========================================================
-    // ฟังก์ชันเรียก Gemini API (สลับโมเดลสำรอง + ปลดล็อกตัวกรอง BLOCK_NONE)
+    // ฟังก์ชันเรียก Gemini API (ทำความสะอาด Key + ปลดล็อกตัวกรอง)
     // ========================================================
     async function callGeminiAiEngine(promptText) {
-      const apiKey = localStorage.getItem('GEMINI_API_KEY');
-      if (!apiKey) throw new Error('ยังไม่ได้ใส่ API Key (กรุณากดปุ่ม 🔑 มุมบนขวาเพื่อตั้งค่า)');
+      let apiKey = localStorage.getItem('GEMINI_API_KEY') || '';
+      apiKey = apiKey.replace(/['"\s]/g, ''); // ลบ space, single quote, double quote อัตโนมัติ
+
+      if (!apiKey) {
+        throw new Error('ยังไม่ได้ใส่ API Key หรือคีย์ว่างเปล่า (กรุณากดปุ่ม 🔑 มุมบนขวา)');
+      }
 
       const modelsToTry = [
         'gemini-2.5-flash',
@@ -747,7 +764,7 @@
         }
       }
 
-      throw lastError || new Error('ไม่สามารถเชื่อมต่อสัญญาณพยากรณ์ได้ โปรดตรวจสอบอินเทอร์เน็ตหรือ API Key');
+      throw lastError || new Error('ไม่สามารถเชื่อมต่อสัญญาณพยากรณ์ได้ โปรดตรวจสอบ API Key');
     }
 
     // คำทำนายภาพรวมระดับราชสำนักสยาม
@@ -761,7 +778,9 @@
 
       const name = document.getElementById('seekerName').value.trim() || 'เจ้าชะตา';
       const day = document.getElementById('seekerDay').value;
-      const topic = document.getElementById('seekerTopic').value;
+      const category = document.getElementById('seekerCategory').value;
+      const customQ = document.getElementById('seekerQuestion').value.trim();
+      const topic = customQ ? `${category} (ข้อสงสัยเจาะจง: "${customQ}")` : category;
 
       const cardDetails = selectedCards.map((c, i) => 
         `ไพ่ใบที่ ${i + 1}: [${c.name}] (${c.isReversed ? 'ทิศกลับหัว - พลังแฝงที่ต้องระวัง' : 'ทิศตั้งตรง - เทวบารมีหนุนนำ'})
@@ -800,10 +819,10 @@ ${cardDetails}
           .replace(/([๑-๔]\.\s[^\<]+)/g, '<b class="text-amber-300 text-sm block mt-2 mb-1">$1</b>');
       } catch (err) {
         contentEl.innerHTML = `
-          <div class="p-3 bg-red-950/60 border border-red-500/50 rounded-xl text-red-200 text-xs">
+          <div class="p-3 bg-red-950/60 border border-red-500/50 rounded-xl text-red-200 text-xs leading-relaxed">
             <b class="text-red-300">⚠️ เกิดข้อผิดพลาดในการเชื่อมต่อแม่หมอ:</b><br>
             ${err.message}<br><br>
-            <span class="text-slate-300">วิธีแก้ไข: ตรวจสอบว่าใส่ Gemini API Key ถูกต้องที่ปุ่ม 🔑 หรือลองกดอัญเชิญญาณอีกครั้ง</span>
+            <span class="text-slate-300">วิธีแก้ไข: กดปุ่ม <b>🔑 API Key</b> ที่มุมบนขวา เพื่อตรวจสอบหรือกดปุ่ม <b>🧪 กดทดสอบคีย์ทันที</b></span>
           </div>
         `;
       } finally {
@@ -839,7 +858,9 @@ ${cardDetails}
 
       const name = document.getElementById('seekerName').value.trim() || 'เจ้าชะตา';
       const day = document.getElementById('seekerDay').value;
-      const topic = document.getElementById('seekerTopic').value;
+      const category = document.getElementById('seekerCategory').value;
+      const customQ = document.getElementById('seekerQuestion').value.trim();
+      const topic = customQ ? `${category} ("${customQ}")` : category;
       
       const cardSummary = selectedCards.map((c, i) => 
         `ไพ่ใบที่ ${i+1}: ${c.name} (${c.isReversed ? 'กลับหัว' : 'หัวตั้ง'}) [แก่นแท้: ${c.subtitle}, ความหมาย: ${c.meaning}]`
@@ -966,8 +987,10 @@ ${cardSummary}
       document.getElementById('cardDetailModal').classList.add('hidden');
     }
 
+    // Modal API Key
     function openApiKeyModal() {
       document.getElementById('geminiApiKeyInput').value = localStorage.getItem('GEMINI_API_KEY') || '';
+      document.getElementById('apiKeyTestStatus').innerHTML = '';
       document.getElementById('apiKeyModal').classList.remove('hidden');
     }
 
@@ -976,15 +999,48 @@ ${cardSummary}
     }
 
     function saveApiKey() {
-      const key = document.getElementById('geminiApiKeyInput').value.trim();
+      let key = document.getElementById('geminiApiKeyInput').value.trim();
+      key = key.replace(/['"\s]/g, ''); // ตัดเครื่องหมายคำพูดและเว้นวรรค
+      
       if (key) {
         localStorage.setItem('GEMINI_API_KEY', key);
-        alert('บันทึก API Key เรียบร้อยแล้ว');
+        alert('✅ บันทึก API Key เรียบร้อยแล้ว');
       } else {
         localStorage.removeItem('GEMINI_API_KEY');
         alert('ลบ API Key เรียบร้อย');
       }
       closeApiKeyModal();
+    }
+
+    // ฟังก์ชันทดสอบ API Key ทันทีในหน้าต่างตั้งค่า
+    async function testApiKeyNow() {
+      let key = document.getElementById('geminiApiKeyInput').value.trim();
+      key = key.replace(/['"\s]/g, '');
+      const statusEl = document.getElementById('apiKeyTestStatus');
+
+      if (!key) {
+        statusEl.innerHTML = '<span class="text-amber-400 font-medium">⚠️ กรุณากรอก API Key ก่อนกดทดสอบ</span>';
+        return;
+      }
+
+      statusEl.innerHTML = '<span class="text-slate-400 animate-pulse">⏳ กำลังทดสอบเชื่อมต่อไปยังเซิร์ฟเวอร์ Google AI...</span>';
+
+      try {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ contents: [{ parts: [{ text: "สวัสดี" }] }] })
+        });
+
+        const data = await res.json();
+        if (data.error) {
+          throw new Error(data.error.message || 'คีย์ไม่ถูกต้อง');
+        }
+
+        statusEl.innerHTML = '<span class="text-emerald-400 font-bold">✅ สำเร็จ! API Key ถูกต้องและพร้อมใช้งานทันที</span>';
+      } catch (err) {
+        statusEl.innerHTML = `<span class="text-rose-400 font-semibold">❌ ทดสอบไม่ผ่าน: ${err.message}</span>`;
+      }
     }
   </script>
 </body>
