@@ -84,18 +84,14 @@
       75% { transform: scale(1.04) rotate(1deg); opacity: 0.98; filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.85)); }
     }
 
-    .sacred-flame {
-      animation: flameFlicker 2.5s infinite ease-in-out;
-    }
+    .sacred-flame { animation: flameFlicker 2.5s infinite ease-in-out; }
 
     @keyframes haloPulse {
       0%, 100% { transform: scale(1); opacity: 0.4; }
       50% { transform: scale(1.08); opacity: 0.75; }
     }
 
-    .sacred-halo {
-      animation: haloPulse 3.5s infinite ease-in-out;
-    }
+    .sacred-halo { animation: haloPulse 3.5s infinite ease-in-out; }
 
     @keyframes shuffleDeckAnim {
       0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
@@ -220,13 +216,13 @@
             </div>
           </div>
 
-          <button onclick="openWorshipStep()" class="w-full mt-4 py-3 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition transform active:scale-98 flex items-center justify-center space-x-2 text-sm sm:text-base">
+          <button onclick="openWorshipStep()" class="w-full mt-4 py-3.5 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition transform active:scale-98 flex items-center justify-center space-x-2 text-sm sm:text-base">
             <span>✨ ตั้งสมาธิ น้อมบูชาครู & เบิกเนตรทัศนญาณ</span>
           </button>
         </div>
       </section>
 
-      <!-- ================= STEP INTERMEDIATE: FULL-SCREEN SACRED WORSHIP ================= -->
+      <!-- ================= STEP 2: SACRED WORSHIP FULL-SCREEN ================= -->
       <section id="worshipStep" class="hidden max-w-2xl mx-auto space-y-6">
         <div class="relative bg-gradient-to-b from-slate-900/95 via-slate-950 to-slate-900/95 border-2 border-amber-500/40 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md text-center">
           
@@ -412,12 +408,12 @@
       </div>
 
       <div class="flex flex-wrap gap-1.5 text-xs">
-        <button onclick="filterCodex('all')" class="codex-tab active px-3 py-1.5 rounded-lg border border-amber-500 bg-amber-500/20 text-amber-200">ทั้งหมด (๖๔)</button>
-        <button onclick="filterCodex('guru')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๑. บรมครู & เทวสถิต (๑-๘)</button>
-        <button onclick="filterCodex('deva_day')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๒. เทพประจำวันเกิด (๙-๑๖)</button>
-        <button onclick="filterCodex('zodiac')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๓. นักษัตร & ราศีกาล (๑๗-๒๘)</button>
-        <button onclick="filterCodex('myth_history')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๔. วรรณคดี & ประวัติศาสตร์ (๒๙-๔๘)</button>
-        <button onclick="filterCodex('karma_dharma')" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๕. สัจธรรม & กฎแห่งกรรม (๔๙-๖๔)</button>
+        <button onclick="filterCodex('all', event)" class="codex-tab active px-3 py-1.5 rounded-lg border border-amber-500 bg-amber-500/20 text-amber-200">ทั้งหมด (๖๔)</button>
+        <button onclick="filterCodex('guru', event)" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๑. บรมครู & เทวสถิต (๑-๘)</button>
+        <button onclick="filterCodex('deva_day', event)" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๒. เทพประจำวันเกิด (๙-๑๖)</button>
+        <button onclick="filterCodex('zodiac', event)" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๓. นักษัตร & ราศีกาล (๑๗-๒๘)</button>
+        <button onclick="filterCodex('myth_history', event)" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๔. วรรณคดี & ประวัติศาสตร์ (๒๙-๔๘)</button>
+        <button onclick="filterCodex('karma_dharma', event)" class="codex-tab px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-900/60 text-slate-300 hover:border-amber-500/40">๕. สัจธรรม & กฎแห่งกรรม (๔๙-๖๔)</button>
       </div>
 
       <div id="codexGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 sm:gap-4">
@@ -828,10 +824,17 @@
       });
 
       window.scrollTo({ top: 0, behavior: 'smooth' });
+
+      // เริ่มทำนายให้อัตโนมัติทันที ไม่ต้องกดปุ่มซ้ำ
+      setTimeout(() => {
+        requestAiDeepDive();
+      }, 350);
     }
 
     function resetDivination() {
       document.getElementById('resultStep').classList.add('hidden');
+      document.getElementById('worshipStep').classList.add('hidden');
+      document.getElementById('selectionStep').classList.add('hidden');
       document.getElementById('intentStep').classList.remove('hidden');
       selectedCards = [];
       chatMemory = { lastTopic: null, lastNumbers: null, lastCard: null, lastLocation: null, turns: 0 };
@@ -894,7 +897,6 @@
       const ids = cards.map(c => c.id);
       const elements = cards.map(c => c.element);
 
-      // ตรวจสอบคู่ไพ่เทวะระดับตำนาน
       if (ids.includes(7) && (ids.includes(36) || ids.includes(55) || ids.includes(57))) {
         return {
           type: "มหาเศรษฐีซ้อนมหาเศรษฐี (Super Wealth Synergy)",
@@ -920,7 +922,6 @@
         };
       }
 
-      // ตรวจสอบเคมีธาตุ
       if (elements.includes("ไฟ") && elements.includes("น้ำ")) {
         return {
           type: "ธาตุไฟปะทะธาตุน้ำ (Elemental Friction)",
@@ -943,7 +944,7 @@
     function calculateVedicLuckyNumbers(card, dayName, nameScore) {
       const dayData = DAY_POWER[dayName] || { power: 9 };
       const p = dayData.power;
-      const b = card.baseNum;
+      const b = card.baseNum || 19;
       const n = nameScore || 45;
       
       const singleNum = (b + p + n) % 10;
@@ -957,41 +958,6 @@
         pairs: `${pair1}, ${pair2}`,
         trios: `${trio1}, ${trio2}`
       };
-    }
-
-    // ========================================================
-    // ๕. ระบบพิมพ์สดแบบมีจังหวะญาณ (Typewriter Psychic Stream)
-    // ========================================================
-    function streamHtmlText(targetElement, htmlString, onComplete) {
-      targetElement.innerHTML = '';
-      let i = 0;
-      const tempDiv = document.createElement('div');
-      tempDiv.innerHTML = htmlString;
-      const fullText = tempDiv.innerHTML;
-      
-      const speed = 12;
-      function step() {
-        if (i < fullText.length) {
-          if (fullText[i] === '<') {
-            const closeIndex = fullText.indexOf('>', i);
-            if (closeIndex !== -1) {
-              targetElement.innerHTML += fullText.slice(i, closeIndex + 1);
-              i = closeIndex + 1;
-            } else {
-              targetElement.innerHTML += fullText[i];
-              i++;
-            }
-          } else {
-            targetElement.innerHTML += fullText[i];
-            i++;
-          }
-          if (i % 8 === 0) playSound('tick');
-          setTimeout(step, speed);
-        } else {
-          if (onComplete) onComplete();
-        }
-      }
-      step();
     }
 
     // ========================================================
@@ -1033,6 +999,8 @@
         ? `บทสรุปเรื่องนี้: <b>อย่าเพิ่งผลีผลามทุ่มหมดหน้าตัก</b> มีคลื่นใต้น้ำที่ต้องรอเวลาสะสาง ให้ยึดความจริงใจเป็นที่ตั้ง แล้วจะแคล้วคลาดปลอดภัยในที่สุด`
         : `บทสรุปเรื่องนี้: <b>เดินหน้าลุยได้เต็มกำลังตามสัจจะ</b> สิ่งที่หวังไว้ทั้งเรื่องทรัพย์และชื่อเสียง มีเกณฑ์สมปรารถนาในเร็ววัน`;
 
+      const powerValue = DAY_POWER[day]?.power || 9;
+
       let textOutput = `
         <div class="space-y-4 text-xs sm:text-sm leading-relaxed">
           <!-- กล่องบันทึกสภาวะกาลเวลาจริง -->
@@ -1044,7 +1012,7 @@
           <div class="border-b border-amber-500/20 pb-3">
             <span class="text-amber-300 font-bold text-sm sm:text-base">๑. 🌟 [ถอดรหัสบุพกรรมและเลขศาสตร์ชื่อ]</span>
             <p class="mt-1.5 text-slate-200">
-              ขอเจริญพรแด่คุณ<b>${name}</b> ผู้กำเนิดใน<b>วัน${day}</b> (กำลังวันมหาทักษา ${DAY_POWER[day]?.power || ๙}) 
+              ขอเจริญพรแด่คุณ<b>${name}</b> ผู้กำเนิดใน<b>วัน${day}</b> (กำลังวันมหาทักษา ${powerValue}) 
               ถอดรหัสอักษรนามได้ผลรวมเลขศาสตร์ <b>[กำลัง ${gematria.score}: ${gematria.title}]</b> 
               วาระจิตที่สถิตขึ้นต่อหน้าบัลลังก์แก้วคือไพ่ประธาน <b>[${mainCard.name}]</b> (${isRev ? 'ทิศกลับหัว - กำลังเผชิญหน้ากับเศษวิบาก' : 'ทิศตั้งตรง - เทวบารมีส่องสว่าง'}) 
               ชี้ชัดว่าในขณะนี้ พลังธาตุ${mainCard.element}ของไพ่กำลังชะล้างความติดขัดในอดีต สิ่งที่สร้างสมไว้ทั้งความเพียรและความดีงาม กำลังจะส่งผลออกดอกออกผลในชาติตะวันนี้
@@ -1105,11 +1073,10 @@
         </div>
       `;
 
-      // ใช้ระบบ Streaming พิมพ์ผลลัพธ์แบบสด
-      streamHtmlText(contentEl, textOutput, () => {
-        btn.disabled = false;
-        btn.innerHTML = '✨ อัญเชิญญาณแม่หมอทำนายภาพรวม';
-      });
+      contentEl.innerHTML = textOutput;
+      playSound('bell');
+      btn.disabled = false;
+      btn.innerHTML = '✨ อัญเชิญญาณแม่หมอทำนายภาพรวม';
     }
 
     // ========================================================
@@ -1170,7 +1137,7 @@
         `;
       }
 
-      // ๒. หมวดถามเรื่องหวย / รางวัลที่ 1 / เสี่ยงโชค / ตัวเลข (ตั้งค่า Memory = 'lottery')
+      // ๒. หมวดถามเรื่องหวย / รางวัลที่ 1 / เสี่ยงโชค / ตัวเลข
       else if (q.includes('หวย') || q.includes('รางวัลที่ 1') || q.includes('รางวัลที่๑') || q.includes('รางวัล') || q.includes('ถูกไหม') || q.includes('ล็อตเตอรี่') || q.includes('สลาก') || q.includes('โต๊ด') || q.includes('เต็ง') || q.includes('เลข')) {
         chatMemory.lastTopic = 'lottery';
         chatMemory.lastNumbers = numCalc;
@@ -1203,7 +1170,7 @@
         `;
       }
 
-      // ๓. หมวดถามเรื่องเวลา / ยามอุบากอง / วันที่เท่าไหร่ / กี่โมง / ซื้อตอนไหน (ตั้งค่า Memory = 'timing')
+      // ๓. หมวดถามเรื่องเวลา / ยามอุบากอง / วันที่เท่าไหร่ / กี่โมง / ซื้อตอนไหน
       else if (q.includes('กี่โมง') || q.includes('วันที่เท่าไหร่') || q.includes('ตอนไหน') || q.includes('เวลาไหน') || q.includes('วันไหน') || q.includes('เมื่อไหร่') || q.includes('ช่วงไหน') || q.includes('ฤกษ์')) {
         chatMemory.lastTopic = 'timing';
 
@@ -1225,7 +1192,7 @@
         `;
       }
 
-      // ๔. หมวดถามเรื่องความรัก / แฟน / คู่ครอง / คืนดี (ตั้งค่า Memory = 'love')
+      // ๔. หมวดถามเรื่องความรัก / แฟน / คู่ครอง / คืนดี
       else if (q.includes('รัก') || q.includes('แฟน') || q.includes('คู่') || q.includes('เลิก') || q.includes('คนคุย') || q.includes('คืนดี')) {
         chatMemory.lastTopic = 'love';
 
@@ -1235,7 +1202,7 @@
           : `สายสัมพันธ์มีความอบอุ่นและเกื้อหนุนกันดี คนรักกำลังมองเห็นความดีและความพยายามของท่าน หากกำลังคุยหรือดูใจกันอยู่ มีเกณฑ์ได้ขยับสถานะชัดเจนขึ้นในไม่ช้า ขอเพียงคงความจริงใจไว้เจ้าค่ะ`;
       }
 
-      // ๕. หมวดถามเรื่องความสำเร็จ / สอบ / งาน / ผ่านไหม (ตั้งค่า Memory = 'career')
+      // ๕. หมวดถามเรื่องความสำเร็จ / สอบ / งาน / ผ่านไหม
       else if (q.includes('สำเร็จ') || q.includes('ผ่านไหม') || q.includes('ได้ไหม') || q.includes('ชนะ') || q.includes('ย้ายงาน') || q.includes('สอบ')) {
         chatMemory.lastTopic = 'career';
 
@@ -1260,31 +1227,27 @@
 
       const botMsgDiv = document.createElement('div');
       botMsgDiv.className = 'text-left my-2';
-      
-      const contentContainer = document.createElement('div');
-      contentContainer.className = 'inline-block bg-slate-900 text-slate-100 border border-amber-500/40 p-3.5 sm:p-4 rounded-xl text-xs sm:text-sm max-w-[94%] leading-relaxed shadow-lg space-y-2';
-      botMsgDiv.appendChild(contentContainer);
-      chatHistory.appendChild(botMsgDiv);
-
-      const messageHtml = `
-        <div class="flex items-center space-x-1.5 border-b border-amber-500/20 pb-1.5">
-          <span class="text-base">🪷</span>
-          <b class="text-amber-300 font-semibold">${replyTitle}</b>
+      botMsgDiv.innerHTML = `
+        <div class="inline-block bg-slate-900 text-slate-100 border border-amber-500/40 p-3.5 sm:p-4 rounded-xl text-xs sm:text-sm max-w-[94%] leading-relaxed shadow-lg space-y-2">
+          <div class="flex items-center space-x-1.5 border-b border-amber-500/20 pb-1.5">
+            <span class="text-base">🪷</span>
+            <b class="text-amber-300 font-semibold">${replyTitle}</b>
+          </div>
+          <div class="text-slate-200 mt-1">${replyContent}</div>
         </div>
-        <div class="text-slate-200 mt-1">${replyContent}</div>
       `;
-
-      // แสดงผลแชตแบบพิมพ์สดพร้อมเลื่อนจออัตโนมัติ
-      streamHtmlText(contentContainer, messageHtml, () => {
-        chatHistory.scrollTop = chatHistory.scrollHeight;
-        sendBtn.disabled = false;
-      });
+      chatHistory.appendChild(botMsgDiv);
+      chatHistory.scrollTop = chatHistory.scrollHeight;
+      playSound('tick');
+      sendBtn.disabled = false;
     }
 
     // Codex Functions
-    function filterCodex(cat) {
+    function filterCodex(cat, e) {
       document.querySelectorAll('.codex-tab').forEach(t => t.classList.remove('active', 'border-amber-500', 'bg-amber-500/20', 'text-amber-200'));
-      event.target.classList.add('active', 'border-amber-500', 'bg-amber-500/20', 'text-amber-200');
+      if (e && e.target) {
+        e.target.classList.add('active', 'border-amber-500', 'bg-amber-500/20', 'text-amber-200');
+      }
       renderCodexGrid(cat);
     }
 
