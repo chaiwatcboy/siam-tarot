@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>สยามเทวาพยากรณ์ | ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</title>
   
-  <!-- โหลดชุดภาพไพ่ทั้ง 4 ส่วน (ผ่านเกณฑ์ GitHub 25MB) -->
+  <!-- โหลดชุดภาพไพ่ทั้ง 4 ส่วน -->
   <script src="tarot_images_part1.js"></script>
   <script src="tarot_images_part2.js"></script>
   <script src="tarot_images_part3.js"></script>
@@ -166,7 +166,6 @@
             </div>
           </div>
 
-          <!-- ช่องพิมพ์คำถามอิสระ -->
           <div>
             <label class="block text-xs text-amber-200/80 mb-1">คำถามที่ต้องการถามเจาะจง (พิมพ์ถามได้เลย):</label>
             <input type="text" id="seekerQuestion" placeholder="เช่น การสอบรอบนี้จะผ่านไหม? หรือ มีเกณฑ์ย้ายงานช่วงไหน?..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
@@ -370,7 +369,7 @@
     </div>
   </div>
 
-  <!-- ================= API KEY MODAL (รองรับ AQ. และ AIzaSy พร้อมปุ่มทดสอบ) ================= -->
+  <!-- ================= API KEY MODAL ================= -->
   <div id="apiKeyModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm hidden flex items-center justify-center p-4">
     <div class="bg-slate-900 border border-amber-500/40 rounded-2xl max-w-md w-full p-5 sm:p-6 shadow-2xl space-y-4">
       <div class="flex justify-between items-center border-b border-slate-800 pb-3">
@@ -380,7 +379,7 @@
 
       <div class="text-xs text-slate-300 space-y-1.5 leading-relaxed">
         <p>นำ API Key จาก <b>Google AI Studio</b> มาใส่ (รับคีย์ฟรีที่ <a href="https://aistudio.google.com/app/apikey" target="_blank" class="text-amber-300 underline font-semibold">aistudio.google.com</a>)</p>
-        <p class="text-[11px] text-amber-300/80">✅ รองรับทั้งคีย์ที่ขึ้นต้นด้วย <b>AQ...</b> และ <b>AIzaSy...</b></p>
+        <p class="text-[11px] text-amber-300/80">✅ รองรับโมเดล <b>gemini-3.8-flash</b> ล่าสุด พร้อมรองรับคีย์ AQ... และ AIzaSy...</p>
       </div>
 
       <div>
@@ -466,7 +465,7 @@
       { id: 49, name: "พญายมราชตุลาการ", category: "karma_dharma", subtitle: "กฎแห่งกรรม บัญชีบุญบาป ความเที่ยงธรรมสูงสุด", lore: "ผู้พิพากษาแห่งยมโลก ตัดสินดวงวิญญาณตามกรรมที่ทำไว้ ไม่มีติดสินบน", meaning: "ความเที่ยงธรรม กฎแห่งกรรมตอบสนอง ทำดีได้ดี ทำชั่วได้ชั่ว ชนะคดีความถ้าบริสุทธิ์", mantra: "ปะโตเมตัง ปะระชีวินัง สุขะโตจุติ" },
       { id: 50, name: "พระกาฬไชยศรี", category: "karma_dharma", subtitle: "กาลเวลา ความไม่แน่นอน การหมดอายุขัย การตื่นรู้", lore: "เทวะผู้ถือบ่วงบาศและพระขรรค์ เป็นสัญลักษณ์แห่งกาลเวลาที่กลืนกินทุกสรรพสิ่ง", meaning: "อย่าผัดวันประกันพรุ่ง การสิ้นสุดของปัญหาเก่า เวลาเป็นเครื่องเยียวยา", mantra: "กาโล ฆะสะติ ภูตานิ สัพพาเนวะ" },
       { id: 51, name: "พระแม่ธรณีบีบมวยผม", category: "karma_dharma", subtitle: "การชนะมาร บารมีสั่งสม แผ่นดินเป็นพยาน", lore: "พระแม่ธรณีทรงบีบมวยผมหลั่งน้ำทักษิโณทกที่พระพุทธองค์ทรงกรวดไว้ ท่วมทัพพญามารพ่าย", meaning: "ความดีที่ทำไว้จะกลับมาช่วยให้ชนะอุปสรรคทั้งปวง มั่นคงดั่งแผ่นดิน", mantra: "ตัสสา เกสีสะโต ยะถาคังคา สวาหะ" },
-      { id: 52, name: "พระแม่โพสพ", category: "karma_dharma", subtitle: "ความอุดมสมบูรณ์ ข้าวปลาอาหาร ลาภผลพูนทวี", lore: "เทวีแห่งรวงข้าว ผู้หล่อเลี้ยงชีวิตมนุษย์ นำพาความอิ่มหนำสำราญ", meaning: "การเก็บเกี่ยวผลกำไร มีกินมีใช้ เหลือกินเหลือเก็บ ธุรกิจการเกษตร/อาหารดีเลิศ", mantra: "โพสะวะโภชะนัง อุตตะมัง มหาลาภัง" },
+      { id: 52, name: "พระแม่โพสพ", category: "karma_dharma", subtitle: "ความอุดมสมบูรณ์ ข้าวปลาอาหาร ลาผลพูนทวี", lore: "เทวีแห่งรวงข้าว ผู้หล่อเลี้ยงชีวิตมนุษย์ นำพาความอิ่มหนำสำราญ", meaning: "การเก็บเกี่ยวผลกำไร มีกินมีใช้ เหลือกินเหลือเก็บ ธุรกิจการเกษตร/อาหารดีเลิศ", mantra: "โพสะวะโภชะนัง อุตตะมัง มหาลาภัง" },
       { id: 53, name: "พระแม่คงคา", category: "karma_dharma", subtitle: "การชำระล้าง จิตใจเย็นฉ่ำ ความอ่อนโยน ปรับตัว", lore: "สายน้ำศักดิ์สิทธิ์ที่ชำระล้างบาปมลทินและหล่อเลี้ยงสรรพชีวิตให้อยู่รอด", meaning: "การให้อภัย การชำระจิตใจให้บริสุทธิ์ ความใจเย็นและการปรับตัวตามสถานการณ์", mantra: "คงคา มหาชีวัง สันติสุขัง" },
       { id: 54, name: "แม่ย่านางนาวา", category: "karma_dharma", subtitle: "การเดินทางปลอดภัย ยานพาหนะ การค้าทางไกล", lore: "สิ่งศักดิ์สิทธิ์ผู้คุ้มครองเรือและยานพาหนะ คอยเตือนภัยยามออกทะเล", meaning: "การเดินทางปลอดภัย ยานพาหนะนำโชค ธุรกิจโลจิสติกส์และการท่องเที่ยวรุ่งเรือง", mantra: "สุโข ปะวะสะโต ลาโภ นิวาสิโน" },
       { id: 55, name: "นางกวักมหาลาภ", category: "karma_dharma", subtitle: "การค้าขาย กวักเงินกวักทอง เรียกลูกค้า เมตตาค้าขาย", lore: "ธิดาปู่เจ้าเขาเขียว ผู้ได้รับพรให้กวักเรียกผู้คนและทรัพย์สินเงินทอง", meaning: "ลูกค้าแน่นร้าน ค้าขายคล่อง ได้เงินสดหมุนเวียน เมตตามหานิยมสูง", mantra: "โอม มหาลาโภ ปิยัง มะมะ เอหิ เอหิ" },
@@ -701,7 +700,7 @@
     }
 
     // ========================================================
-    // ฟังก์ชันเรียก Gemini API (ส่งผ่าน Header รองรับ AQ. และ AIzaSy 100%)
+    // ฟังก์ชันเรียก Gemini API (อัปเดตเป็น gemini-3.8-flash ล่าสุด)
     // ========================================================
     async function callGeminiAiEngine(promptText) {
       let apiKey = localStorage.getItem('GEMINI_API_KEY') || '';
@@ -712,9 +711,9 @@
       }
 
       const modelsToTry = [
-        'gemini-2.5-flash',
-        'gemini-2.0-flash',
-        'gemini-1.5-flash'
+        'gemini-3.8-flash',
+        'gemini-3-flash',
+        'gemini-2.5-flash'
       ];
 
       let lastError = null;
@@ -1014,7 +1013,7 @@ ${cardSummary}
       closeApiKeyModal();
     }
 
-    // ฟังก์ชันทดสอบ API Key ผ่าน Header (รองรับ AQ. และ AIzaSy)
+    // ฟังก์ชันทดสอบ API Key ด้วยโมเดล gemini-3.8-flash ล่าสุด
     async function testApiKeyNow() {
       let key = document.getElementById('geminiApiKeyInput').value.trim();
       key = key.replace(/['"\s]/g, '');
@@ -1025,10 +1024,10 @@ ${cardSummary}
         return;
       }
 
-      statusEl.innerHTML = '<span class="text-slate-400 animate-pulse">⏳ กำลังทดสอบเชื่อมต่อไปยังเซิร์ฟเวอร์ Google AI...</span>';
+      statusEl.innerHTML = '<span class="text-slate-400 animate-pulse">⏳ กำลังเชื่อมต่อไปยัง gemini-3.8-flash...</span>';
 
       try {
-        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent`, {
+        const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-3.8-flash:generateContent`, {
           method: 'POST',
           headers: { 
             'Content-Type': 'application/json',
@@ -1042,7 +1041,7 @@ ${cardSummary}
           throw new Error(data.error.message || 'คีย์ไม่ถูกต้อง');
         }
 
-        statusEl.innerHTML = '<span class="text-emerald-400 font-bold">✅ สำเร็จ! API Key ถูกต้องและพร้อมใช้งานทันที</span>';
+        statusEl.innerHTML = '<span class="text-emerald-400 font-bold">✅ สำเร็จ! API Key เชื่อมต่อ gemini-3.8-flash พร้อมใช้งานแล้ว</span>';
       } catch (err) {
         statusEl.innerHTML = `<span class="text-rose-400 font-semibold">❌ ทดสอบไม่ผ่าน: ${err.message}</span>`;
       }
