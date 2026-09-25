@@ -50,9 +50,7 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .tarot-card-ratio {
-      aspect-ratio: 2 / 3.2;
-    }
+    .tarot-card-ratio { aspect-ratio: 2 / 3.2; }
 
     .card-back-pattern {
       background: 
@@ -71,11 +69,32 @@
       pointer-events: none;
     }
 
-    /* คำสั่งบังคับหมุนภาพไพ่กลับหัว 180 องศาแบบนุ่มนวล */
+    /* คำสั่งหมุนภาพไพ่กลับหัว 180 องศา */
     .card-reversed-img {
       transform: rotate(180deg) !important;
       -webkit-transform: rotate(180deg) !important;
       transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+
+    /* แอนิเมชันประทีปเทียนและรัศมีศักดิ์สิทธิ์ */
+    @keyframes flameFlicker {
+      0%, 100% { transform: scale(1) rotate(-1deg); opacity: 0.95; filter: drop-shadow(0 0 15px rgba(245, 158, 11, 0.8)); }
+      25% { transform: scale(1.08) rotate(1deg); opacity: 1; filter: drop-shadow(0 0 25px rgba(251, 191, 36, 0.9)); }
+      50% { transform: scale(0.96) rotate(-2deg); opacity: 0.9; filter: drop-shadow(0 0 12px rgba(217, 119, 6, 0.7)); }
+      75% { transform: scale(1.04) rotate(1deg); opacity: 0.98; filter: drop-shadow(0 0 20px rgba(245, 158, 11, 0.85)); }
+    }
+
+    .sacred-flame {
+      animation: flameFlicker 2.5s infinite ease-in-out;
+    }
+
+    @keyframes haloPulse {
+      0%, 100% { transform: scale(1); opacity: 0.4; }
+      50% { transform: scale(1.08); opacity: 0.75; }
+    }
+
+    .sacred-halo {
+      animation: haloPulse 3.5s infinite ease-in-out;
     }
 
     @keyframes shuffleDeckAnim {
@@ -86,9 +105,7 @@
       100% { transform: scale(1) rotate(0deg); opacity: 1; }
     }
 
-    .shuffling {
-      animation: shuffleDeckAnim 0.35s ease-in-out;
-    }
+    .shuffling { animation: shuffleDeckAnim 0.35s ease-in-out; }
 
     ::-webkit-scrollbar { width: 6px; height: 6px; }
     ::-webkit-scrollbar-track { background: #060b14; }
@@ -107,7 +124,7 @@
         </div>
         <div>
           <h1 class="text-base sm:text-lg font-bold tracking-wide gold-gradient-text">สยามเทวาพยากรณ์</h1>
-          <p class="text-[10px] text-amber-200/60 tracking-wider">ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ</p>
+          <p class="text-[10px] text-amber-200/60 tracking-wider">ไพ่เทวศาสตร์สยามมหาจักร ๖๔ ใบ (ญาณทัศนะ ๕ มิติ)</p>
         </div>
       </div>
 
@@ -134,27 +151,27 @@
         <div class="text-center mb-6">
           <span class="text-xs uppercase tracking-widest text-amber-400/80 font-semibold">เทวลิขิตแห่งดวงชะตา</span>
           <h2 class="text-xl sm:text-2xl font-bold mt-1 gold-gradient-text">ตั้งจิตอธิษฐานรับการพยากรณ์</h2>
-          <p class="text-xs sm:text-sm text-slate-400 mt-2">ผูกดวงชะตากับทักษาพยากรณ์ กฎแห่งกรรม และเทวบารมี ๖๔ ภพภูมิ</p>
+          <p class="text-xs sm:text-sm text-slate-400 mt-2">ผูกดวงชะตากับทักษาพยากรณ์ เลขศาสตร์ชื่อ ยามอุบากอง และดาวจรวินาทีจริง</p>
         </div>
 
         <div class="space-y-4">
           <div>
-            <label class="block text-xs text-amber-200/80 mb-1">ชื่อหรือนามสมมุติ (สำหรับตั้งจิต):</label>
-            <input type="text" id="seekerName" placeholder="ระบุชื่อของท่าน..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
+            <label class="block text-xs text-amber-200/80 mb-1">ชื่อหรือนามสมมุติ (ใช้คำนวณเลขศาสตร์บารมี):</label>
+            <input type="text" id="seekerName" placeholder="ระบุชื่อภาษาไทยของท่าน..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
           </div>
 
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <div>
               <label class="block text-xs text-amber-200/80 mb-1">วันกำเนิด (ทักษาพยากรณ์):</label>
               <select id="seekerDay" class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3 py-2 text-sm text-slate-200 outline-none transition">
-                <option value="อาทิตย์">วันอาทิตย์ (สุริยเทพ)</option>
-                <option value="จันทร์">วันจันทร์ (จันทราเทวี)</option>
-                <option value="อังคาร">วันอังคาร (ภุมมเทพ)</option>
-                <option value="พุธกลางวัน">วันพุธกลางวัน (วุธเทพ)</option>
-                <option value="พุธกลางคืน">วันพุธกลางคืน (ราหูมหาโพธิสัตว์)</option>
-                <option value="พฤหัสบดี">วันพฤหัสบดี (ครุเทพศิษย์บรมครู)</option>
-                <option value="ศุกร์">วันศุกร์ (ศุกรเทวี)</option>
-                <option value="เสาร์">วันเสาร์ (โสระเทพ)</option>
+                <option value="อาทิตย์">วันอาทิตย์ (สุริยเทพ - กำลัง ๖)</option>
+                <option value="จันทร์">วันจันทร์ (จันทราเทวี - กำลัง ๑๕)</option>
+                <option value="อังคาร">วันอังคาร (ภุมมเทพ - กำลัง ๘)</option>
+                <option value="พุธกลางวัน">วันพุธกลางวัน (วุธเทพ - กำลัง ๑๗)</option>
+                <option value="พุธกลางคืน">วันพุธกลางคืน (ราหูโพธิสัตว์ - กำลัง ๑๒)</option>
+                <option value="พฤหัสบดี">วันพฤหัสบดี (ครุเทพศิษย์ครู - กำลัง ๑๙)</option>
+                <option value="ศุกร์">วันศุกร์ (ศุกรเทวี - กำลัง ๒๑)</option>
+                <option value="เสาร์">วันเสาร์ (โสระเทพ - กำลัง ๑๐)</option>
               </select>
             </div>
             <div>
@@ -171,7 +188,7 @@
 
           <div>
             <label class="block text-xs text-amber-200/80 mb-1">คำถามที่ต้องการถามเจาะจง (พิมพ์ถามได้อิสระ):</label>
-            <input type="text" id="seekerQuestion" placeholder="เช่น งวดนี้มีเกณฑ์ถูกหวยไหม? หรือ ซื้อเวลาไหนดี?..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
+            <input type="text" id="seekerQuestion" placeholder="เช่น งวดนี้ถูกรางวัลที่ 1 ไหม? หรือ ควรซื้อเวลาไหน เลขอะไร?..." class="w-full bg-slate-950/80 border border-slate-700 focus:border-amber-400 rounded-lg px-3.5 py-2 text-sm text-slate-100 outline-none transition">
           </div>
 
           <div>
@@ -203,13 +220,88 @@
             </div>
           </div>
 
-          <button onclick="startCardSelection()" class="w-full mt-4 py-3 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition transform active:scale-98 flex items-center justify-center space-x-2 text-sm sm:text-base">
-            <span>✨ ตั้งสมาธิ สับไพ่และเลือกไพ่</span>
+          <button onclick="openWorshipStep()" class="w-full mt-4 py-3 bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 hover:from-amber-500 hover:to-yellow-400 text-slate-950 font-bold rounded-xl shadow-lg shadow-amber-500/20 transition transform active:scale-98 flex items-center justify-center space-x-2 text-sm sm:text-base">
+            <span>✨ ตั้งสมาธิ น้อมบูชาครู & เบิกเนตรทัศนญาณ</span>
           </button>
         </div>
       </section>
 
-      <!-- STEP 2: SHUFFLE & SELECT CARDS -->
+      <!-- ================= STEP INTERMEDIATE: FULL-SCREEN SACRED WORSHIP ================= -->
+      <section id="worshipStep" class="hidden max-w-2xl mx-auto space-y-6">
+        <div class="relative bg-gradient-to-b from-slate-900/95 via-slate-950 to-slate-900/95 border-2 border-amber-500/40 rounded-3xl p-6 sm:p-9 shadow-2xl backdrop-blur-md text-center">
+          
+          <!-- ดวงรัศมี & เปลวประทีปศักดิ์สิทธิ์ -->
+          <div class="relative flex justify-center items-center my-3">
+            <div class="absolute w-32 h-32 rounded-full bg-amber-500/20 blur-2xl sacred-halo"></div>
+            <div class="w-16 h-16 rounded-full border border-amber-400/60 flex items-center justify-center bg-gradient-to-br from-amber-600/40 to-slate-950 text-amber-300 text-3xl font-cinzel shadow-xl shadow-amber-500/30 sacred-flame z-10">
+              ॐ
+            </div>
+          </div>
+
+          <div class="space-y-1.5 mt-2">
+            <span class="text-[11px] sm:text-xs uppercase tracking-widest text-amber-400/90 font-semibold">พิธีกรรมเบิกเนตรเปิดทัศนญาณ</span>
+            <h2 class="text-xl sm:text-2xl font-bold gold-gradient-text">มณฑลพิธีน้อมจิตบูชาครูเทวศาสตร์</h2>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">
+              โปรดสำรวมกาย วาจา ใจ ตั้งจิตเป็นสมาธิ ภาวนาพระคาถาสำคัญทั้ง ๓ บทนี้ เพื่อเปิดม่านอวิชชาและรับเทวบารมี
+            </p>
+          </div>
+
+          <!-- บทสวดทั้ง ๓ ลำดับ -->
+          <div class="space-y-4 my-6 text-left text-xs sm:text-sm">
+            
+            <!-- ๑. บทสวดบูชาครูเทวศาสตร์ -->
+            <div class="bg-slate-950/80 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner space-y-2">
+              <div class="flex items-center space-x-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
+                <span>🪷</span>
+                <span>๑. บทสวดบูชาครูเทวศาสตร์ (น้อมอัญเชิญบารมี)</span>
+              </div>
+              <p class="text-amber-100/95 leading-relaxed italic bg-amber-500/5 p-3 rounded-xl border border-amber-500/15 text-center font-medium">
+                "โอม ศรีมหาคเณศายะ นะมะฮา ข้าพเจ้าขอน้อมอัญเชิญบารมีพระพุทธ พระธรรม พระสงฆ์ เทวตานุภาพ และบรมครูโหราธิบดีทั้งปวง โปรดเมตตาเปิดม่านดวงชะตา ประทานปัญญาญาณอันสว่างไสว ชี้ทางสว่างแก่ข้าพเจ้าด้วยเทอญ"
+              </p>
+            </div>
+
+            <!-- ๒. คาถาพระพุทธเจ้าเปิดโลก (เบิกเนตรหมอดู) -->
+            <div class="bg-slate-950/80 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner space-y-2">
+              <div class="flex items-center space-x-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
+                <span>👁️</span>
+                <span>๒. คาถาพระพุทธเจ้าเปิดโลก (เบิกเนตรหมอดู ปัดเป่าม่านบังตา)</span>
+              </div>
+              <div class="text-amber-200 font-mono text-xs sm:text-sm leading-loose bg-amber-500/5 p-3 rounded-xl border border-amber-500/15 text-center">
+                พุทธัง &nbsp;&nbsp;&nbsp; บังเกิดเปิดโลกโลกะวิทูวิโสธะยิ<br>
+                ธัมมัง &nbsp;&nbsp;&nbsp; บังเกิดเปิดโลกโลกะวิทูวิโสธะยิ<br>
+                สังฆัง &nbsp;&nbsp;&nbsp; บังเกิดเปิดโลกโลกะวิทูวิโสธะยิ
+              </div>
+            </div>
+
+            <!-- ๓. บทคาถาเมฆจิต -->
+            <div class="bg-slate-950/80 border border-amber-500/30 rounded-2xl p-4 sm:p-5 shadow-inner space-y-2">
+              <div class="flex items-center space-x-2 text-amber-300 font-bold text-xs uppercase tracking-wider">
+                <span>☁️</span>
+                <span>๓. บทคาถาเมฆจิต (รวมศูนย์จิตหยั่งรู้นิมิตสัจธรรม)</span>
+              </div>
+              <div class="text-amber-200 font-mono text-xs sm:text-sm leading-loose bg-amber-500/5 p-3 rounded-xl border border-amber-500/15 text-center">
+                พุทธัง เมฆะนิมิต จิตตัง มะอะอุ<br>
+                ธัมมัง เมฆะนิมิต จิตตัง อุอะมะ<br>
+                สังฆัง เมฆะนิมิต จิตตัง อะมะอุ
+              </div>
+            </div>
+
+          </div>
+
+          <div class="space-y-3 pt-2">
+            <button onclick="proceedToCardSelection()" class="w-full py-4 bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 hover:brightness-110 text-slate-950 font-bold rounded-2xl shadow-xl shadow-amber-500/30 transition transform active:scale-98 text-sm sm:text-base flex items-center justify-center space-x-2">
+              <span>🙏 ขอน้อมจิตรับเทวลิขิต (สาธุ) เข้าสู่การเลือกไพ่</span>
+            </button>
+            
+            <button onclick="cancelWorship()" class="text-xs text-slate-400 hover:text-amber-300 transition">
+              ← ย้อนกลับไปแก้ไขคำถาม
+            </button>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- STEP 3: SHUFFLE & SELECT CARDS -->
       <section id="selectionStep" class="hidden space-y-4">
         <div class="text-center max-w-xl mx-auto space-y-2">
           <span class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ขั้นตอนเลือกสำรับ</span>
@@ -242,7 +334,7 @@
         </div>
       </section>
 
-      <!-- STEP 3: READING RESULT -->
+      <!-- STEP 4: READING RESULT -->
       <section id="resultStep" class="hidden space-y-8">
         <div class="text-center max-w-2xl mx-auto">
           <span class="text-xs text-amber-400 tracking-widest font-semibold uppercase">ผลคำทำนายเทวลิขิต</span>
@@ -253,14 +345,14 @@
         <div id="drawnCardsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
         </div>
 
-        <!-- กล่องคำทำนาย & แชตแม่หมอ (อัปเกรดฉลาดคมคาย + สรุปรวมฟันธง) -->
+        <!-- กล่องคำทำนาย & แชตแม่หมอ (ระบบคำนวณยามอุบากองและตัวเลขมหาทักษาจริง) -->
         <div class="bg-slate-900/90 border border-amber-500/40 rounded-2xl p-5 sm:p-7 shadow-2xl space-y-6">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-amber-500/20 pb-4">
             <div class="flex items-center space-x-2">
               <span class="text-2xl">👑</span>
               <div>
                 <h3 class="font-bold text-base sm:text-lg text-amber-200">พระญาณทัศนะแม่หมอสยามเทวาพยากรณ์</h3>
-                <p class="text-xs text-slate-400">วิเคราะห์เจาะลึก ๕ มิติ พร้อมบทสรุปรวมฟันธงชะตา</p>
+                <p class="text-xs text-slate-400">วิเคราะห์เจาะลึก ๕ มิติ บูรณาการเลขศาสตร์ ยามอุบากอง และเคมีคู่ไพ่</p>
               </div>
             </div>
             <button id="askAiBtn" onclick="requestAiDeepDive()" class="px-4 py-2 rounded-xl bg-gradient-to-r from-amber-600 via-amber-500 to-yellow-500 text-slate-950 font-bold text-xs sm:text-sm hover:brightness-110 shadow-md transition flex items-center justify-center space-x-1.5">
@@ -272,16 +364,16 @@
             <p class="text-slate-400 italic text-center py-4">แตะปุ่ม "อัญเชิญญาณแม่หมอทำนายภาพรวม" เพื่อเปิดพระญาณทัศนะเจาะลึกชะตาชีวิต หรือพิมพ์คำถามเฉพาะเจาะจงด้านล่างได้ทันที</p>
           </div>
 
-          <!-- กล่องโต้ตอบสด (ตอบตรงจุด เจาะลึกเรื่องหวย เวลา ตัวเลข) -->
+          <!-- กล่องโต้ตอบสด (ตอบตรงจุด มีระบบจำบริบทและคำนวณสด) -->
           <div class="border-t border-amber-500/20 pt-5 space-y-3">
             <div class="flex items-center space-x-2">
               <span class="text-amber-400 text-sm">💬</span>
-              <h4 class="text-xs sm:text-sm font-bold text-amber-300">ปรึกษาเจาะลึกเพิ่มเติมกับแม่หมอ (ถามได้ตรงๆ ทุกเรื่อง)</h4>
+              <h4 class="text-xs sm:text-sm font-bold text-amber-300">ปรึกษาเจาะลึกเพิ่มเติมกับแม่หมอ (ถามต่อเนื่องได้ตลอดเวลา)</h4>
             </div>
 
             <div id="chatHistory" class="space-y-3 max-h-80 overflow-y-auto p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs">
               <div class="text-amber-300/80 bg-amber-500/10 p-2.5 rounded-lg border border-amber-500/20">
-                🪷 <b>แม่หมอสยามเทวา:</b> "ดวงจิตของท่านปรากฏต่อหน้าไพ่แล้ว มีสิ่งใดที่ข้องใจลึกๆ เรื่องโชคลาภ ตัวเลข เวลา หรือความรัก พิมพ์ถามมาได้เลยนะเจ้าคะ"
+                🪷 <b>แม่หมอสยามเทวา:</b> "ดวงจิตของท่านปรากฏต่อหน้าไพ่แล้ว มีสิ่งใดที่ข้องใจลึกๆ เรื่องตัวเลข ฤกษ์ยามอุบากอง โชคลาภ หรือความรัก พิมพ์ถามมาได้ตรงๆ เลยนะเจ้าคะ"
               </div>
             </div>
 
@@ -375,79 +467,122 @@
   <script>
     const DECK_64 = [
       // 1. บรมครู & เทวสถิต (1-8)
-      { id: 1, name: "ท้าวมหาพรหมธาดา", luckyNumbers: "19, 91, 119", luckyColor: "สีขาวผ่อง, สีทอง", element: "ทอง", category: "guru", subtitle: "บรมครูผู้สร้างโลก ลิขิตพรหมประสิทธิ์", lore: "พระผู้สร้างจักรวาล สถิต ณ พรหมโลก เปี่ยมด้วยพรหมวิหารสี่ เมตตา กรุณา มุทิตา อุเบกขา", meaning: "จุดเริ่มต้นใหม่ โอกาสที่ฟ้าประทาน พรสวรรค์ สมาธิปัญญา ความบริสุทธิ์แห่งจิต", mantra: "โอม พรหมมายะ นะมะฮา" },
-      { id: 2, name: "พญาพิเภกโหราธิบดี", luckyNumbers: "28, 82, 282", luckyColor: "สีเขียวใบตอง, สีคราม", element: "ลม", category: "guru", subtitle: "บรมครูแห่งโหราศาสตร์ สัจธรรมหยั่งรู้", lore: "อนุชาแห่งทศกัณฐ์ ผู้ยึดมั่นในสัจจะและความถูกต้อง ยอมทิ้งยศศักดิ์มาอยู่ฝ่ายธรรมะ", meaning: "การหยั่งรู้ล่วงหน้า การวางแผนรอบคอบ ความซื่อตรง ชนะอุปสรรคด้วยปัญญา", mantra: "สัจจัง เว อมตา วาจา" },
-      { id: 3, name: "พระพิฆเนศวร", luckyNumbers: "39, 93, 359", luckyColor: "สีส้มแสด, สีแดงชมพู", element: "ดิน", category: "guru", subtitle: "เทพเจ้าแห่งศิลปวิทยาการและขจัดอุปสรรค", lore: "มหาเทพผู้ประสิทธิ์ประสาทวิชาการ ศิลปะ และเป็นเจ้าแห่งการขจัดความขัดข้องทั้งปวง", meaning: "ความสำเร็จราบรื่น ศิลปะ ความคิดสร้างสรรค์ การขจัดอุปสรรคสิ้นสูญ", mantra: "โอม ศรี คเณศายะ นะมะฮา" },
-      { id: 4, name: "พระอิศวรศิวเทพ", luckyNumbers: "49, 94, 409", luckyColor: "สีขาวบริสุทธิ์, สีเทาควัน", element: "ไฟ", category: "guru", subtitle: "มหาเทพผู้ทำลายความชั่วร้าย ประทานพรสูงสุด", lore: "องค์ศิวะนาฏราช มหาโยคีผู้บำเพ็ญตบะ ประทับ ณ เขาไกรลาส ผู้สยบมารและกิเลสทั้งมวล", meaning: "การเปลี่ยนแปลงใหญ่ การละทิ้งสิ่งเก่าเพื่อรับสิ่งใหม่ อำนาจบารมีเด็ดขาด", mantra: "โอม นะมัส ศิวายะ" },
-      { id: 5, name: "พระนารายณ์มหาจักร", luckyNumbers: "59, 95, 509", luckyColor: "สีม่วงคราม, สีน้ำเงินเข้ม", element: "น้ำ", category: "guru", subtitle: "เทพผู้พิทักษ์รักษา อวตารปราบยุคเข็ญ", lore: "พระวิษณุผู้บรรทมสินธุ์บนเกษียรสมุทร อวตารลงมาผดุงความยุติธรรมทุกคราที่โลกเดือดร้อน", meaning: "การคุ้มครองแคล้วคลาด ชัยชนะเหนือศัตรู ความมั่นคงยั่งยืน หน้าที่การงานรุ่งเรือง", mantra: "โอม นะโม นารายะนายะ นะมะฮา" },
-      { id: 6, name: "พระแม่อุมามหาเทวี", luckyNumbers: "69, 96, 609", luckyColor: "สีแดงสด, สีส้มทอง", element: "ไฟ", category: "guru", subtitle: "พระแม่ผู้เป็นใหญ่ในสากลโลก พลังศักติสูงสุด", lore: "มหาเทวีผู้ทรงอำนาจ เปี่ยมล้นด้วยความเมตตาต่อบุตร แต่เด็ดขาดเมื่อปราบอสูรร้าย", meaning: "พลังอำนาจสตรี ความอุปถัมภ์ค้ำชู ความรักมั่นคง จิตใจเข้มแข็งไม่ยอมแพ้", mantra: "โอม ศรี มหาอุมาเทวไย นะมะฮา" },
-      { id: 7, name: "พระแม่ลักษมีเทวี", luckyNumbers: "79, 97, 789, 77", luckyColor: "สีชมพูกลีบบัว, สีทองคำ", element: "ทอง", category: "guru", subtitle: "เทวีแห่งความมั่งคั่ง โภคทรัพย์ และความงาม", lore: "ชายาแห่งองค์นารายณ์ ประสูติจากเกษียรสมุทร ผู้นำพาความอุดมสมบูรณ์และเสน่ห์สิริมงคล", meaning: "โชคลาภเงินทองไหลมา ความร่ำรวย เสน่ห์เมตตามหานิยม ความรักสมหวัง", mantra: "โอม ศรี มหาลักษมีไย นะมะฮา" },
-      { id: 8, name: "พระแม่สุรัสวดี", luckyNumbers: "88, 18, 818", luckyColor: "สีขาวนวล, สีเหลืองอ่อน", element: "น้ำ", category: "guru", subtitle: "เทวีแห่งปัญญา วาจา ดนตรี และการศึกษา", lore: "เทวีแห่งแม่น้ำศักดิ์สิทธิ์ ผู้ถือพิณและคัมภีร์ สัญลักษณ์แห่งปัญญาญาณอันบริสุทธิ์", meaning: "ความสำเร็จในการศึกษา สอบแข่งขัน การเขียน การพูด และการคิดค้นวิทยาการ", mantra: "โอม ศรี สุรัสวะไย นะมะฮา" },
+      { id: 1, name: "ท้าวมหาพรหมธาดา", baseNum: 19, luckyColor: "สีขาวบริสุทธิ์, สีทองคำ", element: "ทอง", category: "guru", subtitle: "บรมครูผู้สร้างโลก ลิขิตพรหมประสิทธิ์", lore: "พระผู้สร้างจักรวาล สถิต ณ พรหมโลก เปี่ยมด้วยพรหมวิหารสี่ เมตตา กรุณา มุทิตา อุเบกขา", meaning: "จุดเริ่มต้นใหม่ โอกาสที่ฟ้าประทาน พรสวรรค์ สมาธิปัญญา ความบริสุทธิ์แห่งจิต", mantra: "โอม พรหมมายะ นะมะฮา" },
+      { id: 2, name: "พญาพิเภกโหราธิบดี", baseNum: 28, luckyColor: "สีเขียวใบตอง, สีคราม", element: "ลม", category: "guru", subtitle: "บรมครูแห่งโหราศาสตร์ สัจธรรมหยั่งรู้", lore: "อนุชาแห่งทศกัณฐ์ ผู้ยึดมั่นในสัจจะและความถูกต้อง ยอมทิ้งยศศักดิ์มาอยู่ฝ่ายธรรมะ", meaning: "การหยั่งรู้ล่วงหน้า การวางแผนรอบคอบ ความซื่อตรง ชนะอุปสรรคด้วยปัญญา", mantra: "สัจจัง เว อมตา วาจา" },
+      { id: 3, name: "พระพิฆเนศวร", baseNum: 39, luckyColor: "สีส้มแสด, สีแดงชมพู", element: "ดิน", category: "guru", subtitle: "เทพเจ้าแห่งศิลปวิทยาการและขจัดอุปสรรค", lore: "มหาเทพผู้ประสิทธิ์ประสาทวิชาการ ศิลปะ และเป็นเจ้าแห่งการขจัดความขัดข้องทั้งปวง", meaning: "ความสำเร็จราบรื่น ศิลปะ ความคิดสร้างสรรค์ การขจัดอุปสรรคสิ้นสูญ", mantra: "โอม ศรี คเณศายะ นะมะฮา" },
+      { id: 4, name: "พระอิศวรศิวเทพ", baseNum: 49, luckyColor: "สีขาวมุก, สีเทาควัน", element: "ไฟ", category: "guru", subtitle: "มหาเทพผู้ทำลายความชั่วร้าย ประทานพรสูงสุด", lore: "องค์ศิวะนาฏราช มหาโยคีผู้บำเพ็ญตบะ ประทับ ณ เขาไกรลาส ผู้สยบมารและกิเลสทั้งมวล", meaning: "การเปลี่ยนแปลงใหญ่ การละทิ้งสิ่งเก่าเพื่อรับสิ่งใหม่ อำนาจบารมีเด็ดขาด", mantra: "โอม นะมัส ศิวายะ" },
+      { id: 5, name: "พระนารายณ์มหาจักร", baseNum: 59, luckyColor: "สีม่วงคราม, สีน้ำเงินเข้ม", element: "น้ำ", category: "guru", subtitle: "เทพผู้พิทักษ์รักษา อวตารปราบยุคเข็ญ", lore: "พระวิษณุผู้บรรทมสินธุ์บนเกษียรสมุทร อวตารลงมาผดุงความยุติธรรมทุกคราที่โลกเดือดร้อน", meaning: "การคุ้มครองแคล้วคลาด ชัยชนะเหนือศัตรู ความมั่นคงยั่งยืน หน้าที่การงานรุ่งเรือง", mantra: "โอม นะโม นารายะนายะ นะมะฮา" },
+      { id: 6, name: "พระแม่อุมามหาเทวี", baseNum: 69, luckyColor: "สีแดงสด, สีส้มทอง", element: "ไฟ", category: "guru", subtitle: "พระแม่ผู้เป็นใหญ่ในสากลโลก พลังศักติสูงสุด", lore: "มหาเทวีผู้ทรงอำนาจ เปี่ยมล้นด้วยความเมตตาต่อบุตร แต่เด็ดขาดเมื่อปราบอสูรร้าย", meaning: "พลังอำนาจสตรี ความอุปถัมภ์ค้ำชู ความรักมั่นคง จิตใจเข้มแข็งไม่ยอมแพ้", mantra: "โอม ศรี มหาอุมาเทวไย นะมะฮา" },
+      { id: 7, name: "พระแม่ลักษมีเทวี", baseNum: 79, luckyColor: "สีชมพูกลีบบัว, สีทองคำ", element: "ทอง", category: "guru", subtitle: "เทวีแห่งความมั่งคั่ง โภคทรัพย์ และความงาม", lore: "ชายาแห่งองค์นารายณ์ ประสูติจากเกษียรสมุทร ผู้นำพาความอุดมสมบูรณ์และเสน่ห์สิริมงคล", meaning: "โชคลาภเงินทองไหลมา ความร่ำรวย เสน่ห์เมตตามหานิยม ความรักสมหวัง", mantra: "โอม ศรี มหาลักษมีไย นะมะฮา" },
+      { id: 8, name: "พระแม่สุรัสวดี", baseNum: 88, luckyColor: "สีขาวนวล, สีเหลืองอ่อน", element: "น้ำ", category: "guru", subtitle: "เทวีแห่งปัญญา วาจา ดนตรี และการศึกษา", lore: "เทวีแห่งแม่น้ำศักดิ์สิทธิ์ ผู้ถือพิณและคัมภีร์ สัญลักษณ์แห่งปัญญาญาณอันบริสุทธิ์", meaning: "ความสำเร็จในการศึกษา สอบแข่งขัน การเขียน การพูด และการคิดค้นวิทยาการ", mantra: "โอม ศรี สุรัสวะไย นะมะฮา" },
 
       // 2. เทพประจำวันเกิด (9-16)
-      { id: 9, name: "พระอาทิตย์เทพบุตร", luckyNumbers: "16, 61, 106", luckyColor: "สีแดงชาด, สีทอง", element: "ไฟ", category: "deva_day", subtitle: "เกียรติยศ ผู้นำ อำนาจ รัศมีเจิดจรัส", lore: "เทพประจำวันอาทิตย์ เทพพาหนะคือราชสีห์ ทรงเครื่องทองคำเปล่งประกาย", meaning: "เกียรติยศชื่อเสียง ความเป็นผู้นำ งานราชการ โดดเด่นเป็นที่ยอมรับ", mantra: "อิติปิโส ภะคะวา พระอาทิตย์จะมัสมัง" },
-      { id: 10, name: "พระจันทร์เทพธิดา", luckyNumbers: "15, 51, 215", luckyColor: "สีขาวมุก, สีเหลืองนวล", element: "ดิน", category: "deva_day", subtitle: "เสน่ห์ จินตนาการ ความอ่อนหวานและจิตวิทยา", lore: "เทพประจำวันจันทร์ สถิตบนวิมานเงิน นุ่มนวล ชวนมอง เปี่ยมด้วยเมตตามหานิยม", meaning: "เสน่ห์ต่อคนรอบข้าง งานบริการ การใช้ความรู้สึกและศิลปะ ความรักโรแมนติก", mantra: "อิ ระ ชา คะ ตะ ระ สา" },
-      { id: 11, name: "พระอังคารเทพสงคราม", luckyNumbers: "08, 80, 308", luckyColor: "สีชมพูเข้ม, สีบานเย็น", element: "ลม", category: "deva_day", subtitle: "ความกล้าหาญ การต่อสู้ พลังกายอันไม่สิ้นสุด", lore: "เทพประจำวันอังคาร ทรงกระบือเป็นพาหนะ ดุดัน ตรงไปตรงมา รักเพื่อนพ้อง", meaning: "ความมุ่งมั่นลุยงานหนัก ชัยชนะจากการแข่งขัน ช่าง ฝีมือ หรือการเดินทางไกล", mantra: "ติ หัง จะ โต โร ถิ นัง" },
-      { id: 12, name: "พระพุธเทววาที", luckyNumbers: "17, 71, 417", luckyColor: "สีเขียวมรกต", element: "น้ำ", category: "deva_day", subtitle: "การเจรจา วาทศิลป์ ปัญญา และการค้าขาย", lore: "เทพประจำวันพุธ ทรงช้างเป็นพาหนะ ผู้ประสานสิบทิศ มีไหวพริบปฏิภาณยอดเยี่ยม", meaning: "การติดต่อสื่อสารสำเร็จ ค้าขายกำไรดี การเจรจาต่อรอง สัญญาทางธุรกิจราบรื่น", mantra: "ปิ สัม ระ โล ปุ สัต พุท" },
-      { id: 13, name: "พระพฤหัสบดีคุรุเทพ", luckyNumbers: "19, 91, 519", luckyColor: "สีส้มอิฐ, สีแสด", element: "ดิน", category: "deva_day", subtitle: "คุณธรรม ความรู้ ครูบาอาจารย์ และผู้ใหญ่เมตตา", lore: "ครูแห่งทวยเทพ สถิตบนกวางทอง ผู้ทรงศีล สมาธิ ปัญญาอันบริสุทธิ์", meaning: "ผู้ใหญ่เกื้อหนุน การเรียนรู้ธรรมะ สุขภาพแข็งแรง ชีวิตสงบสุขร่มเย็น", mantra: "ภะ สัม สัม วิ สะ เท ภะ" },
-      { id: 14, name: "พระศุกร์เทวโสภา", luckyNumbers: "21, 12, 621", luckyColor: "สีฟ้าสว่าง, สีน้ำเงินโปร่ง", element: "น้ำ", category: "deva_day", subtitle: "โชคลาภ ความสุข ศิลปะ และความรื่นรมย์", lore: "เทพประจำวันศุกร์ ทรงโคเป็นพาหนะ ตัวแทนแห่งความสุข ความมั่งคั่งและความรัก", meaning: "ความสุขสมบูรณ์ การเงินหมุนเวียนคล่องตัว ความบันเทิง มีกินมีใช้ไม่ขาดมือ", mantra: "วา โธ โน อะ มะ มะ วา" },
-      { id: 15, name: "พระเสาร์เทวราช", luckyNumbers: "10, 01, 710", luckyColor: "สีม่วงเข้ม, สีดำสนิท", element: "ไฟ", category: "deva_day", subtitle: "ความอดทน หนักแน่น มรดก และบททดสอบชีวิต", lore: "เทพประจำวันเสาร์ ทรงเสือเป็นพาหนะ เงียบขรึม ทรงพลัง อดทนต่อความยากลำบาก", meaning: "ความอดทนนำมาซึ่งความสำเร็จ งานระยะยาว อสังหาริมทรัพย์ มรดกตกทอด", mantra: "โส มา ณะ กะ ริ ถา โธ" },
-      { id: 16, name: "พระราหูสุรินทราหู", luckyNumbers: "12, 21, 812, 88", luckyColor: "สีบรอนซ์เงิน, สีเทาควันบุหรี่", element: "ลม", category: "deva_day", subtitle: "ความพลิกผัน เงาราหู โชคลาภเสี่ยงทาย", lore: "มหาอสุรินทราหู พระโพธิสัตว์ในอนาคตกาล ผู้กลืนกินความมืดเพื่อส่องแสงแห่งการตื่นรู้", meaning: "โชคลาภแบบไม่คาดฝัน ธุรกิจกลางคืน งานต่างประเทศ การแก้เคล็ดพลิกดวง", mantra: "คะ พุท ปัน ทู ธัม วะ คะ" },
+      { id: 9, name: "พระอาทิตย์เทพบุตร", baseNum: 16, luckyColor: "สีแดงชาด, สีทอง", element: "ไฟ", category: "deva_day", subtitle: "เกียรติยศ ผู้นำ อำนาจ รัศมีเจิดจรัส", lore: "เทพประจำวันอาทิตย์ เทพพาหนะคือราชสีห์ ทรงเครื่องทองคำเปล่งประกาย", meaning: "เกียรติยศชื่อเสียง ความเป็นผู้นำ งานราชการ โดดเด่นเป็นที่ยอมรับ", mantra: "อิติปิโส ภะคะวา พระอาทิตย์จะมัสมัง" },
+      { id: 10, name: "พระจันทร์เทพธิดา", baseNum: 15, luckyColor: "สีขาวมุก, สีเหลืองนวล", element: "ดิน", category: "deva_day", subtitle: "เสน่ห์ จินตนาการ ความอ่อนหวานและจิตวิทยา", lore: "เทพประจำวันจันทร์ สถิตบนวิมานเงิน นุ่มนวล ชวนมอง เปี่ยมด้วยเมตตามหานิยม", meaning: "เสน่ห์ต่อคนรอบข้าง งานบริการ การใช้ความรู้สึกและศิลปะ ความรักโรแมนติก", mantra: "อิ ระ ชา คะ ตะ ระ สา" },
+      { id: 11, name: "พระอังคารเทพสงคราม", baseNum: 80, luckyColor: "สีชมพูเข้ม, สีบานเย็น", element: "ลม", category: "deva_day", subtitle: "ความกล้าหาญ การต่อสู้ พลังกายอันไม่สิ้นสุด", lore: "เทพประจำวันอังคาร ทรงกระบือเป็นพาหนะ ดุดัน ตรงไปตรงมา รักเพื่อนพ้อง", meaning: "ความมุ่งมั่นลุยงานหนัก ชัยชนะจากการแข่งขัน ช่าง ฝีมือ หรือการเดินทางไกล", mantra: "ติ หัง จะ โต โร ถิ นัง" },
+      { id: 12, name: "พระพุธเทววาที", baseNum: 17, luckyColor: "สีเขียวมรกต", element: "น้ำ", category: "deva_day", subtitle: "การเจรจา วาทศิลป์ ปัญญา และการค้าขาย", lore: "เทพประจำวันพุธ ทรงช้างเป็นพาหนะ ผู้ประสานสิบทิศ มีไหวพริบปฏิภาณยอดเยี่ยม", meaning: "การติดต่อสื่อสารสำเร็จ ค้าขายกำไรดี การเจรจาต่อรอง สัญญาทางธุรกิจราบรื่น", mantra: "ปิ สัม ระ โล ปุ สัต พุท" },
+      { id: 13, name: "พระพฤหัสบดีคุรุเทพ", baseNum: 19, luckyColor: "สีส้มอิฐ, สีแสด", element: "ดิน", category: "deva_day", subtitle: "คุณธรรม ความรู้ ครูบาอาจารย์ และผู้ใหญ่เมตตา", lore: "ครูแห่งทวยเทพ สถิตบนกวางทอง ผู้ทรงศีล สมาธิ ปัญญาอันบริสุทธิ์", meaning: "ผู้ใหญ่เกื้อหนุน การเรียนรู้ธรรมะ สุขภาพแข็งแรง ชีวิตสงบสุขร่มเย็น", mantra: "ภะ สัม สัม วิ สะ เท ภะ" },
+      { id: 14, name: "พระศุกร์เทวโสภา", baseNum: 21, luckyColor: "สีฟ้าสว่าง, สีน้ำเงินโปร่ง", element: "น้ำ", category: "deva_day", subtitle: "โชคลาภ ความสุข ศิลปะ และความรื่นรมย์", lore: "เทพประจำวันศุกร์ ทรงโคเป็นพาหนะ ตัวแทนแห่งความสุข ความมั่งคั่งและความรัก", meaning: "ความสุขสมบูรณ์ การเงินหมุนเวียนคล่องตัว ความบันเทิง มีกินมีใช้ไม่ขาดมือ", mantra: "วา โธ โน อะ มะ มะ วา" },
+      { id: 15, name: "พระเสาร์เทวราช", baseNum: 10, luckyColor: "สีม่วงเข้ม, สีดำสนิท", element: "ไฟ", category: "deva_day", subtitle: "ความอดทน หนักแน่น มรดก และบททดสอบชีวิต", lore: "เทพประจำวันเสาร์ ทรงเสือเป็นพาหนะ เงียบขรึม ทรงพลัง อดทนต่อความยากลำบาก", meaning: "ความอดทนนำมาซึ่งความสำเร็จ งานระยะยาว อสังหาริมทรัพย์ มรดกตกทอด", mantra: "โส มา ณะ กะ ริ ถา โธ" },
+      { id: 16, name: "พระราหูสุรินทราหู", baseNum: 88, luckyColor: "สีบรอนซ์เงิน, สีเทาควันบุหรี่", element: "ลม", category: "deva_day", subtitle: "ความพลิกผัน เงาราหู โชคลาภเสี่ยงทาย", lore: "มหาอสุรินทราหู พระโพธิสัตว์ในอนาคตกาล ผู้กลืนกินความมืดเพื่อส่องแสงแห่งการตื่นรู้", meaning: "โชคลาภแบบไม่คาดฝัน ธุรกิจกลางคืน งานต่างประเทศ การแก้เคล็ดพลิกดวง", mantra: "คะ พุท ปัน ทู ธัม วะ คะ" },
 
       // 3. นักษัตร & ราศีกาล (17-28)
-      { id: 17, name: "พญานาคราชมหาราช", luckyNumbers: "79, 97, 297, 77", luckyColor: "สีเขียวมรกต, สีรุ้ง", element: "น้ำ", category: "zodiac", subtitle: "ทรัพย์ในดินสินในน้ำ มหามนต์แห่งเสน่ห์", lore: "เจ้าแห่งบาดาล ผู้รักษาพระพุทธศาสนาและสมบัติทิพย์", meaning: "โชคลาภก้อนโต ทรัพย์สมบัติ ศรัทธานำพาสิ่งมหัศจรรย์", mantra: "กายะ วาจา จิตตัง อะหังวันทา นาคาธิบดี" },
-      { id: 18, name: "พญาเวนไตยสุบรรณครุฑ", luckyNumbers: "18, 81, 918", luckyColor: "สีแดงชาด, สีทอง", element: "ไฟ", category: "zodiac", subtitle: "อำนาจบารมี ชัยชนะเหนืออุปสรรค ความกตัญญู", lore: "พญานกผู้ทรงฤทธิ์ ยอมสู้กับเทพทั้งปวงเพื่อนำน้ำอมฤตไปไถ่แม่", meaning: "เลื่อนยศเลื่อนตำแหน่ง อำนาจวาสนา ล้างอาถรรพ์", mantra: "โอม คะรุฑา คะรุเฑ นะมะฮา" },
-      { id: 19, name: "วานรพญาหนุมาน", luckyNumbers: "19, 91, 319", luckyColor: "สีขาวบริสุทธิ์, สีชมพู", element: "ลม", category: "zodiac", subtitle: "ความภักดี ไหวพริบยอดเยี่ยม ความสำเร็จเกินคาดคิด", lore: "ทหารเอกแห่งพระราม ผู้ฆ่าไม่ตาย ลมพัดก็ฟื้น สัญลักษณ์แห่งความจงรักภักดี", meaning: "งานลุล่วงผ่านฉลุย มีคนคอยช่วย มีพละกำลังล้นเหลือ", mantra: "หนุมานะ นะสังสะตัง อะหังวันทา" },
-      { id: 20, name: "พญาคชสารเอราวัณ", luckyNumbers: "33, 93, 333", luckyColor: "สีขาวนวล, สีเงิน", element: "ดิน", category: "zodiac", subtitle: "ความยิ่งใหญ่ มั่นคง สง่างาม และเกียรติภูมิ", lore: "ช้างทรงแห่งท้าวสักกะเทวราช ทรงพลังสถิตในสรวงสวรรค์", meaning: "ความมั่นคงในหน้าที่การงาน กิจการขยายใหญ่โต", mantra: "เอราวัณโณ มหาลาโภ ชะโย นิจจัง" },
-      { id: 21, name: "พญาสิงหราชไกรสร", luckyNumbers: "11, 21, 121", luckyColor: "สีส้มทอง, สีเหลืองเข้ม", element: "ไฟ", category: "zodiac", subtitle: "ศักดิ์ศรี ความเด็ดเดี่ยว ผู้ทรงอิทธิพล", lore: "ราชสีห์ผู้เป็นใหญ่ในป่าหิมพานต์ เสียงคำรามทำให้สัตว์ทั้งปวงยอมสยบ", meaning: "การเป็นผู้นำ การตัดสินใจเด็ดขาด บริวารยำเกรง", mantra: "ราชะสีโห มหานาโท ยะถา" },
-      { id: 22, name: "พยัคฆ์สมิงพราย", luckyNumbers: "22, 02, 202", luckyColor: "สีเหลืองลายเสือ, สีน้ำตาลทอง", element: "ลม", category: "zodiac", subtitle: "ความว่องไว มหาอำนาจ สัญชาตญาณเอาตัวรอด", lore: "เสือสมิงเจ้าป่า เปี่ยมด้วยตบะอำนาจเร้นลับและไหวพริบ", meaning: "การระวังภัย สัญชาตญาณแม่นยำ ไม่ตกเป็นเบี้ยล่างใคร", mantra: "พยัคโฆ จะ มะหาเตโช" },
-      { id: 23, name: "มัจฉานุบุตรมหาภักดี", luckyNumbers: "23, 32, 223", luckyColor: "สีฟ้าคราม, สีขาวเงิน", element: "น้ำ", category: "zodiac", subtitle: "ความกตัญญู สายสัมพันธ์สองภพ ความรับผิดชอบ", lore: "ลูกแห่งหนุมานและนางสุพรรณมัจฉา ผู้รักษาสัจจะต่อบิดาและผู้มีพระคุณ", meaning: "ความกตัญญูนำทาง สายสัมพันธ์ครอบครัว การประนีประนอม", mantra: "มาตาปิตุ อุปัฏฐานัง เอตัมมังคะละมุตตะมัง" },
-      { id: 24, name: "กินรีมโนราห์", luckyNumbers: "24, 42, 242", luckyColor: "สีชมพูอ่อน, สีม่วงพาสเทล", element: "ลม", category: "zodiac", subtitle: "ความงาม ความรักแท้ การหลุดพ้นสู่อิสรภาพ", lore: "นางกินรีผู้ถูกพรากปีกหาง แต่ด้วยรักแท้และสัจจะจึงบินกลับสู่เขาไกรลาสได้", meaning: "การปลดปล่อยจากพันธนาการ อิสรภาพ ความรักบริสุทธิ์", mantra: "ปิโย เทวะมนุสสานัง ปิโย พรหมา" },
-      { id: 25, name: "ม้านิลมังกร", luckyNumbers: "25, 52, 925", luckyColor: "สีดำนิล, สีน้ำเงินประกายรุ้ง", element: "น้ำ", category: "zodiac", subtitle: "พลังอัศจรรย์ ความรวดเร็ว การคุ้มครองผู้บริสุทธิ์", lore: "สัตว์วิเศษพาหนะของสุดสาคร หัวเป็นมังกร ตัวเป็นม้า มีเขี้ยวเพชรเกล็ดนิล", meaning: "ความก้าวหน้าอย่างรวดเร็ว แคล้วคลาดปลอดภัย มีของดีคุ้มตัว", mantra: "ชะโย มังคะลัง ปะฐะมัง" },
-      { id: 26, name: "พญาอนันตนาคราช", luckyNumbers: "26, 62, 269", luckyColor: "สีขาวบริสุทธิ์, สีเขียวมรกต", element: "น้ำ", category: "zodiac", subtitle: "ความสงบเยือกเย็น แท่นบรรทมแห่งความมั่นคง", lore: "พญานาคพันเศียร ผู้เป็นบัลลังก์รองรับองค์นารายณ์กลางเกษียรสมุทร", meaning: "ความสุขุม การตั้งมั่นในความสงบ การค้ำจุนช่วยเหลือผู้อื่น", mantra: "สันติ สันติ สันติสุขัง" },
-      { id: 27, name: "สุพรรณหงส์มงคลนาม", luckyNumbers: "27, 72, 729", luckyColor: "สีทองคำ, สีแดงสด", element: "ทอง", category: "zodiac", subtitle: "ความสง่างาม บารมี วาสนาแห่งสายน้ำ", lore: "เรือพระที่นั่งสุพรรณหงส์ สัญลักษณ์แห่งพระมหากษัตริย์และเกียรติยศสูงสุด", meaning: "ชีวิตสูงส่ง ได้รับการยกย่อง การเดินทางราบรื่น", mantra: "หังโส สุวัณโณ มหาเตโช" },
-      { id: 28, name: "กุณฑีราชเต่าเรือน", luckyNumbers: "28, 82, 428", luckyColor: "สีเขียวขี้ม้า, สีน้ำตาลทอง", element: "ดิน", category: "zodiac", subtitle: "อายุยืนยาว ทรัพย์มั่นคง ป้องกันภัยอันตราย", lore: "พญาเต่าเรือนพระโพธิสัตว์ ผู้สละกายช่วยมนุษย์ และมีอายุขัยยืนยาว", meaning: "สุขภาพแข็งแรง หนี้สินหมดไป การเงินค่อยๆ มั่นคงระยะยาว", mantra: "นาสังสิโม พรหมาจะมหาเทวา" },
+      { id: 17, name: "พญานาคราชมหาราช", baseNum: 79, luckyColor: "สีเขียวมรกต, สีรุ้งประกาย", element: "น้ำ", category: "zodiac", subtitle: "ทรัพย์ในดินสินในน้ำ มหามนต์แห่งเสน่ห์", lore: "เจ้าแห่งบาดาล ผู้รักษาพระพุทธศาสนาและสมบัติทิพย์", meaning: "โชคลาภก้อนโต ทรัพย์สมบัติ ศรัทธานำพาสิ่งมหัศจรรย์", mantra: "กายะ วาจา จิตตัง อะหังวันทา นาคาธิบดี" },
+      { id: 18, name: "พญาเวนไตยสุบรรณครุฑ", baseNum: 18, luckyColor: "สีแดงชาด, สีทองคำ", element: "ไฟ", category: "zodiac", subtitle: "อำนาจบารมี ชัยชนะเหนืออุปสรรค ความกตัญญู", lore: "พญานกผู้ทรงฤทธิ์ ยอมสู้กับเทพทั้งปวงเพื่อนำน้ำอมฤตไปไถ่แม่", meaning: "เลื่อนยศเลื่อนตำแหน่ง อำนาจวาสนา ล้างอาถรรพ์", mantra: "โอม คะรุฑา คะรุเฑ นะมะฮา" },
+      { id: 19, name: "วานรพญาหนุมาน", baseNum: 19, luckyColor: "สีขาวบริสุทธิ์, สีชมพู", element: "ลม", category: "zodiac", subtitle: "ความภักดี ไหวพริบยอดเยี่ยม ความสำเร็จเกินคาดคิด", lore: "ทหารเอกแห่งพระราม ผู้ฆ่าไม่ตาย ลมพัดก็ฟื้น สัญลักษณ์แห่งความจงรักภักดี", meaning: "งานลุล่วงผ่านฉลุย มีคนคอยช่วย มีพละกำลังล้นเหลือ", mantra: "หนุมานะ นะสังสะตัง อะหังวันทา" },
+      { id: 20, name: "พญาคชสารเอราวัณ", baseNum: 33, luckyColor: "สีขาวงาช้าง, สีเงินยวง", element: "ดิน", category: "zodiac", subtitle: "ความยิ่งใหญ่ มั่นคง สง่างาม และเกียรติภูมิ", lore: "ช้างทรงแห่งท้าวสักกะเทวราช ทรงพลังสถิตในสรวงสวรรค์", meaning: "ความมั่นคงในหน้าที่การงาน กิจการขยายใหญ่โต", mantra: "เอราวัณโณ มหาลาโภ ชะโย นิจจัง" },
+      { id: 21, name: "พญาสิงหราชไกรสร", baseNum: 11, luckyColor: "สีส้มทอง, สีเหลืองเข้ม", element: "ไฟ", category: "zodiac", subtitle: "ศักดิ์ศรี ความเด็ดเดี่ยว ผู้ทรงอิทธิพล", lore: "ราชสีห์ผู้เป็นใหญ่ในป่าหิมพานต์ เสียงคำรามทำให้สัตว์ทั้งปวงยอมสยบ", meaning: "การเป็นผู้นำ การตัดสินใจเด็ดขาด บริวารยำเกรง", mantra: "ราชะสีโห มหานาโท ยะถา" },
+      { id: 22, name: "พยัคฆ์สมิงพราย", baseNum: 22, luckyColor: "สีเหลืองลายเสือ, สีน้ำตาลทอง", element: "ลม", category: "zodiac", subtitle: "ความว่องไว มหาอำนาจ สัญชาตญาณเอาตัวรอด", lore: "เสือสมิงเจ้าป่า เปี่ยมด้วยตบะอำนาจเร้นลับและไหวพริบ", meaning: "การระวังภัย สัญชาตญาณแม่นยำ ไม่ตกเป็นเบี้ยล่างใคร", mantra: "พยัคโฆ จะ มะหาเตโช" },
+      { id: 23, name: "มัจฉานุบุตรมหาภักดี", baseNum: 23, luckyColor: "สีฟ้าคราม, สีขาวเงิน", element: "น้ำ", category: "zodiac", subtitle: "ความกตัญญู สายสัมพันธ์สองภพ ความรับผิดชอบ", lore: "ลูกแห่งหนุมานและนางสุพรรณมัจฉา ผู้รักษาสัจจะต่อบิดาและผู้มีพระคุณ", meaning: "ความกตัญญูนำทาง สายสัมพันธ์ครอบครัว การประนีประนอม", mantra: "มาตาปิตุ อุปัฏฐานัง เอตัมมังคะละมุตตะมัง" },
+      { id: 24, name: "กินรีมโนราห์", baseNum: 24, luckyColor: "สีชมพูอ่อน, สีม่วงพาสเทล", element: "ลม", category: "zodiac", subtitle: "ความงาม ความรักแท้ การหลุดพ้นสู่อิสรภาพ", lore: "นางกินรีผู้ถูกพรากปีกหาง แต่ด้วยรักแท้และสัจจะจึงบินกลับสู่เขาไกรลาสได้", meaning: "การปลดปล่อยจากพันธนาการ อิสรภาพ ความรักบริสุทธิ์", mantra: "ปิโย เทวะมนุสสานัง ปิโย พรหมา" },
+      { id: 25, name: "ม้านิลมังกร", baseNum: 25, luckyColor: "สีดำนิล, สีน้ำเงินรุ้ง", element: "น้ำ", category: "zodiac", subtitle: "พลังอัศจรรย์ ความรวดเร็ว การคุ้มครองผู้บริสุทธิ์", lore: "สัตว์วิเศษพาหนะของสุดสาคร หัวเป็นมังกร ตัวเป็นม้า มีเขี้ยวเพชรเกล็ดนิล", meaning: "ความก้าวหน้าอย่างรวดเร็ว แคล้วคลาดปลอดภัย มีของดีคุ้มตัว", mantra: "ชะโย มังคะลัง ปะฐะมัง" },
+      { id: 26, name: "พญาอนันตนาคราช", baseNum: 62, luckyColor: "สีขาวบริสุทธิ์, สีเขียวมรกต", element: "น้ำ", category: "zodiac", subtitle: "ความสงบเยือกเย็น แท่นบรรทมแห่งความมั่นคง", lore: "พญานาคพันเศียร ผู้เป็นบัลลังก์รองรับองค์นารายณ์กลางเกษียรสมุทร", meaning: "ความสุขุม การตั้งมั่นในความสงบ การค้ำจุนช่วยเหลือผู้อื่น", mantra: "สันติ สันติ สันติสุขัง" },
+      { id: 27, name: "สุพรรณหงส์มงคลนาม", baseNum: 72, luckyColor: "สีทองคำ, สีแดงสด", element: "ทอง", category: "zodiac", subtitle: "ความสง่างาม บารมี วาสนาแห่งสายน้ำ", lore: "เรือพระที่นั่งสุพรรณหงส์ สัญลักษณ์แห่งพระมหากษัตริย์และเกียรติยศสูงสุด", meaning: "ชีวิตสูงส่ง ได้รับการยกย่อง การเดินทางราบรื่น", mantra: "หังโส สุวัณโณ มหาเตโช" },
+      { id: 28, name: "กุณฑีราชเต่าเรือน", baseNum: 82, luckyColor: "สีเขียวขี้ม้า, สีน้ำตาลทอง", element: "ดิน", category: "zodiac", subtitle: "อายุยืนยาว ทรัพย์มั่นคง ป้องกันภัยอันตราย", lore: "พญาเต่าเรือนพระโพธิสัตว์ ผู้สละกายช่วยมนุษย์ และมีอายุขัยยืนยาว", meaning: "สุขภาพแข็งแรง หนี้สินหมดไป การเงินค่อยๆ มั่นคงระยะยาว", mantra: "นาสังสิโม พรหมาจะมหาเทวา" },
 
       // 4. วรรณคดี & ประวัติศาสตร์ (29-48)
-      { id: 29, name: "พระรามคืนนคร", luckyNumbers: "29, 92, 929", luckyColor: "สีเขียวเข้ม, สีทองคำ", element: "ทอง", category: "myth_history", subtitle: "ชัยชนะแห่งความดี คุณธรรมเหนืออธรรม", lore: "พระรามเสด็จกลับอยุธยาหลังชนะศึกทศกัณฐ์ ทวยราษฎร์แซ่ซ้องสรรเสริญ", meaning: "การสิ้นสุดความลำบาก ชัยชนะแห่งความซื่อสัตย์ การคืนสู่ฐานะเดิม", mantra: "ธัมโม หะเว รักขะติ ธัมมะจาริง" },
-      { id: 30, name: "พระลักษมณ์ร่วมรบ", luckyNumbers: "30, 03, 305", luckyColor: "สีเหลืองทอง, สีน้ำตาลอ่อน", element: "ดิน", category: "myth_history", subtitle: "ความซื่อสัตย์ การเสียสละ มิตรแท้ร่วมเป็นร่วมตาย", lore: "อนุชาผู้ภักดี ติดตามพระรามเดินดง ๑๔ ปี โดยไม่บ่นยอมลำบากเพื่อพี่ชาย", meaning: "การมีกัลยาณมิตร มิตรแท้คอยช่วยเหลือ ความเสียสละเพื่อส่วนรวม", mantra: "มิตตะภาโว สุขาวะโห" },
-      { id: 31, name: "นางสีดาพิสูจน์พรหมจรรย์", luckyNumbers: "31, 13, 311", luckyColor: "สีขาวบริสุทธิ์, สีส้มเพลิง", element: "ไฟ", category: "myth_history", subtitle: "ความบริสุทธิ์ ศักดิ์ศรี ไฟพิสูจน์ทองคำ", lore: "นางสีดาลุยไฟพิสูจน์ความบริสุทธิ์ ไฟกลับเย็นดั่งบัวรองรับเท้า", meaning: "ความจริงจะปรากฏ พ้นมลทิน การอดทนต่อคำนินทา", mantra: "สัจจะเมวะ ชะยะเต" },
-      { id: 32, name: "ทศกัณฐ์จอมลงกา", luckyNumbers: "10, 20, 320", luckyColor: "สีเขียวมรกต, สีแดงเข้ม", element: "ไฟ", category: "myth_history", subtitle: "ความทะเยอทะยาน อัตตา พลังมหาศาลและบทเรียน", lore: "พญายักษ์สิบหน้ายี่สิบมือ ผู้มีฤทธิ์มหาศาลแต่พ่ายแพ้เพราะกิเลสตัณหา", meaning: "เตือนสติเรื่องความหลงตัวเอง ระวังอารมณ์พาเสียงานใหญ่", mantra: "กิเลสะมารัง ปะหาตัพพัง" },
-      { id: 33, name: "สุดสาครผจญภัย", luckyNumbers: "33, 93, 339", luckyColor: "สีฟ้าคราม, สีขาวนวล", element: "น้ำ", category: "myth_history", subtitle: "การเรียนรู้โลกกว้าง ปัญญาวัยเยาว์ ความกล้าหาญ", lore: "โอรสพระอภัยมณี ออกตามหาพ่อตั้งแต่วัยเด็ก เผชิญหน้าสิ่งลี้ลับด้วยไม้เท้าวิเศษ", meaning: "การเริ่มต้นทำสิ่งใหม่ การออกเดินทางหาประสบการณ์ การพึ่งพาตนเอง", mantra: "ปัญญา โลกัสมิง ปัชโชโต" },
-      { id: 34, name: "ชีเปลือยใจคด", luckyNumbers: "00, 34, 430", luckyColor: "สีเทาหม่น, สีขี้เถ้า", element: "ลม", category: "myth_history", subtitle: "การระวังการหลอกลวง คนหน้าไหว้หลังหลอก", lore: "ชีเปลือยผู้หลอกผลักสุดสาครตกเหวเพื่อชิงม้านิลมังกรและไม้เท้าวิเศษ", meaning: "เตือนระวังคนไม่หวังดี อย่าไว้ใจคนง่าย สัญญาที่ซ่อนเงื่อน", mantra: "นะ วิสสะเส อะวิสสัตเถ" },
-      { id: 35, name: "ขุนแผนดาบฟ้าฟื้น", luckyNumbers: "35, 53, 535", luckyColor: "สีแดงเข้ม, สีทองแดง", element: "โลหะ", category: "myth_history", subtitle: "มนต์ตรา เสน่ห์ ชัยชนะในสมรภูมิ ของขลัง", lore: "ยอดนักรบและจอมขมังเวทย์แห่งสุพรรณบุรี เจ้าของดาบฟ้าฟื้นและกุมารทอง", meaning: "เสน่ห์เมตตา ความมั่นใจ การเอาชนะคู่แข่งด้วยความสามารถเฉพาะตัว", mantra: "สุนะโมโล นะโมพุทธายะ" },
-      { id: 36, name: "ขุนช้างคหบดี", luckyNumbers: "36, 63, 636, 88", luckyColor: "สีทองคำ, สีเหลืองอร่าม", element: "ทอง", category: "myth_history", subtitle: "ทรัพย์สินมหาศาล ความเพียรด้านความรัก", lore: "เศรษฐีใหญ่แห่งสุพรรณบุรี ร่ำรวยทองคำและบริวาร แม้รูปชั่วแต่ทุ่มเทหัวใจ", meaning: "การเงินอุดมสมบูรณ์ ความพยายามไม่ลดละ ได้รับความช่วยเหลือเรื่องเงิน", mantra: "เอหิลาภัง มานะมานัง มหาธะนัง" },
-      { id: 37, name: "นางวันทองสองใจ", luckyNumbers: "37, 73, 237", luckyColor: "สีชมพูกลีบบัว, สีเขียวอ่อน", element: "น้ำ", category: "myth_history", subtitle: "การเลือกทางเดิน ทางสองแพร่งในชีวิต", lore: "หญิงงามผู้ตกอยู่ท่ามกลางความรักของสองชาย และกลายเป็นเหยื่อแห่งกฎเกณฑ์", meaning: "ภาวะกลืนไม่เข้าคายไม่ออก การต้องตัดสินใจเลือกทางใดทางหนึ่งอย่างเด็ดขาด", mantra: "อนิจจัง ทุกขัง อนัตตา" },
-      { id: 38, name: "พลายงามสะสางคดี", luckyNumbers: "38, 83, 388", luckyColor: "สีม่วงคราม, สีขาวนวล", element: "ทอง", category: "myth_history", subtitle: "การสร้างตัว ปัญญาเยาวชน ความก้าวหน้าในยศศักดิ์", lore: "บุตรขุนแผน ผู้เล่าเรียนจนได้ดี ปฏิบัติราชการจนได้เป็นจหมื่นไวยวรนาถ", meaning: "คนรุ่นใหม่ได้แสดงฝีมือ การได้เลื่อนตำแหน่ง ความยุติธรรม", mantra: "อัปปะมาโท อะมะตัง ปะทัง" },
-      { id: 39, name: "พระอภัยมณีเป่าปี่", luckyNumbers: "39, 93, 399", luckyColor: "สีฟ้าโปร่ง, สีเขียวพาสเทล", element: "ลม", category: "myth_history", subtitle: "พลังแห่งสุนทรีย์ การเจรจาสยบศึก การสะกดใจคน", lore: "เจ้าชายผู้ใช้วิชาเป่าปี่สยบทัพ ปี่ที่เสียงหวานทำให้คนหลับใหลและยอมแพ้", meaning: "ใช้คำพูดไพเราะสยบความขัดแย้ง งานด้านบันเทิง ศิลปะ สื่อสารได้ผลเลิศ", mantra: "วาจา สัจจา ปิยายะ วาจา" },
-      { id: 40, name: "ผีเสื้อสมุทรคลั่งรัก", luckyNumbers: "40, 04, 404", luckyColor: "สีน้ำเงินครามเข้ม, สีดำสนิท", element: "น้ำ", category: "myth_history", subtitle: "ความลุ่มหลง อารมณ์เหนือเหตุผล ความรักที่ผูกมัด", lore: "นางยักษ์ผู้รักพระอภัยมณีจนหมดใจ แต่ความรักที่บีบคั้นกลับนำมาซึ่งความพลัดพราก", meaning: "ระวังอารมณ์หึงหวง ความยึดติดในรักจนเกิดทุกข์ ควรปล่อยวาง", mantra: "ตัณหา ชายะตี โสโก" },
-      { id: 41, name: "ชาละวันกุมภีล์", luckyNumbers: "41, 14, 419", luckyColor: "สีเขียวขี้ม้าเข้ม, สีทองทมิฬ", element: "น้ำ", category: "myth_history", subtitle: "อำนาจลับใต้บาดาล ความประมาท การกักขังตนเอง", lore: "พญาจระเข้เจ้าแห่งถ้ำทอง ผู้มีเขี้ยวเพชร แต่พ่ายแพ้เพราะความประมาทและลุ่มหลง", meaning: "อย่าประมาทในอำนาจที่มี ระวังเรื่องชู้สาวและสิ่งซ่อนเร้น", mantra: "ปะมาโท มัจจุโน ปะทัง" },
-      { id: 42, name: "ไกรทองปราบจระเข้", luckyNumbers: "42, 24, 424", luckyColor: "สีส้มแสด, สีเงิน", element: "โลหะ", category: "myth_history", subtitle: "วิชาความสามารถเฉพาะทาง กล้าเผชิญหน้าอันตราย", lore: "หมอจระเข้หนุ่มจากเมืองนนท์ ผู้ใช้วิชาอาคมและหอกสัตตโลหะสยบชาละวัน", meaning: "การแก้ปัญหาด้วยความเชี่ยวชาญเฉพาะด้าน ได้รับรางวัลและชื่อเสียง", mantra: "วิริเยนะ ทุกขะมัจเจติ" },
-      { id: 43, name: "สมเด็จพระนเรศวร", luckyNumbers: "43, 34, 943", luckyColor: "สีแดงเลือดหมู, สีทองคำ", element: "ไฟ", category: "myth_history", subtitle: "อิสรภาพ ความเด็ดเดี่ยว ปราบอริราชศัตรู เอกราช", lore: "มหาราชผู้ทรงชนไก่และประกาศอิสรภาพ ณ เมืองแครง และกระทำยุทธหัตถีมีชัย", meaning: "การปลดแอกพ้นจากอิทธิพลคนอื่น การเป็นนายตัวเอง ชัยชนะเด็ดขาด", mantra: "ชะยะ ชะยะ ชะยะ ชัยโย" },
-      { id: 44, name: "พระสุพรรณกัลยา", luckyNumbers: "44, 14, 449", luckyColor: "สีเหลืองจำปา, สีขาวงาช้าง", element: "ทอง", category: "myth_history", subtitle: "การเสียสละอันยิ่งใหญ่เพื่อส่วนรวม บารมีพระพี่นาง", lore: "พระสุพรรณกัลยา ผู้ยอมเสียสละตนเป็นองค์ประกัน ณ กรุงหงสาวดีเพื่อแผ่นดินสยาม", meaning: "การยอมเสียสละบางอย่างเพื่อผลลัพธ์ที่ยิ่งใหญ่กว่า ผลบุญหนุนนำ", mantra: "ปะระหิตัง มหาปุญญัง" },
-      { id: 45, name: "วีรชนค่ายบางระจัน", luckyNumbers: "45, 54, 455", luckyColor: "สีดินเผา, สีน้ำตาลไหม้", element: "ดิน", category: "myth_history", subtitle: "ความสามัคคี หัวใจนักสู้ ไม่ยอมจำนนต่อชะตา", lore: "ชาวบ้านบางระจันรวมพลังต่อสู้ข้าศึกจนหยดเลือดสุดท้าย แม้ไร้ปืนใหญ่", meaning: "พลังแห่งความร่วมมือ การสู้ไม่ถอยแม้เสียเปรียบ จิตใจเข้มแข็ง", mantra: "สามัคคี พลัง สัจจัง" },
-      { id: 46, name: "พระเจ้าตากสินกู้แผ่นดิน", luckyNumbers: "46, 64, 469", luckyColor: "สีแดงชาด, สีน้ำเงินคราม", element: "ไฟ", category: "myth_history", subtitle: "การพลิกวิกฤต สร้างฐานอำนาจใหม่ ความเด็ดขาด", lore: "มหาราชผู้ตีฝ่าวงล้อมพม่าและทุบหม้อข้าวเข้าตีเมืองจันทบุรี กอบกู้สยามใน ๗ เดือน", meaning: "การเริ่มต้นใหม่จากศูนย์ พลิกวิกฤตให้เป็นโอกาสทอง ความกล้าหาญ", mantra: "อุฏฐานะวะโต สะติมะโต" },
-      { id: 47, name: "แม่นากพระโขนง", luckyNumbers: "47, 74, 477", luckyColor: "สีขาวซีด, สีเขียวมะนาว", element: "น้ำ", category: "myth_history", subtitle: "ความรักอมตะเหนือความตาย ความผูกพันห่วงหา", lore: "ตำนานรักแท้แห่งทุ่งพระโขนง แม้ความตายก็มิอาจพรากความห่วงใยต่อสามี", meaning: "ความรักแท้ที่มั่นคง แต่อาจมีเรื่องห่วงหาอาวรณ์ ควรทำบุญอุทิศส่วนกุศล", mantra: "เมตตา กรุณา มุทิตา อุเบกขา" },
-      { id: 48, name: "นางสิบสองผจญกรรม", luckyNumbers: "48, 84, 412", luckyColor: "สีน้ำตาลเข้ม, สีเทา", element: "ดิน", category: "myth_history", subtitle: "วิบากกรรม ชะตากรรมที่ต้องอดทน ฟ้าหลังฝน", lore: "เรื่องราวนางสิบสองผู้ถูกควักลูกตา แต่ด้วยผลบุญสุดท้ายจึงได้ดวงตากลับคืน", meaning: "ช่วงเวลาชดใช้กรรม ต้องใช้ขันติความอดทน ฟ้าจะสว่างหลังมรสุมผ่านพ้น", mantra: "ขันตี ปะระมัง ตะโป ตีติกขา" },
+      { id: 29, name: "พระรามคืนนคร", baseNum: 92, luckyColor: "สีเขียวเข้ม, สีทองคำ", element: "ทอง", category: "myth_history", subtitle: "ชัยชนะแห่งความดี คุณธรรมเหนืออธรรม", lore: "พระรามเสด็จกลับอยุธยาหลังชนะศึกทศกัณฐ์ ทวยราษฎร์แซ่ซ้องสรรเสริญ", meaning: "การสิ้นสุดความลำบาก ชัยชนะแห่งความซื่อสัตย์ การคืนสู่ฐานะเดิม", mantra: "ธัมโม หะเว รักขะติ ธัมมะจาริง" },
+      { id: 30, name: "พระลักษมณ์ร่วมรบ", baseNum: 30, luckyColor: "สีเหลืองทอง, สีน้ำตาลอ่อน", element: "ดิน", category: "myth_history", subtitle: "ความซื่อสัตย์ การเสียสละ มิตรแท้ร่วมเป็นร่วมตาย", lore: "อนุชาผู้ภักดี ติดตามพระรามเดินดง ๑๔ ปี โดยไม่บ่นยอมลำบากเพื่อพี่ชาย", meaning: "การมีกัลยาณมิตร มิตรแท้คอยช่วยเหลือ ความเสียสละเพื่อส่วนรวม", mantra: "มิตตะภาโว สุขาวะโห" },
+      { id: 31, name: "นางสีดาพิสูจน์พรหมจรรย์", baseNum: 31, luckyColor: "สีขาวบริสุทธิ์, สีส้มเพลิง", element: "ไฟ", category: "myth_history", subtitle: "ความบริสุทธิ์ ศักดิ์ศรี ไฟพิสูจน์ทองคำ", lore: "นางสีดาลุยไฟพิสูจน์ความบริสุทธิ์ ไฟกลับเย็นดั่งบัวรองรับเท้า", meaning: "ความจริงจะปรากฏ พ้นมลทิน การอดทนต่อคำนินทา", mantra: "สัจจะเมวะ ชะยะเต" },
+      { id: 32, name: "ทศกัณฐ์จอมลงกา", baseNum: 20, luckyColor: "สีเขียวมรกต, สีแดงเข้ม", element: "ไฟ", category: "myth_history", subtitle: "ความทะเยอทะยาน อัตตา พลังมหาศาลและบทเรียน", lore: "พญายักษ์สิบหน้ายี่สิบมือ ผู้มีฤทธิ์มหาศาลแต่พ่ายแพ้เพราะกิเลสตัณหา", meaning: "เตือนสติเรื่องความหลงตัวเอง ระวังอารมณ์พาเสียงานใหญ่", mantra: "กิเลสะมารัง ปะหาตัพพัง" },
+      { id: 33, name: "สุดสาครผจญภัย", baseNum: 33, luckyColor: "สีฟ้าคราม, สีขาวนวล", element: "น้ำ", category: "myth_history", subtitle: "การเรียนรู้โลกกว้าง ปัญญาวัยเยาว์ ความกล้าหาญ", lore: "โอรสพระอภัยมณี ออกตามหาพ่อตั้งแต่วัยเด็ก เผชิญหน้าสิ่งลี้ลับด้วยไม้เท้าวิเศษ", meaning: "การเริ่มต้นทำสิ่งใหม่ การออกเดินทางหาประสบการณ์ การพึ่งพาตนเอง", mantra: "ปัญญา โลกัสมิง ปัชโชโต" },
+      { id: 34, name: "ชีเปลือยใจคด", baseNum: 40, luckyColor: "สีเทาหม่น, สีขี้เถ้า", element: "ลม", category: "myth_history", subtitle: "การระวังการหลอกลวง คนหน้าไหว้หลังหลอก", lore: "ชีเปลือยผู้หลอกผลักสุดสาครตกเหวเพื่อชิงม้านิลมังกรและไม้เท้าวิเศษ", meaning: "เตือนระวังคนไม่หวังดี อย่าไว้ใจคนง่าย สัญญาที่ซ่อนเงื่อน", mantra: "นะ วิสสะเส อะวิสสัตเถ" },
+      { id: 35, name: "ขุนแผนดาบฟ้าฟื้น", baseNum: 53, luckyColor: "สีแดงเข้ม, สีทองแดง", element: "โลหะ", category: "myth_history", subtitle: "มนต์ตรา เสน่ห์ ชัยชนะในสมรภูมิ ของขลัง", lore: "ยอดนักรบและจอมขมังเวทย์แห่งสุพรรณบุรี เจ้าของดาบฟ้าฟื้นและกุมารทอง", meaning: "เสน่ห์เมตตา ความมั่นใจ การเอาชนะคู่แข่งด้วยความสามารถเฉพาะตัว", mantra: "สุนะโมโล นะโมพุทธายะ" },
+      { id: 36, name: "ขุนช้างคหบดี", baseNum: 63, luckyColor: "สีทองคำ, สีเหลืองอร่าม", element: "ทอง", category: "myth_history", subtitle: "ทรัพย์สินมหาศาล ความเพียรด้านความรัก", lore: "เศรษฐีใหญ่แห่งสุพรรณบุรี ร่ำรวยทองคำและบริวาร แม้รูปชั่วแต่ทุ่มเทหัวใจ", meaning: "การเงินอุดมสมบูรณ์ ความพยายามไม่ลดละ ได้รับความช่วยเหลือเรื่องเงิน", mantra: "เอหิลาภัง มานะมานัง มหาธะนัง" },
+      { id: 37, name: "นางวันทองสองใจ", baseNum: 73, luckyColor: "สีชมพูกลีบบัว, สีเขียวอ่อน", element: "น้ำ", category: "myth_history", subtitle: "การเลือกทางเดิน ทางสองแพร่งในชีวิต", lore: "หญิงงามผู้ตกอยู่ท่ามกลางความรักของสองชาย และกลายเป็นเหยื่อแห่งกฎเกณฑ์", meaning: "ภาวะกลืนไม่เข้าคายไม่ออก การต้องตัดสินใจเลือกทางใดทางหนึ่งอย่างเด็ดขาด", mantra: "อนิจจัง ทุกขัง อนัตตา" },
+      { id: 38, name: "พลายงามสะสางคดี", baseNum: 83, luckyColor: "สีม่วงคราม, สีขาวนวล", element: "ทอง", category: "myth_history", subtitle: "การสร้างตัว ปัญญาเยาวชน ความก้าวหน้าในยศศักดิ์", lore: "บุตรขุนแผน ผู้เล่าเรียนจนได้ดี ปฏิบัติราชการจนได้เป็นจหมื่นไวยวรนาถ", meaning: "คนรุ่นใหม่ได้แสดงฝีมือ การได้เลื่อนตำแหน่ง ความยุติธรรม", mantra: "อัปปะมาโท อะมะตัง ปะทัง" },
+      { id: 39, name: "พระอภัยมณีเป่าปี่", baseNum: 93, luckyColor: "สีฟ้าโปร่ง, สีเขียวพาสเทล", element: "ลม", category: "myth_history", subtitle: "พลังแห่งสุนทรีย์ การเจรจาสยบศึก การสะกดใจคน", lore: "เจ้าชายผู้ใช้วิชาเป่าปี่สยบทัพ ปี่ที่เสียงหวานทำให้คนหลับใหลและยอมแพ้", meaning: "ใช้คำพูดไพเราะสยบความขัดแย้ง งานด้านบันเทิง ศิลปะ สื่อสารได้ผลเลิศ", mantra: "วาจา สัจจา ปิยายะ วาจา" },
+      { id: 40, name: "ผีเสื้อสมุทรคลั่งรัก", baseNum: 40, luckyColor: "สีน้ำเงินครามเข้ม, สีดำสนิท", element: "น้ำ", category: "myth_history", subtitle: "ความลุ่มหลง อารมณ์เหนือเหตุผล ความรักที่ผูกมัด", lore: "นางยักษ์ผู้รักพระอภัยมณีจนหมดใจ แต่ความรักที่บีบคั้นกลับนำมาซึ่งความพลัดพราก", meaning: "ระวังอารมณ์หึงหวง ความยึดติดในรักจนเกิดทุกข์ ควรปล่อยวาง", mantra: "ตัณหา ชายะตี โสโก" },
+      { id: 41, name: "ชาละวันกุมภีล์", baseNum: 14, luckyColor: "สีเขียวขี้ม้าเข้ม, สีทองทมิฬ", element: "น้ำ", category: "myth_history", subtitle: "อำนาจลับใต้บาดาล ความประมาท การกักขังตนเอง", lore: "พญาจระเข้เจ้าแห่งถ้ำทอง ผู้มีเขี้ยวเพชร แต่พ่ายแพ้เพราะความประมาทและลุ่มหลง", meaning: "อย่าประมาทในอำนาจที่มี ระวังเรื่องชู้สาวและสิ่งซ่อนเร้น", mantra: "ปะมาโท มัจจุโน ปะทัง" },
+      { id: 42, name: "ไกรทองปราบจระเข้", baseNum: 24, luckyColor: "สีส้มแสด, สีเงิน", element: "โลหะ", category: "myth_history", subtitle: "วิชาความสามารถเฉพาะทาง กล้าเผชิญหน้าอันตราย", lore: "หมอจระเข้หนุ่มจากเมืองนนท์ ผู้ใช้วิชาอาคมและหอกสัตตโลหะสยบชาละวัน", meaning: "การแก้ปัญหาด้วยความเชี่ยวชาญเฉพาะด้าน ได้รับรางวัลและชื่อเสียง", mantra: "วิริเยนะ ทุกขะมัจเจติ" },
+      { id: 43, name: "สมเด็จพระนเรศวร", baseNum: 43, luckyColor: "สีแดงเลือดหมู, สีทองคำ", element: "ไฟ", category: "myth_history", subtitle: "อิสรภาพ ความเด็ดเดี่ยว ปราบอริราชศัตรู เอกราช", lore: "มหาราชผู้ทรงชนไก่และประกาศอิสรภาพ ณ เมืองแครง และกระทำยุทธหัตถีมีชัย", meaning: "การปลดแอกพ้นจากอิทธิพลคนอื่น การเป็นนายตัวเอง ชัยชนะเด็ดขาด", mantra: "ชะยะ ชะยะ ชะยะ ชัยโย" },
+      { id: 44, name: "พระสุพรรณกัลยา", baseNum: 44, luckyColor: "สีเหลืองจำปา, สีขาวงาช้าง", element: "ทอง", category: "myth_history", subtitle: "การเสียสละอันยิ่งใหญ่เพื่อส่วนรวม บารมีพระพี่นาง", lore: "พระสุพรรณกัลยา ผู้ยอมเสียสละตนเป็นองค์ประกัน ณ กรุงหงสาวดีเพื่อแผ่นดินสยาม", meaning: "การยอมเสียสละบางอย่างเพื่อผลลัพธ์ที่ยิ่งใหญ่กว่า ผลบุญหนุนนำ", mantra: "ปะระหิตัง มหาปุญญัง" },
+      { id: 45, name: "วีรชนค่ายบางระจัน", baseNum: 45, luckyColor: "สีดินเผา, สีน้ำตาลไหม้", element: "ดิน", category: "myth_history", subtitle: "ความสามัคคี หัวใจนักสู้ ไม่ยอมจำนนต่อชะตา", lore: "ชาวบ้านบางระจันรวมพลังต่อสู้ข้าศึกจนหยดเลือดสุดท้าย แม้ไร้ปืนใหญ่", meaning: "พลังแห่งความร่วมมือ การสู้ไม่ถอยแม้เสียเปรียบ จิตใจเข้มแข็ง", mantra: "สามัคคี พลัง สัจจัง" },
+      { id: 46, name: "พระเจ้าตากสินกู้แผ่นดิน", baseNum: 46, luckyColor: "สีแดงชาด, สีน้ำเงินคราม", element: "ไฟ", category: "myth_history", subtitle: "การพลิกวิกฤต สร้างฐานอำนาจใหม่ ความเด็ดขาด", lore: "มหาราชผู้ตีฝ่าวงล้อมพม่าและทุบหม้อข้าวเข้าตีเมืองจันทบุรี กอบกู้สยามใน ๗ เดือน", meaning: "การเริ่มต้นใหม่จากศูนย์ พลิกวิกฤตให้เป็นโอกาสทอง ความกล้าหาญ", mantra: "อุฏฐานะวะโต สะติมะโต" },
+      { id: 47, name: "แม่นากพระโขนง", baseNum: 47, luckyColor: "สีขาวซีด, สีเขียวมะนาว", element: "น้ำ", category: "myth_history", subtitle: "ความรักอมตะเหนือความตาย ความผูกพันห่วงหา", lore: "ตำนานรักแท้แห่งทุ่งพระโขนง แม้ความตายก็มิอาจพรากความห่วงใยต่อสามี", meaning: "ความรักแท้ที่มั่นคง แต่อาจมีเรื่องห่วงหาอาวรณ์ ควรทำบุญอุทิศส่วนกุศล", mantra: "เมตตา กรุณา มุทิตา อุเบกขา" },
+      { id: 48, name: "นางสิบสองผจญกรรม", baseNum: 48, luckyColor: "สีน้ำตาลเข้ม, สีเทา", element: "ดิน", category: "myth_history", subtitle: "วิบากกรรม ชะตากรรมที่ต้องอดทน ฟ้าหลังฝน", lore: "เรื่องราวนางสิบสองผู้ถูกควักลูกตา แต่ด้วยผลบุญสุดท้ายจึงได้ดวงตากลับคืน", meaning: "ช่วงเวลาชดใช้กรรม ต้องใช้ขันติความอดทน ฟ้าจะสว่างหลังมรสุมผ่านพ้น", mantra: "ขันตี ปะระมัง ตะโป ตีติกขา" },
 
       // 5. สัจธรรม & กฎแห่งกรรม (49-64)
-      { id: 49, name: "พญายมราชตุลาการ", luckyNumbers: "49, 94, 949", luckyColor: "สีแดงเพลิง, สีดำสนิท", element: "ไฟ", category: "karma_dharma", subtitle: "กฎแห่งกรรม บัญชีบุญบาป ความเที่ยงธรรมสูงสุด", lore: "ผู้พิพากษาแห่งยมโลก ตัดสินดวงวิญญาณตามกรรมที่ทำไว้ ไม่มีติดสินบน", meaning: "ความเที่ยงธรรม กฎแห่งกรรมตอบสนอง ทำดีได้ดี ทำชั่วได้ชั่ว ชนะคดีความถ้าบริสุทธิ์", mantra: "ปะโตเมตัง ปะระชีวินัง สุขะโตจุติ" },
-      { id: 50, name: "พระกาฬไชยศรี", luckyNumbers: "50, 05, 509", luckyColor: "สีดำสนิท, สีม่วงเปลือกมังคุด", element: "ลม", category: "karma_dharma", subtitle: "กาลเวลา ความไม่แน่นอน การหมดอายุขัย การตื่นรู้", lore: "เทวะผู้ถือบ่วงบาศและพระขรรค์ เป็นสัญลักษณ์แห่งกาลเวลาที่กลืนกินทุกสรรพสิ่ง", meaning: "อย่าผัดวันประกันพรุ่ง การสิ้นสุดของปัญหาเก่า เวลาเป็นเครื่องเยียวยา", mantra: "กาโล ฆะสะติ ภูตานิ สัพพาเนวะ" },
-      { id: 51, name: "พระแม่ธรณีบีบมวยผม", luckyNumbers: "51, 15, 519", luckyColor: "สีเขียวไพร, สีเหลืองดิน", element: "ดิน", category: "karma_dharma", subtitle: "การชนะมาร บารมีสั่งสม แผ่นดินเป็นพยาน", lore: "พระแม่ธรณีทรงบีบมวยผมหลั่งน้ำทักษิโณทกที่พระพุทธองค์ทรงกรวดไว้ ท่วมทัพพญามารพ่าย", meaning: "ความดีที่ทำไว้จะกลับมาช่วยให้ชนะอุปสรรคทั้งปวง มั่นคงดั่งแผ่นดิน", mantra: "ตัสสา เกสีสะโต ยะถาคังคา สวาหะ" },
-      { id: 52, name: "พระแม่โพสพ", luckyNumbers: "52, 25, 952", luckyColor: "สีเขียวรวงข้าว, สีทองสุก", element: "ดิน", category: "karma_dharma", subtitle: "ความอุดมสมบูรณ์ ข้าวปลาอาหาร ลาภผลพูนทวี", lore: "เทวีแห่งรวงข้าว ผู้หล่อเลี้ยงชีวิตมนุษย์ นำพาความอิ่มหนำสำราญ", meaning: "การเก็บเกี่ยวผลกำไร มีกินมีใช้ เหลือกินเหลือเก็บ ธุรกิจการเกษตร/อาหารดีเลิศ", mantra: "โพสะวะโภชะนัง อุตตะมัง มหาลาภัง" },
-      { id: 53, name: "พระแม่คงคา", luckyNumbers: "53, 35, 539", luckyColor: "สีขาวมุก, สีฟ้าใส", element: "น้ำ", category: "karma_dharma", subtitle: "การชำระล้าง จิตใจเย็นฉ่ำ ความอ่อนโยน ปรับตัว", lore: "สายน้ำศักดิ์สิทธิ์ที่ชำระล้างบาปมลทินและหล่อเลี้ยงสรรพชีวิตให้อยู่รอด", meaning: "การให้อภัย การชำระจิตใจให้บริสุทธิ์ ความใจเย็นและการปรับตัวตามสถานการณ์", mantra: "คงคา มหาชีวัง สันติสุขัง" },
-      { id: 54, name: "แม่ย่านางนาวา", luckyNumbers: "54, 45, 549", luckyColor: "สีแดงแถบทอง, สีชมพูผูกเรือ", element: "น้ำ", category: "karma_dharma", subtitle: "การเดินทางปลอดภัย ยานพาหนะ การค้าทางไกล", lore: "สิ่งศักดิ์สิทธิ์ผู้คุ้มครองเรือและยานพาหนะ คอยเตือนภัยยามออกทะเล", meaning: "การเดินทางปลอดภัย ยานพาหนะนำโชค ธุรกิจโลจิสติกส์และการท่องเที่ยวรุ่งเรือง", mantra: "สุโข ปะวะสะโต ลาโภ นิวาสิโน" },
-      { id: 55, name: "นางกวักมหาลาภ", luckyNumbers: "55, 59, 955, 99", luckyColor: "สีแดงสด, สีทองอร่าม", element: "ทอง", category: "karma_dharma", subtitle: "การค้าขาย กวักเงินกวักทอง เรียกลูกค้า เมตตาค้าขาย", lore: "ธิดาปู่เจ้าเขาเขียว ผู้ได้รับพรให้กวักเรียกผู้คนและทรัพย์สินเงินทอง", meaning: "ลูกค้าแน่นร้าน ค้าขายคล่อง ได้เงินสดหมุนเวียน เมตตามหานิยมสูง", mantra: "โอม มหาลาโภ ปิยัง มะมะ เอหิ เอหิ" },
-      { id: 56, name: "พระสังกัจจายน์มหาโชค", luckyNumbers: "56, 65, 856, 88", luckyColor: "สีส้มทอง, สีเหลืองอร่าม", element: "ทอง", category: "karma_dharma", subtitle: "ความสุข รอยยิ้ม โชคลาภพูนทวี ความมั่งคั่ง", lore: "พระอรหันต์ผู้เป็นเลิศด้านอธิบายธรรมและลาภสักการะ รูปร่างอวบอ้วนเปี่ยมสุข", meaning: "ความสุขสมหวัง ร่ำรวย ลาภลอย เงินทองหลั่งไหล สุขภาพจิตดีเยี่ยม", mantra: "กัจจายะนะ มหาเถโร มหาลาโภ ภะวันตุ เม" },
-      { id: 57, name: "พระสีวลีเถระ", luckyNumbers: "57, 75, 957, 999", luckyColor: "สีเหลืองจีวร, สีทองคำ", element: "ทอง", category: "karma_dharma", subtitle: "เอตทัคคะด้านลาภสักการะ ไม่อดอยาก", lore: "พระอรหันต์ผู้มีลาภสักการะมากที่สุด แม้เดินทางในป่าทึบทวยเทพก็เนรมิตภัตตาหารถวาย", meaning: "มีผู้อุปถัมภ์ตลอดเวลา ไม่อดอยาก การเงินคล่องตัวสุดขีด", mantra: "สีวะลี จะ มหาเถโร ลาภะลาโภ ภะวันตุ เม" },
-      { id: 58, name: "เปรตวัดสุทัศน์", luckyNumbers: "58, 85, 058", luckyColor: "สีดำมืด, สีเทาขี้เถ้า", element: "ไฟ", category: "karma_dharma", subtitle: "ผลแห่งบาป การสำนึกผิด บทเรียนกรรม ความโลภ", lore: "วิญญาณผู้ทนทุกข์เพราะความโลภและการเบียดเบียนผู้อื่น ร้องขอส่วนบุญกุศล", meaning: "เตือนสติอย่าโลภ ระวังการกระทำที่ผิดศีลธรรม ควรหมั่นทำบุญอุทิศส่วนกุศล", mantra: "กัมมัสสะโกมหิ กัมมะทายาโท" },
-      { id: 59, name: "พระมาลัยโปรดนรก", luckyNumbers: "59, 95, 959", luckyColor: "สีเหลืองกาสาวพัสตร์, สีทอง", element: "น้ำ", category: "karma_dharma", subtitle: "ความเมตตาธรรม การอุทิศบุญกุศล การช่วยเหลือ", lore: "พระอรหันต์ผู้เหาะไปโปรดสัตว์นรกและนำข่าวสารมาบอกแก่ญาติมิตรบนโลกมนุษย์", meaning: "การทำบุญใหญ่ การแผ่เมตตาช่วยปลดเปลื้องทุกข์ของคนรอบข้าง", mantra: "สัพเพ สัตตา อะเวรา โหนตุ" },
-      { id: 60, name: "พระธุดงค์ในดงลึก", luckyNumbers: "60, 06, 609", luckyColor: "สีน้ำตาลกลัก, สีดินทึบ", element: "ดิน", category: "karma_dharma", subtitle: "ความสงบระงับ การฝึกจิต สมาธิภาวนา การปลีกวิเวก", lore: "พระป่าผู้บำเพ็ญสมณธรรมกลางดงเสือช้าง ยึดมั่นในพระรัตนตรัยเหนือความตาย", meaning: "ควรหาเวลาพักผ่อน สงบจิตใจ การทำสมาธิจะช่วยให้เห็นทางออกของปัญหา", mantra: "เอโกวะ มะละมัตตัง ปะหายะ" },
-      { id: 61, name: "กงล้อวัฏสงสาร", luckyNumbers: "61, 16, 616", luckyColor: "สีเทาเงิน, สีคราม", element: "ลม", category: "karma_dharma", subtitle: "การเวียนว่ายตายเกิด ทุกข์สุขหมุนเวียน ชะตาพลิกผัน", lore: "กงล้อแห่งกรรมที่หมุนไปตามการกระทำ ยามขึ้นอย่าหลง ยามลงอย่าท้อ", meaning: "ชีวิตมีขึ้นมีลง สิ่งที่ร้ายกำลังจะกลายเป็นดี สิ่งที่ดีจงรักษาด้วยสติ", mantra: "อะนิจจา วะตะ สังขารา" },
-      { id: 62, name: "เขาพระสุเมรุจักรวาล", luckyNumbers: "62, 26, 962", luckyColor: "สีทองประกายแก้ว, สีขาวรุ้ง", element: "ดิน", category: "karma_dharma", subtitle: "ศูนย์กลางจักรวาล ความสำเร็จสูงสุด สัจธรรมค้ำจุน", lore: "ภูเขาแก้วศูนย์กลางแห่งจักรวาล ที่ตั้งแห่งสวรรค์ชั้นดาวดึงส์ มั่นคงถาวร", meaning: "ความสำเร็จขั้นสูงสุด การบรรลุเป้าหมายใหญ่ ความมั่นคงในเกียรติยศ", mantra: "ธัมโม ทิโป จะ เลเก ตัฏฐิโต" },
-      { id: 63, name: "สระอโนดาตทิพย์ธารา", luckyNumbers: "63, 36, 639", luckyColor: "สีฟ้ามรกตใส, สีเงินยวง", element: "น้ำ", category: "karma_dharma", subtitle: "ความบริสุทธิ์ การฟื้นฟูเยียวยาชีวิต น้ำทิพย์บำบัด", lore: "สระน้ำศักดิ์สิทธิ์ในป่าหิมพานต์ ใสสะอาดบริสุทธิ์ บรรเทาความร้อนรุ่มทั้งปวง", meaning: "การหายจากโรคภัย การเยียวยาจิตใจที่เหนื่อยล้า การเริ่มต้นด้วยใจบริสุทธิ์", mantra: "อาโรคยะปะระมา ลาภา" },
-      { id: 64, name: "พระพุทธเจ้าชนะมาร", luckyNumbers: "64, 46, 964, 999", luckyColor: "สีทองเรืองรอง, สีขาวบริสุทธิ์", element: "ทอง", category: "karma_dharma", subtitle: "การหลุดพ้น แสงสว่างแห่งปัญญา ชัยชนะเด็ดขาด", lore: "พระผู้มีพระภาคเจ้าตรัสรู้ใต้ร่มพระศรีมหาโพธิ์ ทรงสยบกองทัพพญามารด้วยพระบารมีสิบทัศ", meaning: "ชัยชนะเด็ดขาด ปัญญาญาณสว่างไสว หมดเคราะห์หมดโศก พ้นจากบ่วงทุกข์ทั้งปวง", mantra: "นะโม ตัสสะ ภะคะวะโต อะระหะโต สัมมาสัมพุทธัสสะ" }
+      { id: 49, name: "พญายมราชตุลาการ", baseNum: 49, luckyColor: "สีแดงเพลิง, สีดำสนิท", element: "ไฟ", category: "karma_dharma", subtitle: "กฎแห่งกรรม บัญชีบุญบาป ความเที่ยงธรรมสูงสุด", lore: "ผู้พิพากษาแห่งยมโลก ตัดสินดวงวิญญาณตามกรรมที่ทำไว้ ไม่มีติดสินบน", meaning: "ความเที่ยงธรรม กฎแห่งกรรมตอบสนอง ทำดีได้ดี ทำชั่วได้ชั่ว ชนะคดีความถ้าบริสุทธิ์", mantra: "ปะโตเมตัง ปะระชีวินัง สุขะโตจุติ" },
+      { id: 50, name: "พระกาฬไชยศรี", baseNum: 50, luckyColor: "สีดำสนิท, สีม่วงเปลือกมังคุด", element: "ลม", category: "karma_dharma", subtitle: "กาลเวลา ความไม่แน่นอน การหมดอายุขัย การตื่นรู้", lore: "เทวะผู้ถือบ่วงบาศและพระขรรค์ เป็นสัญลักษณ์แห่งกาลเวลาที่กลืนกินทุกสรรพสิ่ง", meaning: "อย่าผัดวันประกันพรุ่ง การสิ้นสุดของปัญหาเก่า เวลาเป็นเครื่องเยียวยา", mantra: "กาโล ฆะสะติ ภูตานิ สัพพาเนวะ" },
+      { id: 51, name: "พระแม่ธรณีบีบมวยผม", baseNum: 51, luckyColor: "สีเขียวไพร, สีเหลืองดิน", element: "ดิน", category: "karma_dharma", subtitle: "การชนะมาร บารมีสั่งสม แผ่นดินเป็นพยาน", lore: "พระแม่ธรณีทรงบีบมวยผมหลั่งน้ำทักษิโณทกที่พระพุทธองค์ทรงกรวดไว้ ท่วมทัพพญามารพ่าย", meaning: "ความดีที่ทำไว้จะกลับมาช่วยให้ชนะอุปสรรคทั้งปวง มั่นคงดั่งแผ่นดิน", mantra: "ตัสสา เกสีสะโต ยะถาคังคา สวาหะ" },
+      { id: 52, name: "พระแม่โพสพ", baseNum: 52, luckyColor: "สีเขียวรวงข้าว, สีทองสุก", element: "ดิน", category: "karma_dharma", subtitle: "ความอุดมสมบูรณ์ ข้าวปลาอาหาร ลาภผลพูนทวี", lore: "เทวีแห่งรวงข้าว ผู้หล่อเลี้ยงชีวิตมนุษย์ นำพาความอิ่มหนำสำราญ", meaning: "การเก็บเกี่ยวผลกำไร มีกินมีใช้ เหลือกินเหลือเก็บ ธุรกิจการเกษตร/อาหารดีเลิศ", mantra: "โพสะวะโภชะนัง อุตตะมัง มหาลาภัง" },
+      { id: 53, name: "พระแม่คงคา", baseNum: 53, luckyColor: "สีขาวมุก, สีฟ้าใส", element: "น้ำ", category: "karma_dharma", subtitle: "การชำระล้าง จิตใจเย็นฉ่ำ ความอ่อนโยน ปรับตัว", lore: "สายน้ำศักดิ์สิทธิ์ที่ชำระล้างบาปมลทินและหล่อเลี้ยงสรรพชีวิตให้อยู่รอด", meaning: "การให้อภัย การชำระจิตใจให้บริสุทธิ์ ความใจเย็นและการปรับตัวตามสถานการณ์", mantra: "คงคา มหาชีวัง สันติสุขัง" },
+      { id: 54, name: "แม่ย่านางนาวา", baseNum: 54, luckyColor: "สีแดงแถบทอง, สีชมพูผูกเรือ", element: "น้ำ", category: "karma_dharma", subtitle: "การเดินทางปลอดภัย ยานพาหนะ การค้าทางไกล", lore: "สิ่งศักดิ์สิทธิ์ผู้คุ้มครองเรือและยานพาหนะ คอยเตือนภัยยามออกทะเล", meaning: "การเดินทางปลอดภัย ยานพาหนะนำโชค ธุรกิจโลจิสติกส์และการท่องเที่ยวรุ่งเรือง", mantra: "สุโข ปะวะสะโต ลาโภ นิวาสิโน" },
+      { id: 55, name: "นางกวักมหาลาภ", baseNum: 55, luckyColor: "สีแดงสด, สีทองอร่าม", element: "ทอง", category: "karma_dharma", subtitle: "การค้าขาย กวักเงินกวักทอง เรียกลูกค้า เมตตาค้าขาย", lore: "ธิดาปู่เจ้าเขาเขียว ผู้ได้รับพรให้กวักเรียกผู้คนและทรัพย์สินเงินทอง", meaning: "ลูกค้าแน่นร้าน ค้าขายคล่อง ได้เงินสดหมุนเวียน เมตตามหานิยมสูง", mantra: "โอม มหาลาโภ ปิยัง มะมะ เอหิ เอหิ" },
+      { id: 56, name: "พระสังกัจจายน์มหาโชค", baseNum: 56, luckyColor: "สีส้มทอง, สีเหลืองอร่าม", element: "ทอง", category: "karma_dharma", subtitle: "ความสุข รอยยิ้ม โชคลาภพูนทวี ความมั่งคั่ง", lore: "พระอรหันต์ผู้เป็นเลิศด้านอธิบายธรรมและลาภสักการะ รูปร่างอวบอ้วนเปี่ยมสุข", meaning: "ความสุขสมหวัง ร่ำรวย ลาภลอย เงินทองหลั่งไหล สุขภาพจิตดีเยี่ยม", mantra: "กัจจายะนะ มหาเถโร มหาลาโภ ภะวันตุ เม" },
+      { id: 57, name: "พระสีวลีเถระ", baseNum: 57, luckyColor: "สีเหลืองจีวร, สีทองคำ", element: "ทอง", category: "karma_dharma", subtitle: "เอตทัคคะด้านลาภสักการะ ไม่อดอยาก", lore: "พระอรหันต์ผู้มีลาภสักการะมากที่สุด แม้เดินทางในป่าทึบทวยเทพก็เนรมิตภัตตาหารถวาย", meaning: "มีผู้อุปถัมภ์ตลอดเวลา ไม่อดอยาก การเงินคล่องตัวสุดขีด", mantra: "สีวะลี จะ มหาเถโร ลาภะลาโภ ภะวันตุ เม" },
+      { id: 58, name: "เปรตวัดสุทัศน์", baseNum: 58, luckyColor: "สีดำมืด, สีเทาขี้เถ้า", element: "ไฟ", category: "karma_dharma", subtitle: "ผลแห่งบาป การสำนึกผิด บทเรียนกรรม ความโลภ", lore: "วิญญาณผู้ทนทุกข์เพราะความโลภและการเบียดเบียนผู้อื่น ร้องขอส่วนบุญกุศล", meaning: "เตือนสติอย่าโลภ ระวังการกระทำที่ผิดศีลธรรม ควรหมั่นทำบุญอุทิศส่วนกุศล", mantra: "กัมมัสสะโกมหิ กัมมะทายาโท" },
+      { id: 59, name: "พระมาลัยโปรดนรก", baseNum: 59, luckyColor: "สีเหลืองกาสาวพัสตร์, สีทอง", element: "น้ำ", category: "karma_dharma", subtitle: "ความเมตตาธรรม การอุทิศบุญกุศล การช่วยเหลือ", lore: "พระอรหันต์ผู้เหาะไปโปรดสัตว์นรกและนำข่าวสารมาบอกแก่ญาติมิตรบนโลกมนุษย์", meaning: "การทำบุญใหญ่ การแผ่เมตตาช่วยปลดเปลื้องทุกข์ของคนรอบข้าง", mantra: "สัพเพ สัตตา อะเวรา โหนตุ" },
+      { id: 60, name: "พระธุดงค์ในดงลึก", baseNum: 60, luckyColor: "สีน้ำตาลกลัก, สีดินทึบ", element: "ดิน", category: "karma_dharma", subtitle: "ความสงบระงับ การฝึกจิต สมาธิภาวนา การปลีกวิเวก", lore: "พระป่าผู้บำเพ็ญสมณธรรมกลางดงเสือช้าง ยึดมั่นในพระรัตนตรัยเหนือความตาย", meaning: "ควรหาเวลาพักผ่อน สงบจิตใจ การทำสมาธิจะช่วยให้เห็นทางออกของปัญหา", mantra: "เอโกวะ มะละมัตตัง ปะหายะ" },
+      { id: 61, name: "กงล้อวัฏสงสาร", baseNum: 61, luckyColor: "สีเทาเงิน, สีคราม", element: "ลม", category: "karma_dharma", subtitle: "การเวียนว่ายตายเกิด ทุกข์สุขหมุนเวียน ชะตาพลิกผัน", lore: "กงล้อแห่งกรรมที่หมุนไปตามการกระทำ ยามขึ้นอย่าหลง ยามลงอย่าท้อ", meaning: "ชีวิตมีขึ้นมีลง สิ่งที่ร้ายกำลังจะกลายเป็นดี สิ่งที่ดีจงรักษาด้วยสติ", mantra: "อะนิจจา วะตะ สังขารา" },
+      { id: 62, name: "เขาพระสุเมรุจักรวาล", baseNum: 62, luckyColor: "สีทองประกายแก้ว, สีขาวรุ้ง", element: "ดิน", category: "karma_dharma", subtitle: "ศูนย์กลางจักรวาล ความสำเร็จสูงสุด สัจธรรมค้ำจุน", lore: "ภูเขาแก้วศูนย์กลางแห่งจักรวาล ที่ตั้งแห่งสวรรค์ชั้นดาวดึงส์ มั่นคงถาวร", meaning: "ความสำเร็จขั้นสูงสุด การบรรลุเป้าหมายใหญ่ ความมั่นคงในเกียรติยศ", mantra: "ธัมโม ทิโป จะ เลเก ตัฏฐิโต" },
+      { id: 63, name: "สระอโนดาตทิพย์ธารา", baseNum: 63, luckyColor: "สีฟ้ามรกตใส, สีเงินยวง", element: "น้ำ", category: "karma_dharma", subtitle: "ความบริสุทธิ์ การฟื้นฟูเยียวยาชีวิต น้ำทิพย์บำบัด", lore: "สระน้ำศักดิ์สิทธิ์ในป่าหิมพานต์ ใสสะอาดบริสุทธิ์ บรรเทาความร้อนรุ่มทั้งปวง", meaning: "การหายจากโรคภัย การเยียวยาจิตใจที่เหนื่อยล้า การเริ่มต้นด้วยใจบริสุทธิ์", mantra: "อาโรคยะปะระมา ลาภา" },
+      { id: 64, name: "พระพุทธเจ้าชนะมาร", baseNum: 64, luckyColor: "สีทองเรืองรอง, สีขาวบริสุทธิ์", element: "ทอง", category: "karma_dharma", subtitle: "การหลุดพ้น แสงสว่างแห่งปัญญา ชัยชนะเด็ดขาด", lore: "พระผู้มีพระภาคเจ้าตรัสรู้ใต้ร่มพระศรีมหาโพธิ์ ทรงสยบกองทัพพญามารด้วยพระบารมีสิบทัศ", meaning: "ชัยชนะเด็ดขาด ปัญญาญาณสว่างไสว หมดเคราะห์หมดโศก พ้นจากบ่วงทุกข์ทั้งปวง", mantra: "นะโม ตัสสะ ภะคะวะโต อะระหะโต สัมมาสัมพุทธัสสะ" }
     ];
+
+    // ข้อมูลกำลังวันมหาทักษา (Vedic Power Number)
+    const DAY_POWER = {
+      "อาทิตย์": { power: 6, enemyDay: "อังคาร", friendDay: "พฤหัสบดี" },
+      "จันทร์": { power: 15, enemyDay: "พฤหัสบดี", friendDay: "พุธกลางวัน" },
+      "อังคาร": { power: 8, enemyDay: "อาทิตย์", friendDay: "ศุกร์" },
+      "พุธกลางวัน": { power: 17, enemyDay: "เสาร์", friendDay: "จันทร์" },
+      "พุธกลางคืน": { power: 12, enemyDay: "พฤหัสบดี", friendDay: "เสาร์" },
+      "พฤหัสบดี": { power: 19, enemyDay: "จันทร์", friendDay: "อาทิตย์" },
+      "ศุกร์": { power: 21, enemyDay: "เสาร์", friendDay: "อังคาร" },
+      "เสาร์": { power: 10, enemyDay: "พุธกลางวัน", friendDay: "พุธกลางคืน" }
+    };
+
+    // ศาสตร์ยามอุบากองโบราณ (Ubakong Auspicious Table)
+    const UBAKONG_SLOTS = [
+      { name: "ยามเช้าตรู่ (ยาม ๑)", time: "๐๖.๐๑ – ๐๘.๒๔ น.", grade: "ปลอดโปร่ง", detail: "ยามปลอด เดินทางแคล้วคลาด ปลอดภัยจากศัตรู" },
+      { name: "ยามสายแสงทอง (ยาม ๒)", time: "๐๘.๒๕ – ๑๐.๔๘ น.", grade: "มหาลาภ", detail: "ยามราชาโชค ลาภผลพูนทวี เหมาะแก่การเจรจาค้าขายและเสี่ยงดวง" },
+      { name: "ยามเที่ยงวัน (ยาม ๓)", time: "๑๐.๔๙ – ๑๓.๑๒ น.", grade: "กึ่งกลาง", detail: "ยามเสมอตัว เหมาะแก่การสะสางงานเก่า ไม่เหมาะกับการเริ่มต้นใหม่" },
+      { name: "ยามบ่ายคล้อย (ยาม ๔)", time: "๑๓.๑๓ – ๑๕.๓๖ น.", grade: "มหาศุภะ", detail: "ยามเพชรหลีก ชนะคู่แข่ง ชนะคดีความ มีผู้ใหญ่อุปถัมภ์" },
+      { name: "ยามเย็นอัสดง (ยาม ๕)", time: "๑๕.๓๗ – ๑๘.๐๐ น.", grade: "กาลกิณี", detail: "ยามอับแสง ห้ามลงทุนก้อนใหญ่ ระวังของสูญหายหรืออารมณ์ฉุนเฉียว" }
+    ];
+
+    // ตารางเลขศาสตร์อักษรไทย (Thai Name Gematria Table)
+    const THAI_CHAR_VALUES = {
+      'ก': 1, 'ด': 1, 'ถ': 1, 'ท': 1, 'ภ': 1, 'ฤ': 1, 'ฤๅ': 1, 'ะ': 1, 'า': 1, 'ำ': 1, 'ุ': 1, 'ู': 1,
+      'ข': 2, 'ช': 2, 'ง': 2, 'บ': 2, 'ป': 2, 'เ': 2, 'แ': 2,
+      'ฆ': 3, 'ฑ': 3, 'ฒ': 3, 'ต': 3,
+      'ค': 4, 'ธ': 4, 'ร': 4, 'ญ': 4, 'ษ': 4, 'โ': 4, 'ใ': 4,
+      'ฉ': 5, 'ฌ': 5, 'ณ': 5, 'น': 5, 'ม': 5, 'ห': 5, 'ฎ': 5, 'ฬ': 5, 'ฮ': 5,
+      'จ': 6, 'ล': 6, 'ว': 6, 'อ': 6, 'ไ': 6,
+      'ศ': 7, 'ส': 7, 'ี': 7, 'ื': 7,
+      'ย': 8, 'พ': 8, 'ฟ': 8, 'ผ': 8, 'ฝ': 8,
+      'ฏ': 9, 'ฐ': 9, 'ิ': 9, 'ึ': 9, '่': 2, '้': 2, '๊': 3, '๋': 3, '็': 4, '์': 9
+    };
+
+    // ระบบจำบริบทสนทนา (Conversational Memory)
+    let chatMemory = {
+      lastTopic: null,
+      lastNumbers: null,
+      lastCard: null,
+      lastLocation: null,
+      turns: 0
+    };
 
     let cardImages = {};
     let selectedCards = [];
@@ -486,6 +621,13 @@
           gain.gain.exponentialRampToValueAtTime(0.01, now + 0.15);
           osc.start(now);
           osc.stop(now + 0.15);
+        } else if (type === 'tick') {
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(800, now);
+          gain.gain.setValueAtTime(0.02, now);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + 0.04);
+          osc.start(now);
+          osc.stop(now + 0.04);
         }
       } catch (e) {}
     }
@@ -513,16 +655,37 @@
       switchView(isCodexHidden ? 'codex' : 'divination');
     }
 
-    function startCardSelection() {
+    // ========================================================
+    // ฟังก์ชันเปิดสเต็ปมณฑลพิธีบูชาครูเต็มจอ (Step 2: Sacred Worship)
+    // ========================================================
+    function openWorshipStep() {
       const radios = document.getElementsByName('spreadType');
       for (const r of radios) {
         if (r.checked) currentSpreadLimit = parseInt(r.value);
       }
 
-      selectedCards = [];
       document.getElementById('intentStep').classList.add('hidden');
-      document.getElementById('selectionStep').classList.remove('hidden');
+      document.getElementById('worshipStep').classList.remove('hidden');
+      document.getElementById('selectionStep').classList.add('hidden');
       document.getElementById('resultStep').classList.add('hidden');
+
+      playSound('bell');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function cancelWorship() {
+      document.getElementById('worshipStep').classList.add('hidden');
+      document.getElementById('intentStep').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // ========================================================
+    // ฟังก์ชันก้าวย่างเข้าสู่การสับไพ่และเลือกสำรับ (Step 3: Card Selection)
+    // ========================================================
+    function proceedToCardSelection() {
+      selectedCards = [];
+      document.getElementById('worshipStep').classList.add('hidden');
+      document.getElementById('selectionStep').classList.remove('hidden');
 
       document.getElementById('selectionPrompt').innerText = `โปรดตั้งจิตเลือกไพ่ ${currentSpreadLimit} ใบ`;
       updateSelectionBadge();
@@ -532,8 +695,9 @@
     }
 
     function cancelSelection() {
-      document.getElementById('intentStep').classList.remove('hidden');
       document.getElementById('selectionStep').classList.add('hidden');
+      document.getElementById('worshipStep').classList.remove('hidden');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function reshuffleDeckWithAnim() {
@@ -633,7 +797,7 @@
 
         const hasImage = cardImages[c.id];
         
-        // หมุนภาพ 180 องศาเมื่อเป็นไพ่กลับหัว (ใช้คลาส .card-reversed-img)
+        // หมุนภาพ 180 องศาเมื่อเป็นไพ่กลับหัว
         const imgContent = hasImage 
           ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover transition-transform duration-500 ${c.isReversed ? 'card-reversed-img' : ''}">`
           : `
@@ -670,11 +834,168 @@
       document.getElementById('resultStep').classList.add('hidden');
       document.getElementById('intentStep').classList.remove('hidden');
       selectedCards = [];
+      chatMemory = { lastTopic: null, lastNumbers: null, lastCard: null, lastLocation: null, turns: 0 };
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     // ========================================================
-    // สมองกลญาณทัศนะ ๕ มิติ + สรุปรวมฟันธง (Masterpiece Divine Engine)
+    // ๑. ระบบถอดรหัสเลขศาสตร์ชื่อไทย (Thai Name Gematria)
+    // ========================================================
+    function calculateNameGematria(nameStr) {
+      if (!nameStr) return { score: 45, title: "มหาบารมีเทพเกื้อหนุน" };
+      let sum = 0;
+      for (const char of nameStr) {
+        if (THAI_CHAR_VALUES[char]) sum += THAI_CHAR_VALUES[char];
+      }
+      if (sum === 0) sum = 45;
+
+      let title = "วาสนาบารมีสูงส่ง";
+      if ([14, 24, 36, 41, 45, 50, 54, 59, 63, 65].includes(sum)) title = "มหาโภคทรัพย์ ราชาโชค";
+      else if ([15, 19, 23, 28, 32, 42, 46, 51, 55, 60].includes(sum)) title = "มหาเสน่ห์ เมตตามหานิยม";
+      else if ([13, 18, 25, 27, 30, 31, 37, 48, 57].includes(sum)) title = "นักสู้นักบุกเบิก ผ่านวิบากแล้วรวย";
+      else title = "สติปัญญาเป็นเลิศ ชนะอุปสรรค";
+
+      return { score: sum, title };
+    }
+
+    // ========================================================
+    // ๒. ระบบคำนวณวัน-เวลาจริง ณ วินาทีเปิดไพ่ (Real-Time Ephemeris)
+    // ========================================================
+    function getRealTimeCelestialState() {
+      const now = new Date();
+      const thaiDays = ["อาทิตย์", "จันทร์", "อังคาร", "พุธ", "พฤหัสบดี", "ศุกร์", "เสาร์"];
+      const currentDay = thaiDays[now.getDay()];
+      const hour = now.getHours();
+      const min = String(now.getMinutes()).padStart(2, '0');
+
+      let currentYam = "";
+      if (hour >= 6 && hour < 9) currentYam = "ยามสุริยสถิต (ยาม ๑: เริ่มต้นเบิกทางทัศนะ)";
+      else if (hour >= 9 && hour < 12) currentYam = "ยามราชาโชค (ยาม ๒: ประตูดาวเงินทองเปิดออก)";
+      else if (hour >= 12 && hour < 15) currentYam = "ยามมัธยันต์คุรุ (ยาม ๓: ยามปัญญาญาณหยั่งรู้)";
+      else if (hour >= 15 && hour < 18) currentYam = "ยามเพชรหลีก (ยาม ๔: ยามกำราบศัตรูหมู่มาร)";
+      else currentYam = "ยามราตรีลับแล (ยามราหูสมิทธิ: เร้นลับ หยั่งรู้กระแสกรรม)";
+
+      const dayNumber = now.getDate();
+      const lunarPhase = dayNumber <= 15 ? `ข้างขึ้น ${dayNumber} ค่ำ (กระแสบุญกำลังพุ่งขึ้น)` : `ข้างแรม ${dayNumber - 15} ค่ำ (กระแสชำระล้างวิบากกรรม)`;
+
+      return {
+        timestamp: `${hour}:${min} น.`,
+        currentDay,
+        currentYam,
+        lunarPhase
+      };
+    }
+
+    // ========================================================
+    // ๓. ระบบเคมีไพ่คู่ข้ามใบ (Cross-Card Synergy & Narrative Engine)
+    // ========================================================
+    function analyzeCardSynergies(cards) {
+      if (cards.length < 2) return null;
+      const ids = cards.map(c => c.id);
+      const elements = cards.map(c => c.element);
+
+      // ตรวจสอบคู่ไพ่เทวะระดับตำนาน
+      if (ids.includes(7) && (ids.includes(36) || ids.includes(55) || ids.includes(57))) {
+        return {
+          type: "มหาเศรษฐีซ้อนมหาเศรษฐี (Super Wealth Synergy)",
+          desc: "เกิดแรงดึงดูดกระแสทรัพย์ขั้นสูงสุด ไพ่โภคทรัพย์ส่งพลังเกื้อหนุนกัน การเงินจะมีลาภลอยหรือโอกาสพลิกชีวิตแบบไม่คาดฝัน"
+        };
+      }
+      if (ids.includes(29) && ids.includes(32)) {
+        return {
+          type: "ศึกรามเกียรติ์ประจัญบาน (Clash of Titans)",
+          desc: "สภาวะธรรมะปะทะอธรรมในชะตา ท่านต้องเหน็ดเหนื่อยกับการชิงไหวชิงพริบหรือแบกรับความกดดันสูง แต่บทสรุปความถูกต้องจะนำพาชัยชนะมาให้"
+        };
+      }
+      if (ids.includes(19) && ids.includes(23)) {
+        return {
+          type: "สายใยพ่อลูกหนุมาน-มัจฉานุ (Loyal Kinship)",
+          desc: "การรวมตัวของความกตัญญูและพละกำลัง จะมีคนในครอบครัวหรือบริวารที่ไว้ใจได้ยื่นมือเข้ามาแบกรับปัญหาแทนท่าน"
+        };
+      }
+      if (ids.includes(34) || ids.includes(58)) {
+        return {
+          type: "เงามืดแทรกซ้อน (Deception & Karmic Alert)",
+          desc: "มีสัญญาณเตือนเรื่องคนหน้าไหว้หลังหลอก หรือการถูกเอารัดเอาเปรียบ ต้องรอบคอบเรื่องสัญญาและอย่าเชื่อคำหวานของใครง่ายๆ"
+        };
+      }
+
+      // ตรวจสอบเคมีธาตุ
+      if (elements.includes("ไฟ") && elements.includes("น้ำ")) {
+        return {
+          type: "ธาตุไฟปะทะธาตุน้ำ (Elemental Friction)",
+          desc: "จิตใจกำลังมีความขัดแย้งระหว่างอารมณ์และเหตุผล ภายนอกดูสงบแต่ภายในร้อนรุ่ม ให้ประคองสติด้วยสมาธิภาวนา"
+        };
+      }
+      if (elements.includes("ดิน") && elements.includes("น้ำ")) {
+        return {
+          type: "ธาตุดินอุ้มธาตุน้ำ (Abundance & Stability)",
+          desc: "ความอุดมสมบูรณ์ สิ่งที่ท่านลงทุนลงแรงไว้กำลังจะเริ่มหยั่งรากมั่นคง และเติบโตเป็นผลกำไรที่ยั่งยืน"
+        };
+      }
+
+      return null;
+    }
+
+    // ========================================================
+    // ๔. ฟังก์ชันคำนวณตัวเลขอภิมหาโชค (Vedic Numerology Generator)
+    // ========================================================
+    function calculateVedicLuckyNumbers(card, dayName, nameScore) {
+      const dayData = DAY_POWER[dayName] || { power: 9 };
+      const p = dayData.power;
+      const b = card.baseNum;
+      const n = nameScore || 45;
+      
+      const singleNum = (b + p + n) % 10;
+      const pair1 = String((b * 2 + p) % 100).padStart(2, '0');
+      const pair2 = String((card.id * p + n) % 100).padStart(2, '0');
+      const trio1 = String((card.id * 100 + b * p) % 1000).padStart(3, '7');
+      const trio2 = String((p * 111 + b + n) % 1000).padStart(3, '9');
+
+      return {
+        single: singleNum,
+        pairs: `${pair1}, ${pair2}`,
+        trios: `${trio1}, ${trio2}`
+      };
+    }
+
+    // ========================================================
+    // ๕. ระบบพิมพ์สดแบบมีจังหวะญาณ (Typewriter Psychic Stream)
+    // ========================================================
+    function streamHtmlText(targetElement, htmlString, onComplete) {
+      targetElement.innerHTML = '';
+      let i = 0;
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = htmlString;
+      const fullText = tempDiv.innerHTML;
+      
+      const speed = 12;
+      function step() {
+        if (i < fullText.length) {
+          if (fullText[i] === '<') {
+            const closeIndex = fullText.indexOf('>', i);
+            if (closeIndex !== -1) {
+              targetElement.innerHTML += fullText.slice(i, closeIndex + 1);
+              i = closeIndex + 1;
+            } else {
+              targetElement.innerHTML += fullText[i];
+              i++;
+            }
+          } else {
+            targetElement.innerHTML += fullText[i];
+            i++;
+          }
+          if (i % 8 === 0) playSound('tick');
+          setTimeout(step, speed);
+        } else {
+          if (onComplete) onComplete();
+        }
+      }
+      step();
+    }
+
+    // ========================================================
+    // คำทำนายภาพรวม ๕ มิติ + วิเคราะห์ดาวจรสด + เคมีไพ่
     // ========================================================
     async function requestAiDeepDive() {
       const contentEl = document.getElementById('aiReadingContent');
@@ -682,9 +1003,9 @@
 
       btn.disabled = true;
       btn.innerHTML = '⏳ กำลังสดับพระญาณทัศนะ...';
-      contentEl.innerHTML = '<div class="text-amber-300 text-center py-6 animate-pulse">👑 พระแม่ครูญาณสยามมหาจักรกำลังผูกดวง ทักษา และสรุปผลฟันธงชะตา...</div>';
+      contentEl.innerHTML = '<div class="text-amber-300 text-center py-6 animate-pulse">👑 พระแม่ครูญาณสยามมหาจักรกำลังผูกดวง ดึงดาวจรสด และถอดรหัสเลขศาสตร์ชื่อ...</div>';
 
-      await new Promise(r => setTimeout(r, 650));
+      await new Promise(r => setTimeout(r, 600));
 
       const name = document.getElementById('seekerName').value.trim() || 'เจ้าชะตา';
       const day = document.getElementById('seekerDay').value;
@@ -695,19 +1016,50 @@
       const supportCards = selectedCards.slice(1);
       const isRev = mainCard.isReversed;
 
-      let verdictTone = isRev ? "ต้องประคองสติ ด่านทดสอบหนักหน่วง มีโอกาสผ่าน ๖๐%" : "เทวดาเปิดทาง บุญเก่าหนุนนำ โอกาสสำเร็จสูง ๘๕-๙๕%";
+      // ๑. ดึงเวลาจรจริง
+      const celestial = getRealTimeCelestialState();
+
+      // ๒. ถอดรหัสเลขศาสตร์ชื่อ
+      const gematria = calculateNameGematria(name);
+
+      // ๓. วิเคราะห์เคมีคู่ไพ่
+      const synergy = analyzeCardSynergies(selectedCards);
+
+      // ๔. คำนวณเลขมงคล
+      const numbers = calculateVedicLuckyNumbers(mainCard, day, gematria.score);
+
+      let verdictTone = isRev ? "ต้องประคองสติ ด่านทดสอบรอบด้าน โอกาสสำเร็จ ๖๐%" : "เทวดาเปิดทาง บุญเก่าหนุนนำ โอกาสสำเร็จสูง ๘๕-๙๕%";
       let finalPunch = isRev 
         ? `บทสรุปเรื่องนี้: <b>อย่าเพิ่งผลีผลามทุ่มหมดหน้าตัก</b> มีคลื่นใต้น้ำที่ต้องรอเวลาสะสาง ให้ยึดความจริงใจเป็นที่ตั้ง แล้วจะแคล้วคลาดปลอดภัยในที่สุด`
         : `บทสรุปเรื่องนี้: <b>เดินหน้าลุยได้เต็มกำลังตามสัจจะ</b> สิ่งที่หวังไว้ทั้งเรื่องทรัพย์และชื่อเสียง มีเกณฑ์สมปรารถนาในเร็ววัน`;
 
       let textOutput = `
         <div class="space-y-4 text-xs sm:text-sm leading-relaxed">
+          <!-- กล่องบันทึกสภาวะกาลเวลาจริง -->
+          <div class="bg-amber-500/10 border border-amber-500/30 p-3 rounded-xl text-amber-200/90 text-xs flex flex-wrap items-center justify-between gap-2">
+            <span>⏱️ <b>กาลจรขณะเปิดไพ่:</b> ${celestial.currentDay} เวลา ${celestial.timestamp} | ${celestial.currentYam}</span>
+            <span>🌙 <b>ปฏิทินจันทรคติ:</b> ${celestial.lunarPhase}</span>
+          </div>
+
           <div class="border-b border-amber-500/20 pb-3">
-            <span class="text-amber-300 font-bold text-sm sm:text-base">๑. 🌟 [ถอดรหัสบุพกรรมและลิขิตสวรรค์]</span>
+            <span class="text-amber-300 font-bold text-sm sm:text-base">๑. 🌟 [ถอดรหัสบุพกรรมและเลขศาสตร์ชื่อ]</span>
             <p class="mt-1.5 text-slate-200">
-              ขอเจริญพรแด่คุณ<b>${name}</b> ผู้กำเนิดใน<b>วัน${day}</b> วาระจิตที่สถิตขึ้น ณ ประตูกาลคือไพ่ประธาน <b>[${mainCard.name}]</b> (${isRev ? 'ทิศกลับหัว - กำลังเผชิญหน้ากับเศษวิบาก' : 'ทิศตั้งตรง - เทวบารมีส่องสว่าง'}) ชี้ชัดว่าชะตาในขณะนี้มิใช่เรื่องบังเอิญ พลังธาตุ${mainCard.element}ของไพ่กำลังชะล้างความติดขัดในอดีต สิ่งที่สร้างสมไว้ทั้งความเพียรและความดีงาม กำลังจะส่งผลออกดอกออกผลในชาติตะวันนี้
+              ขอเจริญพรแด่คุณ<b>${name}</b> ผู้กำเนิดใน<b>วัน${day}</b> (กำลังวันมหาทักษา ${DAY_POWER[day]?.power || ๙}) 
+              ถอดรหัสอักษรนามได้ผลรวมเลขศาสตร์ <b>[กำลัง ${gematria.score}: ${gematria.title}]</b> 
+              วาระจิตที่สถิตขึ้นต่อหน้าบัลลังก์แก้วคือไพ่ประธาน <b>[${mainCard.name}]</b> (${isRev ? 'ทิศกลับหัว - กำลังเผชิญหน้ากับเศษวิบาก' : 'ทิศตั้งตรง - เทวบารมีส่องสว่าง'}) 
+              ชี้ชัดว่าในขณะนี้ พลังธาตุ${mainCard.element}ของไพ่กำลังชะล้างความติดขัดในอดีต สิ่งที่สร้างสมไว้ทั้งความเพียรและความดีงาม กำลังจะส่งผลออกดอกออกผลในชาติตะวันนี้
             </p>
           </div>
+
+          ${synergy ? `
+          <div class="bg-indigo-950/40 border border-indigo-500/40 p-3.5 rounded-xl text-indigo-200">
+            <span class="text-amber-300 font-bold text-xs sm:text-sm flex items-center space-x-1">
+              <span>🔮</span>
+              <span>[เคมีคู่ไพ่ส่งพลัง: ${synergy.type}]</span>
+            </span>
+            <p class="mt-1 text-slate-200 text-xs sm:text-sm leading-relaxed">${synergy.desc}</p>
+          </div>
+          ` : ''}
 
           <div class="border-b border-amber-500/20 pb-3">
             <span class="text-amber-300 font-bold text-sm sm:text-base">๒. ⚔️ [วิเคราะห์ชะตาเจาะลึก: ${category}]</span>
@@ -737,7 +1089,7 @@
             </p>
           </div>
 
-          <!-- หมวดที่ ๕: สรุปรวมฟันธง -->
+          <!-- หมวดที่ ๕: มหาจักรฟันธง -->
           <div class="bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-transparent p-4 rounded-xl border border-amber-500/40">
             <span class="text-amber-300 font-bold text-sm sm:text-base flex items-center space-x-1.5">
               <span>🎯</span>
@@ -746,19 +1098,22 @@
             <div class="mt-2 text-slate-100 text-xs sm:text-sm space-y-1.5">
               <p>• <b>สถานะดวงชะตา:</b> ${verdictTone}</p>
               <p>• <b>ฟันธงคำตอบ:</b> ${finalPunch}</p>
-              <p>• <b>เลขและทิศนำโชค:</b> เลขมงคลประจำใบคือ <b>${mainCard.luckyNumbers}</b> | สีมงคลคือ <b>${mainCard.luckyColor}</b></p>
+              <p>• <b>เลขมหาทักษานำโชค:</b> วิ่งเด่น [ <b class="text-amber-300">${numbers.single}</b> ] | สองตัว [ <b class="text-amber-300">${numbers.pairs}</b> ] | สามตัว [ <b class="text-amber-300">${numbers.trios}</b> ]</p>
+              <p>• <b>สีเสริมบารมี:</b> ${mainCard.luckyColor}</p>
             </div>
           </div>
         </div>
       `;
 
-      contentEl.innerHTML = textOutput;
-      btn.disabled = false;
-      btn.innerHTML = '✨ อัญเชิญญาณแม่หมอทำนายภาพรวม';
+      // ใช้ระบบ Streaming พิมพ์ผลลัพธ์แบบสด
+      streamHtmlText(contentEl, textOutput, () => {
+        btn.disabled = false;
+        btn.innerHTML = '✨ อัญเชิญญาณแม่หมอทำนายภาพรวม';
+      });
     }
 
     // ========================================================
-    // สมองกลแชตสดกับแม่หมอ (ตอบตรงประเด็น หวย เวลา ตัวเลข ความรัก)
+    // สมองกลแชตสดกับแม่หมอ (คำนวณยามอุบากอง + ระบบจำบริบทสนทนา)
     // ========================================================
     async function sendMaeMorQuestion() {
       const inputEl = document.getElementById('maeMorInput');
@@ -778,76 +1133,119 @@
       const loadingDiv = document.createElement('div');
       loadingDiv.id = 'maeMorLoadingBubble';
       loadingDiv.className = 'text-left my-2';
-      loadingDiv.innerHTML = `<div class="inline-block bg-slate-900 border border-slate-800 text-amber-300 px-3.5 py-2.5 rounded-xl text-xs animate-pulse">🪷 แม่หมอกำลังคำนวณผูกดวง เลขยาม และตำแหน่งดวงดาว...</div>`;
+      loadingDiv.innerHTML = `<div class="inline-block bg-slate-900 border border-slate-800 text-amber-300 px-3.5 py-2.5 rounded-xl text-xs animate-pulse">🪷 แม่หมอกำลังคำนวณยามอุบากอง ผูกกำลังวัน และเทียบตำราหลวง...</div>`;
       chatHistory.appendChild(loadingDiv);
       chatHistory.scrollTop = chatHistory.scrollHeight;
 
       sendBtn.disabled = true;
 
-      await new Promise(r => setTimeout(r, 650));
+      await new Promise(r => setTimeout(r, 550));
 
       const mainCard = selectedCards[0];
       const isRev = mainCard.isReversed;
+      const day = document.getElementById('seekerDay').value;
+      const name = document.getElementById('seekerName').value.trim() || 'เจ้าชะตา';
+      const gematria = calculateNameGematria(name);
       const q = question.toLowerCase();
+      const numCalc = calculateVedicLuckyNumbers(mainCard, day, gematria.score);
 
       let replyTitle = "";
       let replyContent = "";
 
-      // 1. หมวดถามเรื่องหวย / รางวัลที่ 1 / เสี่ยงโชค
-      if (q.includes('หวย') || q.includes('รางวัลที่ 1') || q.includes('รางวัล') || q.includes('ถูกไหม') || q.includes('ล็อตเตอรี่') || q.includes('สลาก') || q.includes('โต๊ด') || q.includes('เต็ง')) {
-        replyTitle = `เรื่องการเสี่ยงโชคและรางวัลใหญ่ตามญาณ [${mainCard.name}]`;
+      // ๑. ตรวจสอบบริบทต่อเนื่อง (Conversational Memory Logic)
+      if (chatMemory.lastTopic === 'lottery' && (q.includes('ที่ไหน') || q.includes('แผงไหน') || q.includes('ตรงไหน') || q.includes('กับใคร'))) {
+        replyTitle = `เจาะลึกพิกัดและลักษณะคนขายสลากเสริมโชค`;
+        replyContent = `
+          ต่อเนื่องจากเลขมหาทักษางวดนี้ที่ท่านถามถึง แม่หมอขอเจาะลึก <b>พิกัดทิศมงคล</b> ให้เจ้าค่ะ:<br><br>
+          📍 <b>ทิศแห่งโชคลาภ:</b> ให้ท่านออกเดินทางไปหาซื้อสลากจากแผงที่อยู่ทาง <b>"ทิศตะวันออกเฉียงเหนือ"</b> หรือ <b>"ทิศตะวันออก"</b> จากเคหสถานของท่าน<br>
+          👤 <b>ลักษณะคนขายที่ถูกโฉลก:</b> ให้เลือกซื้อกับ <i>"แม่ค้าผู้หญิงที่มีรอยยิ้มอัธยาศัยดี หรือพ่อค้าที่มีรูปร่างสันทัด ผิวขาวเหลือง"</i><br>
+          🏪 <b>ชัยภูมิเสริมทรัพย์:</b> แผงที่ตั้งอยู่ใกล้ท่าน้ำ สะพานข้ามคลอง หน้าร้านสะดวกซื้อ หรือติดกับซุ้มประตูวัด จะช่วยเสริมให้พลังแห่ง <b>[${mainCard.name}]</b> ส่งคลื่นดึงดูดทรัพย์เข้ามือท่านเจ้าค่ะ
+        `;
+      }
+      else if (chatMemory.lastTopic === 'lottery' && (q.includes('พรุ่งนี้') || q.includes('วันอื่น') || q.includes('ถ้าซื้อพรุ่งนี้'))) {
+        replyTitle = `ผูกยามอุบากองสำหรับวันพรุ่งนี้`;
+        replyContent = `
+          หากท่านเลื่อนไปซื้อวันพรุ่งนี้ ดวงดาวจะเคลื่อนเข้าสู่ <b>ยามเพชรหลีก (ช่วงเวลา ๑๓.๑๕ – ๑๕.๓๐ น.)</b> เจ้าค่ะ<br>
+          ถือเป็นฤกษ์มงคลระดับ <b>มหาศุภะ</b> เหมาะแก่การเสี่ยงโชคเช่นกัน โดยแนะนำให้หยิบสลากที่มีตัวเลข <b>${numCalc.single}</b> หรือลงท้ายด้วย <b>${numCalc.pairs.split(',')[0]}</b> จะมีเกณฑ์ได้โชคลาภก้อนงามติดมือเจ้าค่ะ
+        `;
+      }
+
+      // ๒. หมวดถามเรื่องหวย / รางวัลที่ 1 / เสี่ยงโชค / ตัวเลข (ตั้งค่า Memory = 'lottery')
+      else if (q.includes('หวย') || q.includes('รางวัลที่ 1') || q.includes('รางวัลที่๑') || q.includes('รางวัล') || q.includes('ถูกไหม') || q.includes('ล็อตเตอรี่') || q.includes('สลาก') || q.includes('โต๊ด') || q.includes('เต็ง') || q.includes('เลข')) {
+        chatMemory.lastTopic = 'lottery';
+        chatMemory.lastNumbers = numCalc;
+
+        replyTitle = `ถอดรหัสวาสนาและตัวเลขมงคลตามญาณ [${mainCard.name}]`;
         
-        let winChance = "";
+        let winVerdict = "";
         if (mainCard.category === 'guru' || mainCard.id === 7 || mainCard.id === 17 || mainCard.id === 36 || mainCard.id === 55 || mainCard.id === 56 || mainCard.id === 57) {
-          winChance = "<b>มีดวงโชคลาภลอยเด่นชัดมาก</b> วาสนาเปิดทางให้มีลาภก้อนโต แต่รางวัลที่ ๑ เป็นเรื่องของบุพกรรมเฉพาะตัว หากหวังรางวัลใหญ่ให้พ่วงเลขใกล้เคียง หรือรางวัลเลขท้าย ๒-๓ ตัว จะมีโอกาสเฉียดฉิวคว้าทรัพย์ได้ง่ายกว่า";
+          winVerdict = `
+            แม่หมอขอฟันธงตรงจุดว่า <b>"ดวงมีเกณฑ์รับทรัพย์ก้อนโตและมีโชคลาภลอยเด่นชัดถึง ๘๕%"</b> เจ้าค่ะ<br>
+            แต่สำหรับ <b>'รางวัลที่ ๑'</b> นั้น เป็นเรื่องของบุญบารมีเฉพาะตัวที่สั่งสมข้ามภพชาติ หากจะคว้าให้ติดมือ แนะนำให้เน้น <b>รางวัลเลขท้าย ๒ ตัว, ๓ ตัว หรือรางวัลข้างเคียง</b> จะมีโอกาสคว้าเงินสดเข้ากระเป๋าได้แน่นอนที่สุด
+          `;
         } else if (isRev) {
-          winChance = "<b>งวดนี้ให้เพลาการเสี่ยงโชคลงก่อนเจ้าค่ะ</b> ไพ่ออกทิศกลับหัว เตือนว่ามีเกณฑ์ 'เฉียดไปแต้มเดียว' หรือซื้อแล้วไม่ตรงเป้า เสียเงินเปล่า อย่าเพิ่งกู้หนี้ยืมสินมาทุ่มเด็ดขาด";
+          winVerdict = `
+            แม่หมอต้องบอกความจริงตามหน้าไพ่กลับหัวว่า <b>"งวดนี้ให้เพลาการเสี่ยงโชคลงก่อนเจ้าค่ะ"</b> วาสนาเรื่องลาภลอยเปิดเพียง ๓๕% มีเกณฑ์ 'เฉียดไปแต้มเดียว' หรือถูกเลขสลับตำแหน่ง ซื้อมากจะเสียเงินเปล่า ให้เน้นตั้งใจทำงานประจำจะออกดอกผลคุ้มกว่า
+          `;
         } else {
-          winChance = "มีเกณฑ์ได้โชคลาภพอหอมปากหอมคอ ลาภลอยจะมาจากความเสน่หาหรือได้โชคจากคนใกล้ชิดมากกว่าการฝันเสี่ยงโชคเอง";
+          winVerdict = `
+            กระแสโชคลาภอยู่ในเกณฑ์ <b>"มีลาภปากและโชคลาภปานกลาง (ประมาณ ๖๕%)"</b> โชคไม่ได้มาจากการฝันเสี่ยงทายเอง แต่จะมาจากคนรัก บริวาร หรือผู้มีพระคุณนำตัวเลขมาแบ่งปันให้
+          `;
         }
 
         replyContent = `
-          ${winChance}<br><br>
-          🎯 <b>แนวทางตัวเลขมงคลประจำดวง:</b> เลขเด่นประจำองค์เทพคือ <b>${mainCard.luckyNumbers}</b><br>
-          📍 <b>จุดและทิศทางที่ควรซื้อ:</b> ให้เลือกซื้อกับ <i>"แม่ค้าผู้หญิงยิ้มแย้ม หรือแผงที่อยู่ใกล้เทวาลัย/ร้านดอกไม้/ใกล้น้ำ"</i> หันหน้าไปทางทิศตะวันออกเฉียงเหนือ จะช่วยเปิดดวงโชคลาภให้สว่างไสวเจ้าค่ะ
+          ${winVerdict}<br><br>
+          🔢 <b>เลขมหาทักษากำกับดวงงวดนี้:</b><br>
+          • <b>ตัววิ่งเด่น:</b> [ <b class="text-amber-300 text-sm">${numCalc.single}</b> ]<br>
+          • <b>ชุดสองตัวตรง-กลับ:</b> [ <b class="text-amber-300">${numCalc.pairs}</b> ]<br>
+          • <b>ชุดสามตัวตรง-โต๊ด:</b> [ <b class="text-amber-300">${numCalc.trios}</b> ]<br><br>
+          📍 <b>ทิศและลักษณะผู้ขายที่ถูกโฉลก:</b> แนะนำให้ซื้อสลากกับ <i>"คนขายรูปร่างท้วมยิ้มแย้ม หรือแผงที่อยู่ใกล้วัด/เทวาลัย/ร้านดอกไม้"</i> โดยให้เดินเข้าหาแผงจาก <b>ทิศตะวันออกเฉียงเหนือ</b> จะช่วยเปิดทิศรับทรัพย์เจ้าค่ะ
         `;
       }
 
-      // 2. หมวดถามเรื่องเวลา / วันที่เท่าไหร่ / กี่โมง / ซื้อตอนไหน
-      else if (q.includes('กี่โมง') || q.includes('วันที่เท่าไหร่') || q.includes('ตอนไหน') || q.includes('เวลาไหน') || q.includes('วันไหน') || q.includes('เมื่อไหร่') || q.includes('ช่วงไหน')) {
-        replyTitle = `คำนวณฤกษ์ยามและเวลาที่เป็นมงคลสูงสุด`;
+      // ๓. หมวดถามเรื่องเวลา / ยามอุบากอง / วันที่เท่าไหร่ / กี่โมง / ซื้อตอนไหน (ตั้งค่า Memory = 'timing')
+      else if (q.includes('กี่โมง') || q.includes('วันที่เท่าไหร่') || q.includes('ตอนไหน') || q.includes('เวลาไหน') || q.includes('วันไหน') || q.includes('เมื่อไหร่') || q.includes('ช่วงไหน') || q.includes('ฤกษ์')) {
+        chatMemory.lastTopic = 'timing';
 
-        let timeSlot = "";
-        if (mainCard.element === 'ไฟ') timeSlot = "ช่วงเที่ยงวันแดดกล้า หรือบ่ายคล้อย ๑๓.๑๙ น. ถึง ๑๔.๔๕ น. (ยามสุริยะชนะมาร)";
-        else if (mainCard.element === 'น้ำ') timeSlot = "ช่วงเช้าตรู่ ๐๖.๓๙ น. ถึง ๐๘.๑๕ น. หรือยามเย็นหลังพระอาทิตย์อัสดง ๑๗.๐๙ น. เป็นต้นไป";
-        else if (mainCard.element === 'ทอง') timeSlot = "ช่วงสายแสงทอง ๐๙.๐๙ น. ถึง ๑๐.๒๙ น. หรือบ่าย ๑๕.๑๙ น. (ยามเปิดคลังสมบัติ)";
-        else timeSlot = "ช่วงบ่ายแก่ ๑๔.๐๐ น. ถึง ๑๕.๓๐ น. (ยามภูมิบาลมั่นคง)";
+        replyTitle = `คำนวณฤกษ์ยามอุบากองและวันมหามงคล`;
+
+        let bestSlot = (mainCard.element === 'ไฟ' || mainCard.element === 'ทอง') ? UBAKONG_SLOTS[1] : UBAKONG_SLOTS[3];
+        let friendDay = DAY_POWER[day]?.friendDay || "พฤหัสบดี";
+        let enemyDay = DAY_POWER[day]?.enemyDay || "อังคาร";
 
         replyContent = `
-          จากฐานธาตุ<b>${mainCard.element}</b>ของไพ่ <b>[${mainCard.name}]</b> แม่หมอผูกดวงฤกษ์ยามให้แล้วเจ้าค่ะ:<br><br>
-          ⏰ <b>ช่วงเวลาที่ควรลงมือ / ซื้อเลข:</b> คือ <b>${timeSlot}</b><br>
-          📅 <b>วันที่และจังหวะมงคล:</b> ควรทำใน <b>"วันข้างขึ้น (ขึ้น ๑ ถึง ๑๕ ค่ำ)"</b> หรือช่วงก่อนวันออกรางวัล ๑ ถึง ๒ วัน อย่าซื้อกระชั้นชิดในชั่วโมงสุดท้ายเพราะกระแสจิตจะร้อนรุ่ม<br>
-          👔 <b>เคล็ดลับเสริมพลัง:</b> วันที่จะไปซื้อหรือทำการสำคัญ ให้ใส่เสื้อผ้าโทน <b>${mainCard.luckyColor}</b> จะดึงดูดพลังเทวบารมีของไพ่ใบนี้เข้ามาเสริมดวงเจ้าค่ะ
+          แม่หมอผูกดวงของคนวัน<b>${day}</b> เข้ากับ <b>ศาสตร์ยามอุบากองโบราณ</b> ให้แล้วเจ้าค่ะ:<br><br>
+          ⏰ <b>ฤกษ์เวลาทองที่ควรซื้อ/ทำการมงคล:</b><br>
+          ตรงกับ <b>${bestSlot.name}: เวลา ${bestSlot.time}</b><br>
+          <i>(เป็นยาม${bestSlot.grade} — ${bestSlot.detail})</i><br><br>
+          📅 <b>วันที่และจังหวะมงคล:</b><br>
+          • <b>วันมงคลเสริมโชค:</b> ควรเลือกทำใน <b>วัน${friendDay}</b> หรือวันข้างขึ้น (ขึ้น ๑ ถึง ๑๕ ค่ำ)<br>
+          • <b>วันกาลกิณีที่ควรเลี่ยง:</b> ห้ามทำการสำคัญใน <b>วัน${enemyDay}</b> เด็ดขาด<br><br>
+          👔 <b>เคล็ดเสริมสง่าราศี:</b> ในวันที่ไปเสี่ยงโชคหรือเจรจา ให้สวมใส่เสื้อผ้าโทน <b>${mainCard.luckyColor}</b> จะดึงดูดพลังเทวบารมีของ <i>${mainCard.name}</i> เข้ามาคุ้มครองเปิดทางรวยเจ้าค่ะ
         `;
       }
 
-      // 3. หมวดถามเรื่องความรัก / แฟน / คู่ครอง / คืนดี
+      // ๔. หมวดถามเรื่องความรัก / แฟน / คู่ครอง / คืนดี (ตั้งค่า Memory = 'love')
       else if (q.includes('รัก') || q.includes('แฟน') || q.includes('คู่') || q.includes('เลิก') || q.includes('คนคุย') || q.includes('คืนดี')) {
+        chatMemory.lastTopic = 'love';
+
         replyTitle = `ถอดรหัสสายใยวาสนาความรักตามหน้าไพ่`;
         replyContent = isRev
           ? `ความรักช่วงนี้กำลังมี <b>"แรงต้านและทิฐิ"</b> ต่างฝ่ายต่างยึดถือเหตุผลของตนเอง หากถามว่าจะคืนดีไหม หรือจะรอดไหม แม่หมอขอชี้ทางว่า <b>ต้องรอให้พ้นช่วง ๑๕ วันนี้ไปก่อน</b> อย่าเพิ่งส่งข้อความกดดัน ให้ความเงียบช่วยปรับอารมณ์ แล้วทุกอย่างจะค่อย ๆ คลี่คลายตามวาสนา`
           : `สายสัมพันธ์มีความอบอุ่นและเกื้อหนุนกันดี คนรักกำลังมองเห็นความดีและความพยายามของท่าน หากกำลังคุยหรือดูใจกันอยู่ มีเกณฑ์ได้ขยับสถานะชัดเจนขึ้นในไม่ช้า ขอเพียงคงความจริงใจไว้เจ้าค่ะ`;
       }
 
-      // 4. หมวดถามเรื่องความสำเร็จ / สอบ / งาน / ผ่านไหม
+      // ๕. หมวดถามเรื่องความสำเร็จ / สอบ / งาน / ผ่านไหม (ตั้งค่า Memory = 'career')
       else if (q.includes('สำเร็จ') || q.includes('ผ่านไหม') || q.includes('ได้ไหม') || q.includes('ชนะ') || q.includes('ย้ายงาน') || q.includes('สอบ')) {
+        chatMemory.lastTopic = 'career';
+
         replyTitle = `ชี้ชัดเกณฑ์ความสำเร็จและชัยชนะ`;
         replyContent = isRev
           ? `เรื่องนี้ <b>มีโอกาสสำเร็จประมาณ ๖๐% แต่ต้องเหนื่อยกว่าที่คิดสองเท่า</b> ระวังความผิดพลาดจากเรื่องเอกสารหรือคำพูดตนเอง มีคนคอยจับจ้องอยู่ จงรอบคอบอย่าไว้ใจใครเกินร้อย`
           : `แม่หมอฟันธงว่า <b>มีเกณฑ์ผ่านและสำเร็จสูงถึง ๘๕-๙๕%</b> ทางสว่างเปิดโล่ง สิ่งที่ตั้งใจทำจะได้รับการยอมรับ ผู้ใหญ่หรือผู้คุมกฎจะเมตตาเทคะแนนให้แน่นอนเจ้าค่ะ`;
       }
 
-      // 5. คำถามอื่น ๆ เจาะจง
+      // ๖. คำถามเจาะจงทั่วไป
       else {
         replyTitle = `พระญาณชี้ขาดในข้อสงสัย: "${question}"`;
         replyContent = `
@@ -862,19 +1260,25 @@
 
       const botMsgDiv = document.createElement('div');
       botMsgDiv.className = 'text-left my-2';
-      botMsgDiv.innerHTML = `
-        <div class="inline-block bg-slate-900 text-slate-100 border border-amber-500/40 p-3.5 sm:p-4 rounded-xl text-xs sm:text-sm max-w-[94%] leading-relaxed shadow-lg space-y-2">
-          <div class="flex items-center space-x-1.5 border-b border-amber-500/20 pb-1.5">
-            <span class="text-base">🪷</span>
-            <b class="text-amber-300 font-semibold">${replyTitle}</b>
-          </div>
-          <div class="text-slate-200 mt-1">${replyContent}</div>
-        </div>
-      `;
+      
+      const contentContainer = document.createElement('div');
+      contentContainer.className = 'inline-block bg-slate-900 text-slate-100 border border-amber-500/40 p-3.5 sm:p-4 rounded-xl text-xs sm:text-sm max-w-[94%] leading-relaxed shadow-lg space-y-2';
+      botMsgDiv.appendChild(contentContainer);
       chatHistory.appendChild(botMsgDiv);
-      chatHistory.scrollTop = chatHistory.scrollHeight;
 
-      sendBtn.disabled = false;
+      const messageHtml = `
+        <div class="flex items-center space-x-1.5 border-b border-amber-500/20 pb-1.5">
+          <span class="text-base">🪷</span>
+          <b class="text-amber-300 font-semibold">${replyTitle}</b>
+        </div>
+        <div class="text-slate-200 mt-1">${replyContent}</div>
+      `;
+
+      // แสดงผลแชตแบบพิมพ์สดพร้อมเลื่อนจออัตโนมัติ
+      streamHtmlText(contentContainer, messageHtml, () => {
+        chatHistory.scrollTop = chatHistory.scrollHeight;
+        sendBtn.disabled = false;
+      });
     }
 
     // Codex Functions
