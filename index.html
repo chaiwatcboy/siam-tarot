@@ -598,7 +598,16 @@
       playSound('bell');
       document.getElementById('selectionStep').classList.add('hidden');
       document.getElementById('resultStep').classList.remove('hidden');
-
+// ค้นหาบรรทัดที่สร้าง imgContent ในฟังก์ชัน revealReading แล้วปรับเป็น:
+const imgContent = hasImage 
+  ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover transition-transform duration-500 ${c.isReversed ? 'rotate-180' : ''}">`
+  : `
+    <div class="p-4 flex flex-col items-center justify-center text-center h-full ${c.isReversed ? 'rotate-180' : ''}">
+      <span class="text-2xl font-cinzel text-amber-300">ॐ</span>
+      <span class="font-bold text-sm text-amber-200 mt-2">${c.name}</span>
+      <span class="text-[10px] text-slate-400 mt-1">${c.subtitle}</span>
+    </div>
+  `;
       const name = document.getElementById('seekerName').value.trim() || 'ผู้มีจิตศรัทธา';
       const day = document.getElementById('seekerDay').value;
       const category = document.getElementById('seekerCategory').value;
