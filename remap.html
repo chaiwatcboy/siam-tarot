@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <title>เครื่องมือตรวจและจัดเรียงภาพไพ่ ๖๔ ใบ</title>
+  <script src="tarot_images_part1.js"></script>
+  <script src="tarot_images_part2.js"></script>
+  <script src="tarot_images_part3.js"></script>
+  <script src="tarot_images_part4.js"></script>
+  <style>
+    body { font-family: -apple-system, sans-serif; background: #0b1120; color: #f8fafc; padding: 24px; }
+    h2 { color: #f59e0b; margin-bottom: 8px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 20px; }
+    .card { background: #1e293b; border-radius: 12px; padding: 12px; border: 1px solid #334155; text-align: center; }
+    img { width: 100%; aspect-ratio: 2/3.2; object-fit: cover; border-radius: 8px; }
+    .tag { font-size: 13px; font-weight: bold; color: #38bdf8; margin: 8px 0 4px; }
+    select { width: 100%; background: #0f172a; color: #fff; border: 1px solid #475569; padding: 6px; border-radius: 6px; font-size: 12px; }
+    button.export { position: sticky; top: 10px; z-index: 50; background: #f59e0b; color: #000; font-weight: bold; border: none; padding: 12px 24px; border-radius: 8px; cursor: pointer; font-size: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.5); }
+  </style>
+</head>
+<body>
+  <div style="display:flex; justify-content:space-between; align-items:center;">
+    <div>
+      <h2>🛠️ ตรวจสอบรูปภาพจริงในไฟล์ Part 1 - 4</h2>
+      <p style="color:#94a3b8; font-size:13px; margin:0;">ดูว่ารูปหมายเลข 23, 24, 25 จริง ๆ แล้วคือภาพของตัวละครใด</p>
+    </div>
+  </div>
+
+  <div id="container" class="grid"></div>
+
+  <script>
+    const imgs = window.SAVED_TAROT_IMAGES || {};
+    const container = document.getElementById('container');
+
+    // รายชื่อไพ่มาตรฐาน 64 ใบ
+    const names = [
+      "1. ท้าวมหาพรหมธาดา", "2. พญาพิเภกโหราธิบดี", "3. พระพิฆเนศวร", "4. พระอิศวรศิวเทพ",
+      "5. พระนารายณ์มหาจักร", "6. พระแม่อุมามหาเทวี", "7. พระแม่ลักษมีเทวี", "8. พระแม่สุรัสวดี",
+      "9. พระอาทิตย์เทพบุตร", "10. พระจันทร์เทพธิดา", "11. พระอังคารเทพสงคราม", "12. พระพุธเทววาที",
+      "13. พระพฤหัสบดีคุรุเทพ", "14. พระศุกร์เทวโสภา", "15. พระเสาร์เทวราช", "16. พระราหูสุรินทราหู",
+      "17. พญานาคราชมหาราช", "18. พญาเวนไตยสุบรรณครุฑ", "19. วานรพญาหนุมาน", "20. พญาคชสารเอราวัณ",
+      "21. พญาสิงหราชไกรสร", "22. พยัคฆ์สมิงพราย", "23. มัจฉานุบุตรมหาภักดี", "24. กินรีมโนราห์",
+      "25. ม้านิลมังกร", "26. พญาอนันตนาคราช", "27. สุพรรณหงส์มงคลนาม", "28. กุณฑีราชเต่าเรือน",
+      "29. พระรามคืนนคร", "30. พระลักษมณ์ร่วมรบ", "31. นางสีดาพิสูจน์พรหมจรรย์", "32. ทศกัณฐ์จอมลงกา",
+      "33. สุดสาครผจญภัย", "34. ชีเปลือยใจคด", "35. ขุนแผนดาบฟ้าฟื้น", "36. ขุนช้างคหบดี",
+      "37. นางวันทองสองใจ", "38. พลายงามสะสางคดี", "39. พระอภัยมณีเป่าปี่", "40. ผีเสื้อสมุทรคลั่งรัก",
+      "41. ชาละวันกุมภีล์", "42. ไกรทองปราบจระเข้", "43. สมเด็จพระนเรศวร", "44. พระสุพรรณกัลยา",
+      "45. วีรชนค่ายบางระจัน", "46. พระเจ้าตากสินกู้แผ่นดิน", "47. แม่นากพระโขนง", "48. นางสิบสองผจญกรรม",
+      "49. พญายมราชตุลาการ", "50. พระกาฬไชยศรี", "51. พระแม่ธรณีบีบมวยผม", "52. พระแม่โพสพ",
+      "53. พระแม่คงคา", "54. แม่ย่านางนาวา", "55. นางกวักมหาลาภ", "56. พระสังกัจจายน์มหาโชค",
+      "57. พระสีวลีเถระ", "58. เปรตวัดสุทัศน์", "59. พระมาลัยโปรดนรก", "60. พระธุดงค์ในดงลึก",
+      "61. กงล้อวัฏสงสาร", "62. เขาพระสุเมรุจักรวาล", "63. สระอโนดาตทิพย์ธารา", "64. พระพุทธเจ้าชนะมาร"
+    ];
+
+    Object.keys(imgs).sort((a,b) => parseInt(a) - parseInt(b)).forEach(k => {
+      const idx = parseInt(k, 10);
+      const div = document.createElement('div');
+      div.className = 'card';
+      div.innerHTML = `
+        <img src="${imgs[k]}">
+        <div class="tag">ไฟล์ระบุ Index: ${k}</div>
+        <div style="font-size:11px; color:#cbd5e1; margin-bottom:6px;">ชื่อตามระบบเดิม: ${names[idx-1] || 'ไม่ระบุ'}</div>
+      `;
+      container.appendChild(div);
+    });
+  </script>
+</body>
+</html>
