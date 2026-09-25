@@ -71,6 +71,13 @@
       pointer-events: none;
     }
 
+    /* คำสั่งบังคับหมุนภาพไพ่กลับหัว 180 องศาแบบนุ่มนวล */
+    .card-reversed-img {
+      transform: rotate(180deg) !important;
+      -webkit-transform: rotate(180deg) !important;
+      transition: transform 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+    }
+
     @keyframes shuffleDeckAnim {
       0% { transform: scale(1) rotate(0deg); opacity: 0.6; }
       25% { transform: scale(0.95) rotate(-3deg); }
@@ -598,16 +605,7 @@
       playSound('bell');
       document.getElementById('selectionStep').classList.add('hidden');
       document.getElementById('resultStep').classList.remove('hidden');
-// ค้นหาบรรทัดที่สร้าง imgContent ในฟังก์ชัน revealReading แล้วปรับเป็น:
-const imgContent = hasImage 
-  ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover transition-transform duration-500 ${c.isReversed ? 'rotate-180' : ''}">`
-  : `
-    <div class="p-4 flex flex-col items-center justify-center text-center h-full ${c.isReversed ? 'rotate-180' : ''}">
-      <span class="text-2xl font-cinzel text-amber-300">ॐ</span>
-      <span class="font-bold text-sm text-amber-200 mt-2">${c.name}</span>
-      <span class="text-[10px] text-slate-400 mt-1">${c.subtitle}</span>
-    </div>
-  `;
+
       const name = document.getElementById('seekerName').value.trim() || 'ผู้มีจิตศรัทธา';
       const day = document.getElementById('seekerDay').value;
       const category = document.getElementById('seekerCategory').value;
@@ -634,10 +632,12 @@ const imgContent = hasImage
         else if (currentSpreadLimit === 12) posLabel = ["๑. ตนุ", "๒. กดุมภะ", "๓. สหัชชะ", "๔. พันธุ", "๕. ปุตตะ", "๖. อริ", "๗. ปัตนิ", "๘. มรณะ", "๙. ศุภะ", "๑๐. กัมมะ", "๑๑. ลาภะ", "๑๒. วินาศ"][idx];
 
         const hasImage = cardImages[c.id];
+        
+        // หมุนภาพ 180 องศาเมื่อเป็นไพ่กลับหัว (ใช้คลาส .card-reversed-img)
         const imgContent = hasImage 
-          ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover">`
+          ? `<img src="${hasImage}" alt="${c.name}" class="w-full h-full object-cover transition-transform duration-500 ${c.isReversed ? 'card-reversed-img' : ''}">`
           : `
-            <div class="p-4 flex flex-col items-center justify-center text-center h-full">
+            <div class="p-4 flex flex-col items-center justify-center text-center h-full transition-transform duration-500 ${c.isReversed ? 'card-reversed-img' : ''}">
               <span class="text-2xl font-cinzel text-amber-300">ॐ</span>
               <span class="font-bold text-sm text-amber-200 mt-2">${c.name}</span>
               <span class="text-[10px] text-slate-400 mt-1">${c.subtitle}</span>
@@ -648,10 +648,14 @@ const imgContent = hasImage
           <span class="text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-2">${posLabel}</span>
           <div class="w-full max-w-[190px] tarot-card-ratio rounded-xl overflow-hidden shadow-lg border-2 border-amber-500/40 relative bg-slate-950 cursor-pointer hover:border-amber-400 transition" onclick="openCardDetail(${c.id})">
             ${imgContent}
-            ${c.isReversed ? '<span class="absolute top-2 right-2 bg-red-950/80 border border-red-500 text-red-200 text-[9px] px-1.5 py-0.5 rounded">กลับหัว</span>' : ''}
+            ${c.isReversed 
+              ? '<span class="absolute top-2 right-2 bg-rose-950/90 border border-rose-500 text-rose-200 text-[10px] px-2 py-0.5 rounded-full font-bold shadow-md tracking-wider animate-pulse">⚠️ กลับหัว</span>' 
+              : '<span class="absolute top-2 right-2 bg-amber-950/80 border border-amber-500/50 text-amber-300 text-[10px] px-2 py-0.5 rounded-full font-medium">✨ ทิศตรง</span>'}
           </div>
           <h4 class="font-bold text-base text-amber-200 mt-3">${c.name}</h4>
-          <p class="text-xs text-slate-400 mt-0.5">${c.isReversed ? '⚠️ พลังแฝง / ความท้าทาย' : '✨ พลังสว่าง / โอกาส'}</p>
+          <p class="text-xs ${c.isReversed ? 'text-rose-400 font-semibold' : 'text-slate-400'} mt-0.5">
+            ${c.isReversed ? '⚠️ ทิศกลับหัว (พลังแฝง / ความท้าทาย)' : '✨ ทิศตั้งตรง (พลังสว่าง / เทวหนุนนำ)'}
+          </p>
           <div class="bg-slate-950/60 p-2.5 rounded-lg border border-slate-800 text-xs text-slate-300 mt-3 text-left w-full">
             ${c.meaning}
           </div>
@@ -691,7 +695,6 @@ const imgContent = hasImage
       const supportCards = selectedCards.slice(1);
       const isRev = mainCard.isReversed;
 
-      // วิเคราะห์ความสัมพันธ์ระหว่างธาตุและผลลัพธ์
       let verdictTone = isRev ? "ต้องประคองสติ ด่านทดสอบหนักหน่วง มีโอกาสผ่าน ๖๐%" : "เทวดาเปิดทาง บุญเก่าหนุนนำ โอกาสสำเร็จสูง ๘๕-๙๕%";
       let finalPunch = isRev 
         ? `บทสรุปเรื่องนี้: <b>อย่าเพิ่งผลีผลามทุ่มหมดหน้าตัก</b> มีคลื่นใต้น้ำที่ต้องรอเวลาสะสาง ให้ยึดความจริงใจเป็นที่ตั้ง แล้วจะแคล้วคลาดปลอดภัยในที่สุด`
@@ -734,7 +737,7 @@ const imgContent = hasImage
             </p>
           </div>
 
-          <!-- หมวดที่ ๕: สรุปรวมฟันธงตามที่ผู้ใช้ต้องการ -->
+          <!-- หมวดที่ ๕: สรุปรวมฟันธง -->
           <div class="bg-gradient-to-r from-amber-500/15 via-amber-500/10 to-transparent p-4 rounded-xl border border-amber-500/40">
             <span class="text-amber-300 font-bold text-sm sm:text-base flex items-center space-x-1.5">
               <span>🎯</span>
