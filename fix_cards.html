@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>เครื่องมือคลิกสลับตำแหน่งภาพไพ่ ๖๔ ใบ</title>
+  
+  <!-- โหลดไฟล์ภาพชุดปัจจุบันทั้ง 4 ส่วน -->
+  <script src="tarot_images_part1.js"></script>
+  <script src="tarot_images_part2.js"></script>
+  <script src="tarot_images_part3.js"></script>
+  <script src="tarot_images_part4.js"></script>
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background: #060b14; color: #f8fafc; }
+    .tarot-ratio { aspect-ratio: 2 / 3.2; }
+    .selected-card {
+      outline: 4px solid #f59e0b !important;
+      transform: translateY(-6px) scale(1.03);
+      box-shadow: 0 0 25px rgba(245, 158, 11, 0.6);
+    }
+  </style>
+</head>
+<body class="p-4 sm:p-8 min-h-screen">
+
+  <!-- แถบเครื่องมือด้านบนแบบ Sticky -->
+  <div class="sticky top-2 z-50 bg-slate-900/95 border border-amber-500/40 backdrop-blur-md rounded-2xl p-4 shadow-2xl max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4">
+    <div>
+      <h1 class="text-base sm:text-lg font-bold text-amber-300">🔄 เครื่องมือคลิกสลับตำแหน่งรูปภาพไพ่</h1>
+      <p id="instructionText" class="text-xs text-slate-300 mt-0.5">
+        👉 <b>วิธีใช้:</b> คลิกที่ไพ่ใบแรก จากนั้นคลิกที่ไพ่ใบที่สองเพื่อสลับรูปกันทันที
+      </p>
+    </div>
+
+    <div class="flex items-center space-x-2">
+      <button id="cancelBtn" onclick="cancelSelection()" class="hidden px-3 py-2 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-xl text-xs transition">
+        ยกเลิกการเลือก
+      </button>
+      <button id="downloadBtn" onclick="exportNewImagesParts()" class="px-5 py-2.5 bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-bold rounded-xl text-xs sm:text-sm hover:brightness-110 shadow-lg shadow-amber-500/20 active:scale-95 transition">
+        💾 ดาวน์โหลด 4 ส่วนที่สลับแล้ว
+      </button>
+    </div>
+  </div>
+
+  <!-- สถานะการดาวน์โหลด -->
+  <div id="statusLog" class="text-center text-xs mt-3 text-amber-400 min-h-[20px]"></div>
+
+  <!-- ตารางแสดงไพ่ ๖๔ ใบ -->
+  <div id="cardsGrid" class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-8 gap-3 sm:gap-4 max-w-7xl mx-auto mt-6">
+  </div>
+
+  <script>
+    const CARD_NAMES = [
+      "1. ท้าวมหาพรหมธาดา", "2. พญาพิเภกโหราธิบดี", "3. พระพิฆเนศวร", "4. พระอิศวรศิวเทพ",
+      "5. พระนารายณ์มหาจักร", "6. พระแม่อุมามหาเทวี", "7. พระแม่ลักษมีเทวี", "8. พระแม่สุรัสวดี",
+      "9. พระอาทิตย์เทพบุตร", "10. พระจันทร์เทพธิดา", "11. พระอังคารเทพสงคราม", "12. พระพุธเทววาที",
+      "13. พระพฤหัสบดีคุรุเทพ", "14. พระศุกร์เทวโสภา", "15. พระเสาร์เทวราช", "16. พระราหูสุรินทราหู",
+      "17. พญานาคราชมหาราช", "18. พญาเวนไตยสุบรรณครุฑ", "19. วานรพญาหนุมาน", "20. พญาคชสารเอราวัณ",
+      "21. พญาสิงหราชไกรสร", "22. พยัคฆ์สมิงพราย", "23. มัจฉานุบุตรมหาภักดี", "24. กินรีมโนราห์",
+      "25. ม้านิลมังกร", "26. พญาอนันตนาคราช", "27. สุพรรณหงส์มงคลนาม", "28. กุณฑีราชเต่าเรือน",
+      "29. พระรามคืนนคร", "30. พระลักษมณ์ร่วมรบ", "31. นางสีดาพิสูจน์พรหมจรรย์", "32. ทศกัณฐ์จอมลงกา",
+      "33. สุดสาครผจญภัย", "34. ชีเปลือยใจคด", "35. ขุนแผนดาบฟ้าฟื้น", "36. ขุนช้างคหบดี",
+      "37. นางวันทองสองใจ", "38. พลายงามสะสางคดี", "39. พระอภัยมณีเป่าปี่", "40. ผีเสื้อสมุทรคลั่งรัก",
+      "41. ชาละวันกุมภีล์", "42. ไกรทองปราบจระเข้", "43. สมเด็จพระนเรศวร", "44. พระสุพรรณกัลยา",
+      "45. วีรชนค่ายบางระจัน", "46. พระเจ้าตากสินกู้แผ่นดิน", "47. แม่นากพระโขนง", "48. นางสิบสองผจญกรรม",
+      "49. พญายมราชตุลาการ", "50. พระกาฬไชยศรี", "51. พระแม่ธรณีบีบมวยผม", "52. พระแม่โพสพ",
+      "53. พระแม่คงคา", "54. แม่ย่านางนาวา", "55. นางกวักมหาลาภ", "56. พระสังกัจจายน์มหาโชค",
+      "57. พระสีวลีเถระ", "58. เปรตวัดสุทัศน์", "59. พระมาลัยโปรดนรก", "60. พระธุดงค์ในดงลึก",
+      "61. กงล้อวัฏสงสาร", "62. เขาพระสุเมรุจักรวาล", "63. สระอโนดาตทิพย์ธารา", "64. พระพุทธเจ้าชนะมาร"
+    ];
+
+    // โคลนชุดข้อมูลภาพเริ่มต้นออกมา
+    let currentMapping = Object.assign({}, window.SAVED_TAROT_IMAGES || {});
+    let selectedFirstId = null;
+
+    window.addEventListener('DOMContentLoaded', () => {
+      renderCardsGrid();
+    });
+
+    function renderCardsGrid() {
+      const container = document.getElementById('cardsGrid');
+      container.innerHTML = '';
+
+      for (let id = 1; id <= 64; id++) {
+        const cardBox = document.createElement('div');
+        const imgSrc = currentMapping[id];
+        const isSelected = selectedFirstId === id;
+
+        cardBox.id = `card-slot-${id}`;
+        cardBox.className = `bg-slate-900/90 border border-slate-700 hover:border-amber-400/70 rounded-xl p-2 flex flex-col items-center text-center cursor-pointer transition-all duration-150 select-none ${isSelected ? 'selected-card' : ''}`;
+        
+        const imgBlock = imgSrc 
+          ? `<img src="${imgSrc}" class="w-full h-full object-cover rounded-lg">`
+          : `<div class="h-full flex items-center justify-center text-slate-500 text-[10px]">ไม่มีภาพ</div>`;
+
+        cardBox.innerHTML = `
+          <div class="text-[11px] font-bold text-amber-300 w-full truncate mb-1">
+            ${CARD_NAMES[id - 1]}
+          </div>
+          <div class="w-full tarot-ratio bg-slate-950 rounded-lg overflow-hidden border border-slate-800 pointer-events-none">
+            ${imgBlock}
+          </div>
+          <div class="text-[9px] text-slate-400 mt-1.5 font-mono">
+            ช่องที่ #${id}
+          </div>
+        `;
+
+        cardBox.onclick = () => onCardClicked(id);
+        container.appendChild(cardBox);
+      }
+    }
+
+    function onCardClicked(id) {
+      const instruction = document.getElementById('instructionText');
+      const cancelBtn = document.getElementById('cancelBtn');
+
+      if (selectedFirstId === null) {
+        // เลือกใบแรก
+        selectedFirstId = id;
+        instruction.innerHTML = `🟡 เลือก <b>[ ${CARD_NAMES[id - 1]} ]</b> แล้ว $\rightarrow$ <b>คลิกอีกใบที่ต้องการสลับตำแหน่งด้วย</b>`;
+        cancelBtn.classList.remove('hidden');
+        renderCardsGrid();
+      } else if (selectedFirstId === id) {
+        // แตะซ้ำใบเดิมเพื่อยกเลิก
+        cancelSelection();
+      } else {
+        // สลับรูปภาพระหว่าง 2 ใบ
+        const id1 = selectedFirstId;
+        const id2 = id;
+
+        const temp = currentMapping[id1];
+        currentMapping[id1] = currentMapping[id2];
+        currentMapping[id2] = temp;
+
+        instruction.innerHTML = `✅ สลับรูปภาพระหว่าง <b>[ใบที่ ${id1}]</b> และ <b>[ใบที่ ${id2}]</b> สำเร็จแล้ว!`;
+        selectedFirstId = null;
+        cancelBtn.classList.add('hidden');
+        renderCardsGrid();
+      }
+    }
+
+    function cancelSelection() {
+      selectedFirstId = null;
+      document.getElementById('instructionText').innerHTML = `👉 <b>วิธีใช้:</b> คลิกที่ไพ่ใบแรก จากนั้นคลิกที่ไพ่ใบที่สองเพื่อสลับรูปกันทันที`;
+      document.getElementById('cancelBtn').classList.add('hidden');
+      renderCardsGrid();
+    }
+
+    // แบ่งและดาวน์โหลดไฟล์ใหม่ 4 ส่วนทันใจ
+    async function exportNewImagesParts() {
+      const statusLog = document.getElementById('statusLog');
+      const downloadBtn = document.getElementById('downloadBtn');
+
+      downloadBtn.disabled = true;
+      statusLog.innerHTML = '⏳ กำลังเตรียมไฟล์ชุดใหม่ 4 ส่วน...';
+
+      const p1 = {}, p2 = {}, p3 = {}, p4 = {};
+
+      for (let i = 1; i <= 64; i++) {
+        if (currentMapping[i]) {
+          if (i <= 16) p1[i] = currentMapping[i];
+          else if (i <= 32) p2[i] = currentMapping[i];
+          else if (i <= 48) p3[i] = currentMapping[i];
+          else p4[i] = currentMapping[i];
+        }
+      }
+
+      const files = [
+        { name: 'tarot_images_part1.js', data: p1 },
+        { name: 'tarot_images_part2.js', data: p2 },
+        { name: 'tarot_images_part3.js', data: p3 },
+        { name: 'tarot_images_part4.js', data: p4 }
+      ];
+
+      for (let i = 0; i < files.length; i++) {
+        statusLog.innerHTML = `กำลังดาวน์โหลด ${files[i].name}...`;
+        downloadJsFile(files[i].name, files[i].data);
+        await new Promise(r => setTimeout(r, 600));
+      }
+
+      statusLog.innerHTML = '<span class="text-emerald-400 font-bold">🎉 ดาวน์โหลดครบทั้ง 4 ไฟล์แล้ว! นำไฟล์ทั้ง 4 ไปอัปโหลดทับบน GitHub ได้ทันที</span>';
+      downloadBtn.disabled = false;
+    }
+
+    function downloadJsFile(fileName, dataObj) {
+      const content = `window.SAVED_TAROT_IMAGES = Object.assign(window.SAVED_TAROT_IMAGES || {}, ${JSON.stringify(dataObj)});\n`;
+      const blob = new Blob([content], { type: 'application/javascript;charset=utf-8' });
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = fileName;
+      a.click();
+    }
+  </script>
+</body>
+</html>
